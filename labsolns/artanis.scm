@@ -155,7 +155,7 @@
                  `("GUILE_LOAD_COMPILED_PATH" ":" prefix
                    (,go ,(getenv "GUILE_LOAD_COMPILED_PATH"))))
                #t))))))
-    (synopsis "Web application framework written in Guile")
+    (synopsis "Web application framework written in Guile modified for use with LIMS*Nucleus")
     (description "GNU Artanis is a web application framework written in Guile
 Scheme.  A web application framework (WAF) is a software framework that is
 designed to support the development of dynamic websites, web applications, web
