@@ -20,7 +20,7 @@
    (source
      (origin
        (method url-fetch)
-       (uri "http://github.com/mbcladwell/labsolns/lnpg-0.1.tar.gz")
+       (uri "http://github.com/mbcladwell/labsolns/labsolns/lnpg-0.1.tar.gz")
        (sha256
         (base32 "193pi2pl22hcb9c4fvjswd8my3i2g1k1g1w9n35kn3cn8ip3sqph"))))
   (build-system gnu-build-system)
