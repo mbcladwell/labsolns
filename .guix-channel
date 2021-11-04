@@ -1,0 +1,5 @@
+(channel
+ (version 0)
+ (news-file "news.txt")
+ (url "https://github.com/mbcladwell/labsolns")) 
+

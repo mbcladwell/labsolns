@@ -1,2 +1,0 @@
-# labsolns
-labsolns channel

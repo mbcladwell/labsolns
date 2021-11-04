@@ -1,0 +1,9 @@
+;; This is the list of OpenPGP keys currently authorized to sign commits in
+;; this repository.
+
+(authorizations
+ (version 0)
+
+ (("E709 94D1 9CB0 FE2B CAC4  9E54 0BF8 F292 4D2B 1944"
+   (name "Mortimer Cladwell"))))
+

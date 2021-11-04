@@ -1,0 +1,27 @@
+# labsolns
+
+Public repository to be used for channel augmentation
+
+
+* Installation
+
+labsolns can be installed as a
+[[https://www.gnu.org/software/guix/manual/en/html_node/Channels.html][Guix channel]].
+To do so, add it to =~/.config/guix/channels.scm=:
+
+#+BEGIN_SRC scheme
+  (cons* (channel
+          (name 'labsolns)
+          (url "https://github.com/mbcladwell/labsolns")
+          (branch "main")
+          ;; Enable signature verification:
+          (introduction
+           (make-channel-introduction
+            "6f57128416d9ffef8ed4e55ebe45565b63c95462"
+            (openpgp-fingerprint
+             "E709 94D1 9CB0 FE2B CAC4  9E54 0BF8 F292 4D2B 1944"))))
+         %default-channels)
+#+END_SRC
+
+Then run =guix pull=.
+
