@@ -11,6 +11,7 @@
   #:use-module (gnu packages guile-xyz)
   #:use-module (gnu packages pkg-config)
   #:use-module (gnu packages maths)
+   #:use-module (guix git-download)
   #:use-module (gnu packages texinfo))
   
 (define-public lnpg
