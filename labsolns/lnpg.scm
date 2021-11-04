@@ -1,18 +1,18 @@
-(use-modules
-  (guix packages)
-  ((guix licenses) #:prefix license:)
-  (guix download)
-  (guix build-system gnu)
-  (gnu packages)
-  (gnu packages databases)
-  (labsolns postgresql-client)
-  (gnu packages autotools)
-  (gnu packages guile)
-  (gnu packages pkg-config)
-  (gnu packages texinfo)
-   (gnu packages maths)
-  )
-
+(define-module (labsolns lnpg)
+  #:use-module (guix packages)
+  #:use-module ((guix licenses) #:prefix license:)
+  #:use-module (guix download)
+  #:use-module (guix build-system gnu)
+  #:use-module (gnu packages)
+  #:use-module (gnu packages databases)
+  #:use-module (labsolns postgresql-client)
+  #:use-module (gnu packages autotools)
+  #:use-module (gnu packages guile)
+  #:use-module (gnu packages guile-xyz)
+  #:use-module (gnu packages pkg-config)
+  #:use-module (gnu packages texinfo))
+  
+(define-public lnpg
 (package
   (name "lnpg")
   (version "0.1")
@@ -65,5 +65,5 @@
   (synopsis "")
   (description "")
   (home-page "www.labsolns.com")
-  (license license:gpl3+))
+  (license license:gpl3+)))
 
