@@ -22,7 +22,7 @@
      (origin
        (method git-fetch)
        (uri (git-reference
-             (url "https://github.com/mbcladwell/labsolns/blob/master/labsolns/lnpg-0.1.tar.gz")
+             (url "https://github.com/mbcladwell/labsolns/blob/master/labsolns/lnpg-0.1.tar.gz?raw=true")
              (commit version)))
        (file-name (git-file-name name version))
        (sha256
