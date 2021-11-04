@@ -7,7 +7,7 @@
 (channel-news
  (version 0)
 
- (entry (commit "")
+ (entry (commit "1d6418bca78f0ea76e258a4842bfbe46cf76cbba")
         (title (en "labsolns authenticated updates"))
         (body
          (en "labsolns can now take advantage of the new support for
@@ -22,7 +22,7 @@ To ensure you only receive genuine updates from labsolns, you should update your
  (url \"https://github.com/mbcladwell/labsolns\")
  (introduction
   (make-channel-introduction
-   \"6f57128416d9ffef8ed4e55ebe45565b63c95462\"
+   \"1d6418bca78f0ea76e258a4842bfbe46cf76cbba\"
    (openpgp-fingerprint
     \"E709 94D1 9CB0 FE2B CAC4  9E54 0BF8 F292 4D2B 1944\"))))
 @end lisp "))))
