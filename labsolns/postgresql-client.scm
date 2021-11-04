@@ -1,4 +1,4 @@
-(define-module (packages postgresql-client)
+(define-module (labsolns postgresql-client)
   #:use-module (guix packages)
   #:use-module ((guix licenses) #:prefix license:)
   #:use-module (guix download)
