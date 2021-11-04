@@ -7,7 +7,7 @@
 (channel-news
  (version 0)
 
- (entry (commit "1ac29b33f3ca19134fcbedd6dc22deb45c15229f")
+ (entry (commit "")
         (title (en "labsolns authenticated updates"))
         (body
          (en "labsolns can now take advantage of the new support for
