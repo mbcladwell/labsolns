@@ -19,10 +19,13 @@
   (version "0.1")
    (source
      (origin
-       (method url-fetch)
-       (uri "http://github.com/mbcladwell/labsolns/blob/main/labsolns/lnpg-0.1.tar.gz")
+       (method git-fetch)
+       (uri (git-reference
+             (url "http://github.com/mbcladwell/labsolns/blob/main/labsolns/lnpg-0.1.tar.gz")
+             (commit version)))
+       (file-name (git-file-name name version))
        (sha256
-        (base32 "00nsn4p4jpz9winjv3iy2llb0cp2spibijnfp230886xqa55p8wd"))))
+        (base32 "193pi2pl22hcb9c4fvjswd8my3i2g1k1g1w9n35kn3cn8ip3sqph"))))
   (build-system gnu-build-system)
   (arguments `(#:tests? #false ; there are none
 			#:phases (modify-phases %standard-phases
