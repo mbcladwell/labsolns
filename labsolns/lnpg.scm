@@ -8,7 +8,6 @@
   (labsolns postgresql-client)
   (gnu packages autotools)
   (gnu packages guile)
-  (gnu packages guile-xyz)
   (gnu packages pkg-config)
   (gnu packages texinfo)
    (gnu packages maths)
@@ -22,7 +21,7 @@
        (method url-fetch)
        (uri "http://github.com/mbcladwell/labsolns/lnpg-0.1.tar.gz")
        (sha256
-        (base32 "13s0vi7pnawn7v6d9b61fv28zm36r9h9hr57fhy2bl9qrw3va1ir"))))
+        (base32 "193pi2pl22hcb9c4fvjswd8my3i2g1k1g1w9n35kn3cn8ip3sqph"))))
   (build-system gnu-build-system)
   (arguments `(#:tests? #false ; there are none
 			#:phases (modify-phases %standard-phases
