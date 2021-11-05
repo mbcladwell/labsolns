@@ -20,7 +20,7 @@
   (version "0.1")
   (source (origin
               (method url-fetch)
-              (uri "https://github.com/mbcladwell/lnpg/lnpg-0.1.tar.gz")
+              (uri "https://github.com/mbcladwell/lnpg/releases/download/lnpg-0.1.tar.gz")
               (sha256
                (base32
                 "193pi2pl22hcb9c4fvjswd8my3i2g1k1g1w9n35kn3cn8ip3sqph"))))
