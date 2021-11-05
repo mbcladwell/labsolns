@@ -18,11 +18,12 @@
 (package
   (name "lnpg")
   (version "0.1")
-   (source
-    (origin
-     (git-reference
-      (url "https://github.com/mbcladwell/lnpg.git")
-      (commit "b2892bbca6b90fcac13967035c5bf102986e7f6d"))))
+  (source (origin
+              (method url-fetch)
+              (uri "https://github.com/mbcladwell/lnpg/lnpg-0.1.tar.gz")
+              (sha256
+               (base32
+                "193pi2pl22hcb9c4fvjswd8my3i2g1k1g1w9n35kn3cn8ip3sqph"))))
   (build-system gnu-build-system)
   (arguments `(#:tests? #false ; there are none
 			#:phases (modify-phases %standard-phases
