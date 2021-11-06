@@ -25,15 +25,16 @@
              (uri (git-reference
                    (url "https://gitlab.com/NalaGinrut/artanis")
                    (commit "6fc2ccd9e5cc7bd201beb7fed21048adbaed4d7b")))))
-    (snippet
-     '(begin		
-	(substitute* "artanis/config.scm"
-		     ((" \\(else \\(error parse-namespace-cookie \"Config: Invalid item\" item\\)\\)\\)\\)")
-		      "(('maxplates maxplates) (conf-set! '(cookie maxplates) (->integer maxplates)))\n(else (error parse-namespace-cookie \"Config: Invalid item\" item))))"))	
-	(substitute* "artanis/config.scm"
-		     (("cookie.expires = <integer>\")")
-		      "cookie.expires = <integer>\")\n\n ((cookie maxplates)\n       10\n      \"Maximum number of plates per plate-set.\n cookie.maxplates = <integer>\")"))		  	
-        #t)) ))
+     (arguments `(#:phases (modify-phases %standard-phases
+    			 (add-after 'unpack 'mod-config
+				    (lambda* (#:key inputs outputs #:allow-other-keys)				
+				      (substitute* "artanis/config.scm"
+						   ((" \\(else \\(error parse-namespace-cookie \"Config: Invalid item\" item\\)\\)\\)\\)")
+						    "(('maxplates maxplates) (conf-set! '(cookie maxplates) (->integer maxplates)))\n(else (error parse-namespace-cookie \"Config: Invalid item\" item))))"))	
+				      (substitute* "artanis/config.scm"
+						   (("cookie.expires = <integer>\")")
+						    "cookie.expires = <integer>\")\n\n ((cookie maxplates)\n       10\n      \"Maximum number of plates per plate-set.\n cookie.maxplates = <integer>\")"))
+					#t)))))))
 
 
 (define-public lnpg
