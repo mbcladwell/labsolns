@@ -4,6 +4,8 @@
   #:use-module (guix download)
   #:use-module (guix build-system gnu)
   #:use-module (gnu packages)
+  #:use-module (gnu packages base)
+  
   #:use-module (gnu packages databases)
 ;;  #:use-module (labsolns postgresql-client)
   #:use-module (gnu packages autotools)
@@ -12,10 +14,28 @@
   #:use-module (gnu packages pkg-config)
   #:use-module (gnu packages maths)
   #:use-module (guix git-download)
-  #:use-module (labsolns artanis-051)
-  
   #:use-module (gnu packages texinfo))
-  
+
+(define-public artanis-051
+  (package
+    (inherit artanis)
+    (version "0.5.1")
+    (source (origin
+             (method git-fetch)
+             (uri (git-reference
+                   (url "https://gitlab.com/NalaGinrut/artanis")
+                   (commit "6fc2ccd9e5cc7bd201beb7fed21048adbaed4d7b")))))
+    (snippet
+     '(begin		
+	(substitute* "artanis/config.scm"
+		     ((" \\(else \\(error parse-namespace-cookie \"Config: Invalid item\" item\\)\\)\\)\\)")
+		      "(('maxplates maxplates) (conf-set! '(cookie maxplates) (->integer maxplates)))\n(else (error parse-namespace-cookie \"Config: Invalid item\" item))))"))	
+	(substitute* "artanis/config.scm"
+		     (("cookie.expires = <integer>\")")
+		      "cookie.expires = <integer>\")\n\n ((cookie maxplates)\n       10\n      \"Maximum number of plates per plate-set.\n cookie.maxplates = <integer>\")"))		  	
+        #t)) ))
+
+
 (define-public lnpg
 (package
   (name "lnpg")
