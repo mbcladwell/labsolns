@@ -24,7 +24,8 @@
              (method git-fetch)
              (uri (git-reference
                    (url "https://gitlab.com/NalaGinrut/artanis")
-                   (commit "6fc2ccd9e5cc7bd201beb7fed21048adbaed4d7b")))))
+                   (commit "6fc2ccd9e5cc7bd201beb7fed21048adbaed4d7b")))		   
+	     (sha256 (base32 "0jmbqbvwqwz4r5c3ikmldrmrhcn4x6cj3zmibp2wcfgi43bchshy"))))
      (arguments `(#:phases (modify-phases %standard-phases
     			 (add-after 'unpack 'mod-config
 				    (lambda* (#:key inputs outputs #:allow-other-keys)				
