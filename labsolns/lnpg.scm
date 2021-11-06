@@ -16,7 +16,7 @@
   #:use-module (guix git-download)
   #:use-module (gnu packages texinfo))
 
-(define-public artanis-051
+(define-public artanis-0.5.1
   (package
     (inherit artanis)
     (version "0.5.1")
@@ -84,7 +84,7 @@
      ))
   (inputs `(("guile" ,guile-3.0)
 	    ("gnuplot" ,gnuplot)))
-  (propagated-inputs `( ("artanis-051" ,artanis-051)
+  (propagated-inputs `( ("artanis-0.5.1" ,artanis-0.5.1)
 		;;	("postgresql" ,postgresql)
 		;;	("postgresql-client" ,postgresql-client)
 			))
