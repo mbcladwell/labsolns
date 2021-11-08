@@ -14,7 +14,21 @@
   #:use-module (gnu packages pkg-config)
   #:use-module (gnu packages maths)
   #:use-module (guix git-download)
-  #:use-module (gnu packages texinfo))
+  #:use-module (gnu packages texinfo)
+  #:use-module (gnu packages bash)
+   #:use-module (guix profiles)
+  #:use-module (gnu packages linux)
+  #:use-module (gnu packages databases)
+  #:use-module (gnu packages nss)
+  #:use-module (gnu packages tls)
+  #:use-module (gnu packages libffi)
+  #:use-module (gnu packages crypto)
+#:use-module (guix profiles)
+#:use-module (gnutls))
+
+
+
+
 
 (define-public artanis-051
   (package
