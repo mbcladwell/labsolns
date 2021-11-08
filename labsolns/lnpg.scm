@@ -64,7 +64,7 @@
      ))
   (inputs `(("guile" ,guile-3.0)
 	    ("gnuplot" ,gnuplot)))
-  (propagated-inputs `( ("artanis-051" ,artanis051)
+  (propagated-inputs `( ("artanis-051" ,artanis-051)
 		;;	("postgresql" ,postgresql)
 		;;	("postgresql-client" ,postgresql-client)
 			))
