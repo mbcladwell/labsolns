@@ -7,7 +7,7 @@
   #:use-module (gnu packages base)
   
   #:use-module (gnu packages databases)
-;;  #:use-module (labsolns postgresql-client)
+  #:use-module (labsolns artanis-051)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages guile)
   #:use-module (gnu packages guile-xyz)
