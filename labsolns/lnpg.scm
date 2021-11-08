@@ -16,26 +16,6 @@
   #:use-module (guix git-download)
   #:use-module (gnu packages texinfo))
 
-(define-public artanis-0.5.1
-  (package
-    (inherit artanis)
-    (version "0.5.1")
-    (source (origin
-             (method git-fetch)
-             (uri (git-reference
-                   (url "https://gitlab.com/NalaGinrut/artanis")
-                   (commit "6fc2ccd9e5cc7bd201beb7fed21048adbaed4d7b")))		   
-	     (sha256 (base32 "0sia0azi2jfby20vcisbs4ds4l774aiy61g2v75aprgb837yp59w"))))
-     (arguments `(#:phases (modify-phases %standard-phases
-    			 (add-after 'unpack 'mod-config
-				    (lambda* (#:key inputs outputs #:allow-other-keys)				
-				      (substitute* "artanis/config.scm"
-						   ((" \\(else \\(error parse-namespace-cookie \"Config: Invalid item\" item\\)\\)\\)\\)")
-						    "(('maxplates maxplates) (conf-set! '(cookie maxplates) (->integer maxplates)))\n(else (error parse-namespace-cookie \"Config: Invalid item\" item))))"))	
-				      (substitute* "artanis/config.scm"
-						   (("cookie.expires = <integer>\")")
-						    "cookie.expires = <integer>\")\n\n ((cookie maxplates)\n       10\n      \"Maximum number of plates per plate-set.\n cookie.maxplates = <integer>\")"))
-					#t)))))))
 
 
 (define-public lnpg
@@ -84,7 +64,7 @@
      ))
   (inputs `(("guile" ,guile-3.0)
 	    ("gnuplot" ,gnuplot)))
-  (propagated-inputs `( ("artanis-0.5.1" ,artanis-0.5.1)
+  (propagated-inputs `( ("artanis-051" ,artanis051)
 		;;	("postgresql" ,postgresql)
 		;;	("postgresql-client" ,postgresql-client)
 			))
