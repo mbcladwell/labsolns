@@ -7,7 +7,7 @@
   #:use-module (gnu packages base)
   
   #:use-module (gnu packages databases)
-  #:use-module (labsolns artanis-051)
+ ;; #:use-module (labsolns artanis-051)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages guile)
   #:use-module (gnu packages guile-xyz)
@@ -64,7 +64,7 @@
      ))
   (inputs `(("guile" ,guile-3.0)
 	    ("gnuplot" ,gnuplot)))
-  (propagated-inputs `( ("artanis-051" ,artanis-051)
+  (propagated-inputs `( ("artanis" ,artanis)
 		;;	("postgresql" ,postgresql)
 		;;	("postgresql-client" ,postgresql-client)
 			))
