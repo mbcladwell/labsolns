@@ -1,4 +1,4 @@
-(define-module (labsolns artanis)
+(define-module (labsolns artanis-051)
   #:use-module (guix packages)
   #:use-module ((guix licenses) #:prefix license:)
   #:use-module (guix download)
@@ -21,9 +21,9 @@
   #:use-module (gnutls))
 
 
-(define-public artanis
+(define-public artanis-051
   (package
-    (name "artanis")
+    (name "artanis-051")
     (version "0.5.1")
     (source (origin
               (method url-fetch)
