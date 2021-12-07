@@ -213,7 +213,7 @@ more.")
 				    (let* ((out (assoc-ref outputs "out"))
 					   (bin-dir (string-append out "/bin"))
 					   (dummy (chmod (string-append out "/bin/lnpg.sh") #o555 ))) ;;read execute, no write
-				      (wrap-program (string-append out "/bin/install-pg.sh")
+				      (wrap-program (string-append out "/bin/lnpg.sh")
 						    `( "PATH" ":" prefix  (,bin-dir) ))		    
 				      #t)))	       
 		       )))
