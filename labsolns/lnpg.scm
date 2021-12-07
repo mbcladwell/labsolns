@@ -194,7 +194,7 @@ more.")
 			#:phases (modify-phases %standard-phases
     		       (add-after 'unpack 'patch-prefix
 			       (lambda* (#:key inputs outputs #:allow-other-keys)
-				 (substitute* '("scripts/install-pg.sh"
+				 (substitute* '("scripts/lnpg.sh"
 						"lnpg/lnpg.scm")
 						(("abcdefgh")
 						(assoc-ref outputs "out" )) )
@@ -204,7 +204,7 @@ more.")
 				    (let* ((out  (assoc-ref outputs "out"))
 					   (scripts-dir (string-append out "/scripts"))
 					   (bin-dir (string-append out "/bin"))
-					   (dummy (install-file "scripts/install-pg.sh" bin-dir))
+					   (dummy (install-file "scripts/lnpg.sh" bin-dir))
 					   (dummy (mkdir-p scripts-dir)))            				       
 				       (copy-recursively "./scripts" scripts-dir)
 				       #t)))
@@ -212,7 +212,7 @@ more.")
 				  (lambda* (#:key inputs outputs #:allow-other-keys)
 				    (let* ((out (assoc-ref outputs "out"))
 					   (bin-dir (string-append out "/bin"))
-					   (dummy (chmod (string-append out "/bin/install-pg.sh") #o555 ))) ;;read execute, no write
+					   (dummy (chmod (string-append out "/bin/lnpg.sh") #o555 ))) ;;read execute, no write
 				      (wrap-program (string-append out "/bin/install-pg.sh")
 						    `( "PATH" ":" prefix  (,bin-dir) ))		    
 				      #t)))	       
