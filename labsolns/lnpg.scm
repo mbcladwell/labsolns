@@ -188,7 +188,7 @@ more.")
               (uri "https://github.com/mbcladwell/lnpg/releases/download/v01/lnpg-0.1.tar.gz")
               (sha256
                (base32
-                "193pi2pl22hcb9c4fvjswd8my3i2g1k1g1w9n35kn3cn8ip3sqph"))))
+                "0mh8b7c5nywfzwpsp3b32kkipqzncz8da47i6isqy72k4xndysbd"))))
   (build-system gnu-build-system)
   (arguments `(#:tests? #false ; there are none
 			#:phases (modify-phases %standard-phases
