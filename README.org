@@ -13,7 +13,7 @@ To do so, add it to =~/.config/guix/channels.scm=:
   (cons* (channel
           (name 'labsolns)
           (url "https://github.com/mbcladwell/labsolns")
-          (branch "main")
+          (branch "master")
           ;; Enable signature verification:
           (introduction
            (make-channel-introduction
