@@ -1,5 +1,4 @@
 (define-module (labsolns seqeval)
-
   #:use-module (guix packages)
   #:use-module ((guix licenses) #:prefix license:)
   #:use-module (guix download)
@@ -17,7 +16,6 @@
 (package
   (name "seqeval")
   (version "0.1")
- ;; (source "./seqeval-0.1.tar.gz")
 (source (origin
                 (method git-fetch)
                 (uri (git-reference
@@ -70,10 +68,12 @@
       ("pkg-config" ,pkg-config)
       ("texinfo" ,texinfo)))
   (inputs `(("guile" ,guile-3.0)
-	    ("r-seqinr" ,r-seqinr)
-	    ("r-shiny" ,r-shiny)))
+	    
+	    ))
   (propagated-inputs `(
-		       ;;("r" ,r)
+		       ("r" ,r)
+		       ("r-seqinr" ,r-seqinr)
+	               ("r-shiny" ,r-shiny)
 		       ))
   (synopsis "")
   (description "")
