@@ -21,8 +21,8 @@
                 (method git-fetch)
                 (uri (git-reference
                       (url "git://github.com/mbcladwell/seqeval.git")
-                      (commit "1e8fc869109f0705795c92f4aac5054c0fabd29a")))
-                (sha256 (base32 "0qn85c11r6x8kxmwm5rinw1fjbv82vmanfp2gl2a7c4sb4mzjlmn"))
+                      (commit "65b1e28324c33ce778582e42b9f9224599ae50cf")))
+                (sha256 (base32 "09w0i13xfak3ydyqf48pfq76889gz9q5mpfizdclqxwrq4dvcgaf"))
   		))
 
   (build-system gnu-build-system)
