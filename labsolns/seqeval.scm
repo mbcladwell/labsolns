@@ -10,6 +10,7 @@
   #:use-module (gnu packages guile-xyz)
   #:use-module (gnu packages pkg-config)
   #:use-module (gnu packages texinfo)
+  #:use-module (gnu packages statistics)
   #:use-module (gnu packages cran))
 
 (define-public seqeval
@@ -74,6 +75,7 @@
 		       ("r" ,r)
 		       ("r-seqinr" ,r-seqinr)
 	               ("r-shiny" ,r-shiny)
+	               ("r-markdown" ,r-markdown)
 		       ))
   (synopsis "")
   (description "")
