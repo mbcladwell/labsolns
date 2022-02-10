@@ -76,7 +76,7 @@
 ;  #:use-module (redis)
 ;  #:use-module (json)
   
-  #:use-module (dbi dbi)
+;  #:use-module (dbi dbi)
  #:use-module ((srfi srfi-1) #:select (alist-delete)))
 
 (define-public artanis-052
