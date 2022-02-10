@@ -290,6 +290,7 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
 						    "/gnu/store/wchn5f0frrm860vnrj0f71286xbrpw91-artanis-0.5.2/share/guile/site/3.0:"
 						    "/gnu/store/780bll8lp0xvj7rnazb2qdnrnb329lbw-guile-json-3.5.0/share/guile/site/3.0:"
 						    "/gnu/store/jmn100gjcpqbfpxrhrna6gzab8hxkc86-guile-redis-2.1.1/share/guile/site/3.0:"
+						    "/gnu/store/6l8qpfg9phdbk16vz7fq46vm46jfws6a-guile-dbi-2.1.6/share/guile/site/3.0:"
 						    (getenv "GUILE_LOAD_PATH")))
 			     #t))
                        (add-before 'install 'make-lib-dir
