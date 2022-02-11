@@ -117,7 +117,7 @@
 		  (substitute* '("artanis/oht.scm"
 			       "artanis/session.scm"
 			       "artanis/cookie.scm")
-			       (("3600") "(get-conf '(cookie expire))"))
+			       (("3600") "(get-conf '(cookie expires))"))
 		
 				  (substitute* "artanis/config.scm"
 			       (("   \\(\\('debug rest ...\\) \\(parse-namespace-debug rest\\)\\)")
@@ -125,11 +125,11 @@
 				))
 		  (substitute* "artanis/config.scm"		
 			       ((" \\(else \\(error parse-namespace-cache \"Config: Invalid item\" item\\)\\)\\)\\)")
-				"(else (error parse-namespace-cache \"Config: Invalid item\" item))))\n\n(define (parse-namespace-cookie item)\n  (match item\n    (('expire expire) (conf-set! '(cookie expire) (->integer expire)))\n    (('maxplates maxplates) (conf-set! '(cookie maxplates) (->integer maxplates)))\n    (else (error parse-namespace-cookie \"Config: Invalid item\" item))))"))
+				"(else (error parse-namespace-cache \"Config: Invalid item\" item))))\n\n(define (parse-namespace-cookie item)\n  (match item\n    (('expires expires) (conf-set! '(cookie expires) (->integer expires)))\n    (('maxplates maxplates) (conf-set! '(cookie maxplates) (->integer maxplates)))\n    (else (error parse-namespace-cookie \"Config: Invalid item\" item))))"))
 
 		   (substitute* "artanis/config.scm"
 		   	       (("debug.monitor = <PATHs>\")")
-		   		"debug.monitor = <PATHs>\")\n ((cookie expire)\n       3600\n      \"Cookie expiration time in seconds.\n       1 hour is 3600\n       6 hours 21600\n       1 month 2592000\n cookie.expire = <integer>\")\n\n ((cookie maxplates)\n       10\n      \"Maximum number of plates per plate-set.\n cookie.maxplates = <integer>\")"))
+		   		"debug.monitor = <PATHs>\")\n ((cookie expires)\n       3600\n      \"Cookie expiration time in seconds.\n       1 hour is 3600\n       6 hours 21600\n       1 month 2592000\n cookie.expires = <integer>\")\n\n ((cookie maxplates)\n       10\n      \"Maximum number of plates per plate-set.\n cookie.maxplates = <integer>\")"))
 		  
 
 		   (substitute* "artanis/config.scm"
@@ -279,6 +279,7 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
 				 (substitute* '("./limsn/lib/labsolns/lnpg.scm"
 						"./scripts/start-limsn.sh"
 						"./scripts/init-limsn.sh"
+						"./scripts/lnpg.sh"
 						"./limsn/ENTRY")						
 						(("abcdefgh")
 						(assoc-ref outputs "out" )) )
