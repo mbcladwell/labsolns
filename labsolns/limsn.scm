@@ -73,10 +73,10 @@
 ;  #:use-module (artanis utils)
 ;  #:use-module (artanis irregex)
 ;  #:use-module (artanis config)
-;  #:use-module (redis)
-;  #:use-module (json)
+;  #:use-module (guile-redis)
+;  #:use-module (guile-json-3)
   
-;  #:use-module (dbi dbi)
+  #:use-module (dbi dbi)
  #:use-module ((srfi srfi-1) #:select (alist-delete)))
 
 (define-public artanis-052
@@ -267,7 +267,7 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
    (source (origin
             (method url-fetch)
    ;;         (uri (string-append "file:///home/mbc/syncd/tobedeleted/limsn/limsn-0.1.tar.gz"))
-            (uri (string-append "file:///home/admin/ln11/limsn-0.1.tar.gz"))
+            (uri (string-append "file:///home/mbc/projects/limsn/limsn-0.1.tar.gz"))
             (sha256
              (base32
               "0ssi1wpaf7plaswqqjwigppsg5fyh99vdlb9kzl7c9lng89ndq1i"))))
@@ -353,8 +353,8 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
     (propagated-inputs
 	`(
 	  ("artanis" ,artanis-052)
-;;	  ("guile-json" ,guile-json-3)
-;;	  ("guile-redis" ,guile-redis)
+;	  ("guile-json" ,guile-json-3)
+;	  ("guile-redis" ,guile-redis)
   		))
     (native-inputs
      `(("bash"       ,bash)         ;for the `source' builtin
@@ -370,5 +370,5 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
     (license (list license:gpl3+ license:lgpl3+)))) ;dual license
 
 
-
+limsn
 
