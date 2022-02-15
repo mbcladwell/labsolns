@@ -397,13 +397,14 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
 	     )))
   (inputs
      `(("guile" ,guile-3.0)
-       ("gnuplot" ,gnuplot)
-       ("guile-dbi" ,guile-dbi)
+      
          ))
 
     (propagated-inputs
 	`(
 	  ("artanis" ,artanis-052)
+	  ("gnuplot" ,gnuplot)
+	  ("guile-dbi" ,guile-dbi)
 ;	  ("guile-json" ,guile-json-3)
 ;	  ("guile-redis" ,guile-redis)
   		))
