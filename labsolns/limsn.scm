@@ -281,6 +281,7 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
            ;; (uri (string-append "file:///home/mbc/projects/limsn/limsn-0.1.tar.gz"))
            ;; (uri (string-append "file:///home/admin/limsn-0.1.tar.gz"))
 	     (uri (string-append "file:///home/admin/ln11/limsn-0.1.tar.gz"))
+	     ;;mod to force 
 	    
             (sha256
              (base32
