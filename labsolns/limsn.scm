@@ -71,7 +71,7 @@
 ;  #:use-module (artanis config)
 ;  #:use-module (guile-redis)
 ;  #:use-module (guile-json-3)
-    #:use-module (dbi dbi)
+;    #:use-module (dbi dbi)
 
   ;;testing
   #:use-module (guix build-system cmake)
@@ -385,9 +385,9 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
 	`(
 	  ("artanis" ,artanis-052)
 	  ("gnuplot" ,gnuplot)
-	  ("guile-dbi" ,guile-dbi)
-	  ("guile-dbd-postgresql" ,guile-dbd-postgresql)
-	  ("postgresql" ,postgresql)
+;	  ("guile-dbi" ,guile-dbi)
+;	  ("guile-dbd-postgresql" ,guile-dbd-postgresql)
+;	  ("postgresql" ,postgresql)
 ;	  ("guile-json" ,guile-json-3)
 ;	  ("guile-redis" ,guile-redis)
   		))
@@ -404,5 +404,5 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
     (home-page "http://www.labsolns.com/")
     (license (list license:gpl3+ license:lgpl3+)))) ;dual license
 
-
+limsn
 
