@@ -312,10 +312,12 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
 				     (string-append (assoc-ref outputs "out") "/share/guile/site/3.0:"
 						    "/gnu/store/rgydar9dfvflqqz2irgh7njj34amaxc6-glibc-utf8-locales-2.31/lib/locale/2.31:"
 						    "/gnu/store/rj0pzbki1m5hpcshs614mhkrgs2b3i9d-artanis-0.5.2/share/guile/site/3.0:"
+						    "/gnu/store/np3v3bifspgqslc7xl2rz2sg08q2wvzq-artanis-0.4.1/share/guile/site/3.0:"
 						 ;;   "/gnu/store/rj0pzbki1m5hpcshs614mhkrgs2b3i9d-artanis-0.5.2/share/guile/site/3.0/lib:"
 						   "/gnu/store/780bll8lp0xvj7rnazb2qdnrnb329lbw-guile-json-3.5.0/share/guile/site/3.0:"
 						    "/gnu/store/jmn100gjcpqbfpxrhrna6gzab8hxkc86-guile-redis-2.1.1/share/guile/site/3.0:"
-						    "/gnu/store/3f0lv3m4vlzqc86750025arbskfrq05p-guile-dbi-2.1.6/share/guile/site/3.0:"
+						    "/gnu/store/6l8qpfg9phdbk16vz7fq46vm46jfws6a-guile-dbi-2.1.6/share/guile/site/3.0:"
+						    "/gnu/store/gcirl682si7xclkk34sznrfwqx7j4drj-guile-dbd-postgresql-2.1.6-0.e97589b/share/guile/site/3.0:"
 						    (getenv "GUILE_LOAD_PATH")))
 			     #t))
                        (add-before 'install 'make-lib-dir
@@ -403,5 +405,4 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
     (license (list license:gpl3+ license:lgpl3+)))) ;dual license
 
 
-limsn
 
