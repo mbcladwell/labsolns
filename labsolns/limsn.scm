@@ -1,7 +1,8 @@
  
   (define-module (labsolns limsn)
     #:use-module ((guix licenses) #:prefix license:)
-    #:use-module (gnu packages guile-xyz)
+      #:use-module (gnu packages guile-xyz)
+
   #:use-module (gnu packages)
   #:use-module (gnu packages autotools)
   #:use-module (gnu packages avahi)
@@ -58,9 +59,21 @@
   #:use-module (guix build-system gnu)
   #:use-module (guix utils)
   #:autoload   (srfi srfi-98) (get-environment-variables)
+
+;;  #:use-module ((guix build utils) #:select (alist-replace))
   #:use-module (guix build utils)
   #:use-module (guix gexp)
   #:use-module (ice-9 match)
+;; may not need ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+;  #:use-module (artanis artanis)
+;  #:use-module (artanis utils)
+;  #:use-module (artanis irregex)
+;  #:use-module (artanis config)
+;  #:use-module (guile-redis)
+;  #:use-module (guile-json-3)
+  ;;  #:use-module (dbi dbi)
+
+  ;;testing
   #:use-module (guix build-system cmake)
   #:use-module (guix build-system glib-or-gtk)
   #:use-module (guix build-system guile)
@@ -78,12 +91,16 @@
   #:use-module (gnu packages webkit)
   #:use-module (gnu packages xdisorg)
   #:use-module (gnu packages xorg)
-  #:use-module ((srfi srfi-1) #:select (alist-delete)))
 
-(define artanis-052
+
+  
+  ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+ #:use-module ((srfi srfi-1) #:select (alist-delete)))
+
+(define-public artanis-052
   (package
-   (inherit artanis)
-   (version "0.5.2")
+    (name "artanis")
+    (version "0.5.2")
     (source (origin
               (method url-fetch)
               (uri (string-append "mirror://gnu/artanis/artanis-0.5.tar.gz"))
@@ -93,11 +110,34 @@
               (modules '((guix build utils)))
               (snippet
                '(begin
-                  (substitute* '("artanis/oht.scm"
+                  ;; Unbundle guile-redis and guile-json
+                  (delete-file-recursively "artanis/third-party/json.scm")
+                  (delete-file-recursively "artanis/third-party/json")
+                  (delete-file-recursively "artanis/third-party/redis.scm")
+                  (delete-file-recursively "artanis/third-party/redis")
+                  (substitute* '("artanis/artanis.scm"
+                                 "artanis/lpc.scm"
+                                 "artanis/oht.scm")
+                    (("(#:use-module \\()artanis third-party (json\\))" _
+                      use-module json)
+                     (string-append use-module json)))
+                  (substitute* '("artanis/lpc.scm"
+                                 "artanis/session.scm")
+                    (("(#:use-module \\()artanis third-party (redis\\))" _
+                      use-module redis)
+                     (string-append use-module redis)))
+                  (substitute* "artanis/oht.scm"
+                    (("([[:punct:][:space:]]+)(->json-string)([[:punct:][:space:]]+)"
+                      _ pre json-string post)
+                     (string-append pre
+                                    "scm" json-string
+                                    post)))
+		  (substitute* '("artanis/oht.scm"
 			       "artanis/session.scm"
 			       "artanis/cookie.scm")
 			       (("3600") "(get-conf '(cookie expires))"))
-		  (substitute* "artanis/config.scm"
+		
+				  (substitute* "artanis/config.scm"
 			       (("   \\(\\('debug rest ...\\) \\(parse-namespace-debug rest\\)\\)")
 				"   (('debug rest ...) (parse-namespace-debug rest))\n    (('cookie rest ...) (parse-namespace-cookie rest))"
 				))
@@ -108,6 +148,8 @@
 		   (substitute* "artanis/config.scm"
 		   	       (("debug.monitor = <PATHs>\")")
 		   		"debug.monitor = <PATHs>\")\n ((cookie expires)\n       3600\n      \"Cookie expiration time in seconds.\n       1 hour is 3600\n       6 hours 21600\n       1 month 2592000\n cookie.expires = <integer>\")\n\n ((cookie maxplates)\n       10\n      \"Maximum number of plates per plate-set.\n cookie.maxplates = <integer>\")"))
+		  
+
 		   (substitute* "artanis/config.scm"
 		   		(("format #f \"http://~a:~a\" \\(get-conf '\\(host addr\\)\\)")
 		   	 	 "format #f \"http://~a:~a\" real-host"))
@@ -149,10 +191,29 @@
 				 "     (or (%original-current-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) \"/tmp/limsn\")"))
 	;;============END forguix mods=========================================================================
 				   
-                  
-                  )
+                   (substitute* "artanis/artanis.scm"
+                    (("[[:punct:][:space:]]+->json-string[[:punct:][:space:]]+")
+                     ""))
+                  #t)
 	       )))
-     (arguments
+    (build-system gnu-build-system)
+    (inputs
+     `(("guile" ,guile-3.0)
+       ("nss" ,nss)
+       ("nspr" ,nspr)))
+    ;; FIXME the bundled csv contains one more exported procedure
+    ;; (sxml->csv-string) than guile-csv. The author is maintainer of both
+    ;; projects.
+    ;; TODO: Add guile-dbi and guile-dbd optional dependencies.
+    (propagated-inputs
+     `(("guile-json" ,guile-json-3) 
+       ("guile-readline" ,guile-readline)
+       ("guile-redis" ,guile-redis)))
+    (native-inputs
+     `(("bash"       ,bash)         ;for the `source' builtin
+       ("pkgconfig"  ,pkg-config)
+       ("util-linux" ,util-linux))) ;for the `script' command
+    (arguments
      '(#:make-flags
        ;; TODO: The documentation must be built with the `docs' target.
        (let* ((out (assoc-ref %outputs "out"))
@@ -205,19 +266,7 @@
                  `("GUILE_LOAD_COMPILED_PATH" ":" prefix
                    (,go ,(getenv "GUILE_LOAD_COMPILED_PATH"))))
                #t))))))
-    (inputs
-     `(("guile" ,guile-3.0)
-       ("nss" ,nss)
-       ("nspr" ,nspr)))
-     (propagated-inputs
-     `(("guile-json" ,guile-json-3) 
-       ("guile-readline" ,guile-readline)
-       ("guile-redis" ,guile-redis)))
-    (native-inputs
-     `(("bash"       ,bash)         ;for the `source' builtin
-       ("pkgconfig"  ,pkg-config)
-       ("util-linux" ,util-linux))) ;for the `script' command
-   
+    (synopsis "Web application framework written in Guile, modified for LIMS*Nucleus")
     (description "GNU Artanis is a web application framework written in Guile
 Scheme.  A web application framework (WAF) is a software framework that is
 designed to support the development of dynamic websites, web applications, web
@@ -229,16 +278,16 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
     (home-page "https://www.gnu.org/software/artanis/")
     (license (list license:gpl3+ license:lgpl3+)))) ;dual license
 
-(define limsn
+(define-public limsn
   (package
     (name "limsn")
     (version "0.1.0")
    (source (origin
             (method url-fetch)
            ;; (uri (string-append "file:///home/mbc/syncd/tobedeleted/limsn/limsn-0.1.tar.gz"))
-           ;; (uri (string-append "file:///home/mbc/projects/limsn/limsn-0.1.tar.gz"))
-           ;; (uri (string-append "file:///home/admin/limsn-0.1.tar.gz"))
-	     (uri (string-append "file:///home/admin/ln11/limsn-0.1.tar.gz"))
+            ;;(uri (string-append "file:///home/mbc/projects/limsn/limsn-0.1.tar.gz"))
+            (uri (string-append "file:///home/admin/limsn-0.1.tar.gz"))
+	   ;;  (uri (string-append "file:///home/admin/ln11/limsn-0.1.tar.gz"))
 	    
             (sha256
              (base32
@@ -257,30 +306,25 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
 						(assoc-ref outputs "out" )) )
 				 #t))		       			       
 		(add-after 'unpack 'augment-GUILE_LOAD_PATH
-			   ;;	   (lambda _
-			   (lambda* (#:key outputs #:allow-other-keys)
+			   (lambda _
 			     (setenv "GUILE_LOAD_PATH"
-				     (string-append (assoc-ref outputs "out") "/share/guile/site/3.0:"
-						    "/gnu/store/rgydar9dfvflqqz2irgh7njj34amaxc6-glibc-utf8-locales-2.31/lib/locale/2.31:"
-						    "/gnu/store/9zgz3b3m57syyg5w4sdky03ak3w6ki56-artanis-0.5.2/share/guile/site/3.0:"
-						   "/gnu/store/780bll8lp0xvj7rnazb2qdnrnb329lbw-guile-json-3.5.0/share/guile/site/3.0:"
-						    "/gnu/store/jmn100gjcpqbfpxrhrna6gzab8hxkc86-guile-redis-2.1.1/share/guile/site/3.0:"
-						    "/gnu/store/6l8qpfg9phdbk16vz7fq46vm46jfws6a-guile-dbi-2.1.6/share/guile/site/3.0:"
+				     (string-append "./limsn/lib:"
+						;;    "$HOME/.guix-profile/share/guile/site/3.0:"
+				                ;;    "/gnu/store/rgydar9dfvflqqz2irgh7njj34amaxc6-glibc-utf8-locales-2.31/lib/locale/2.31:"
+						    "/gnu/store/wibjisj2py2ar19hihx655ppcqwjjc6h-artanis-0.5.2/share/guile/site/3.0:"
+						;;   "/gnu/store/6s765nvcy77cla92wxzwhakglzlpv362-guile-json-3.5.0/share/guile/site/3.0:"
+						;;    "/gnu/store/xl7lj8bk7qicf3kahk9yqpnqm00pknwd-guile-redis-2.0.0/share/guile/site/3.0:"
+						;;    "/gnu/store/krkgv6sscjr8r6akirxjh6x2f938pkpm-guile-dbi-2.1.6/share/guile/site/3.0:"
 						    (getenv "GUILE_LOAD_PATH")))
 			     #t))
-                       (add-before 'install 'make-lib-dir
-			       (lambda* (#:key outputs #:allow-other-keys)
-				    (let* ((out  (assoc-ref outputs "out"))
-					   (lib-dir (string-append out "/share/guile/site/3.0/limsn/lib"))
-					   (dummy (mkdir-p lib-dir)))            				       
-				       (copy-recursively "./limsn/lib" lib-dir)
-				       #t)))
-		       (add-after 'unpack 'make-lib-dir
+		       (add-before 'install 'make-lib-dir
 				   (lambda* (#:key outputs #:allow-other-keys)
 				     (let* ((out  (assoc-ref outputs "out"))
 					   (labsolns-dir (string-append out "/share/guile/site/3.0/labsolns"))
 					   (mkdir-p labsolns-dir)
-					   (dummy (copy-recursively "./limsn/lib/labsolns" labsolns-dir))) 
+					   (dummy (copy-recursively "./limsn/lib/labsolns" labsolns-dir))
+					   ;;(dummy (delete-file-recursively "./limsn/lib"))
+					   ) 
 				       #t)))
 
                        (add-before 'install 'make-scripts-dir
@@ -318,23 +362,17 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
 						;;	(,(string-append out lib)))   
 						     `("GUILE_LOAD_COMPILED_PATH" prefix
 						       (,(string-append out go)))
-					;;	       `("GUILE_LOAD_COMPILED_PATH" prefix
-					;;	       (,(string-append out libgo)))
 						    )		    
-				      #t)))
-
+				      #t)))		     			   
 	     )))
   (inputs
-     `(("guile" ,guile-3.0)
-     ))
-
+     `(("guile" ,guile-3.0)      
+         ))
     (propagated-inputs
 	`(
 	  ("artanis" ,artanis-052)
-	  
 	  ("gnuplot" ,gnuplot)
 	  ("guile-dbi" ,guile-dbi)
-	  ("guile-dbd-postgresql" ,guile-dbd-postgresql)
 	  ("postgresql" ,postgresql)
 ;	  ("guile-json" ,guile-json-3)
 ;	  ("guile-redis" ,guile-redis)
@@ -352,4 +390,6 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
     (home-page "http://www.labsolns.com/")
     (license (list license:gpl3+ license:lgpl3+)))) ;dual license
 
+
+limsn
 
