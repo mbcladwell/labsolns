@@ -312,7 +312,7 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
 						 ;;   "/home/admin/.guix-profile/share/guile/site/3.0:"
 				                ;;    "/gnu/store/rgydar9dfvflqqz2irgh7njj34amaxc6-glibc-utf8-locales-2.31/lib/locale/2.31:"
 						    "/gnu/store/rj0pzbki1m5hpcshs614mhkrgs2b3i9d-artanis-0.5.2/share/guile/site/3.0:"
-						   "/gnu/store/grjvqx3xfjlczak7j3gsdf0q4wf7fnw6-guile-json-4.5.2/share/guile/site/3.0:"
+						   "/gnu/store/780bll8lp0xvj7rnazb2qdnrnb329lbw-guile-json-3.5.0/share/guile/site/3.0:"
 						    "/gnu/store/jmn100gjcpqbfpxrhrna6gzab8hxkc86-guile-redis-2.1.1/share/guile/site/3.0:"
 						    "/gnu/store/3f0lv3m4vlzqc86750025arbskfrq05p-guile-dbi-2.1.8/share/guile/site/3.0:"
 						    (getenv "GUILE_LOAD_PATH")))
