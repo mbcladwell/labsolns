@@ -58,6 +58,7 @@
   #:use-module (guix hg-download)
   #:use-module (guix build-system gnu)
   #:use-module (guix utils)
+  #:use-module (ice-9 pretty-print)
   #:autoload   (srfi srfi-98) (get-environment-variables)
 
 ;;  #:use-module ((guix build utils) #:select (alist-replace))
@@ -274,9 +275,10 @@ services and web resources.  The framework aims to alleviate the overhead
 associated with common activities performed in web development.  Artanis
 provides several tools for web development: database access, templating
 frameworks, session management, URL-remapping for RESTful, page caching, and
-more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
+more. v0.5.2 contains feature enhancements required by LIMS*Nucleus")
     (home-page "https://www.gnu.org/software/artanis/")
     (license (list license:gpl3+ license:lgpl3+)))) ;dual license
+
 
 (define-public limsn
   (package
@@ -285,15 +287,19 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
    (source (origin
             (method url-fetch)
            ;; (uri (string-append "file:///home/mbc/syncd/tobedeleted/limsn/limsn-0.1.tar.gz"))
-            ;;(uri (string-append "file:///home/mbc/projects/limsn/limsn-0.1.tar.gz"))
-            (uri (string-append "file:///home/admin/limsn-0.1.tar.gz"))
+            (uri (string-append "file:///home/mbc/projects/limsn/limsn-0.1.tar.gz"))
+           ;; (uri (string-append "file:///home/admin/limsn-0.1.tar.gz"))
 	   ;;  (uri (string-append "file:///home/admin/ln11/limsn-0.1.tar.gz"))
 	    
             (sha256
              (base32
               "0ssi1wpaf7plaswqqjwigppsg5fyh99vdlb9kzl7c9lng89ndq1i"))))
    (build-system gnu-build-system)
-  (arguments `(#:tests? #false ; there are none
+   (arguments `(#:tests? #false ; there are none
+	       #:modules
+        ((ice-9 match)
+         (ice-9 pretty-print)
+         ,@%gnu-build-system-modules)
 			#:phases (modify-phases %standard-phases
     		       (add-after 'unpack 'patch-prefix
 			       (lambda* (#:key inputs outputs #:allow-other-keys)
@@ -301,6 +307,7 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
 						"./scripts/start-limsn.sh"
 						"./scripts/init-limsn.sh"
 						"./scripts/install-pg-aws.sh"
+						"./scripts/load-pg.sh"
 						"./limsn/ENTRY")						
 						(("abcdefgh")
 						(assoc-ref outputs "out" )) )
@@ -308,8 +315,9 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
 		(add-after 'unpack 'augment-GUILE_LOAD_PATH
 			   (lambda _
 			     (setenv "GUILE_LOAD_PATH"
-				     (string-append "./limsn/lib:"
-						 ;;   "/home/admin/.guix-profile/share/guile/site/3.0:"
+				     (string-append
+				                "./limsn/lib:"  ;;needed for libraries
+						    "/home/mbc/.guix-profile/share/guile/site/3.0:"
 				                ;;    "/gnu/store/rgydar9dfvflqqz2irgh7njj34amaxc6-glibc-utf8-locales-2.31/lib/locale/2.31:"
 						    "/gnu/store/rj0pzbki1m5hpcshs614mhkrgs2b3i9d-artanis-0.5.2/share/guile/site/3.0:"
 						   "/gnu/store/780bll8lp0xvj7rnazb2qdnrnb329lbw-guile-json-3.5.0/share/guile/site/3.0:"
@@ -339,31 +347,46 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
 				  (lambda* (#:key inputs outputs #:allow-other-keys)
 				    (let* ((out (assoc-ref outputs "out"))
 					   (bin-dir (string-append out "/bin"))
+					   (all-files '( "init-limsn.sh" "load-pg.sh" "install-pg-aws.sh")))
+				      (map (lambda (file)
+					     (begin
+					       (install-file (string-append "./scripts/" file) bin-dir)
+					       (chmod (string-append bin-dir "/" file) #o555 ) ;;read execute, no write
+					       (wrap-program (string-append bin-dir "/" file)
+							     `( "PATH" ":" prefix  (,bin-dir) ))
+					       ))
+					     all-files))					   					   	    
+				      #t))	
+		       (add-after 'install 'make-bin-dir2
+				  (lambda* (#:key inputs outputs #:allow-other-keys)
+				    (let* ((out (assoc-ref outputs "out"))
+					   (bin-dir (string-append out "/bin"))
 					   (scm  "/share/guile/site/3.0")
-				;	   (lib "/labsolns")
 					   (go   "/lib/guile/3.0/site-ccache")
-				;	   (libgo   "/lib/guile/3.0/site-ccache/limsn/lib")					   
-					   (dummy (install-file "./scripts/start-limsn.sh" bin-dir))					   
-					   (dummy (chmod (string-append bin-dir "/start-limsn.sh") #o555 ))
-					   (dummy (wrap-program (string-append bin-dir "/start-limsn.sh")
-								`( "PATH" ":" prefix  (,bin-dir) )))					   
-					   (dummy (install-file "./scripts/init-limsn.sh" bin-dir))
-					   (dummy (chmod (string-append bin-dir "/init-limsn.sh") #o555 ))
-					   (dummy (wrap-program (string-append bin-dir "/init-limsn.sh")
-						    `( "PATH" ":" prefix  (,bin-dir) )))
-					   (dummy (install-file "./scripts/install-pg-aws.sh" bin-dir))					   
-					   (dummy (chmod (string-append bin-dir "/install-pg-aws.sh") #o555 ))) ;;read execute, no write
-				      (wrap-program (string-append bin-dir "/install-pg-aws.sh")
-						    `( "PATH" ":" prefix  (,bin-dir) )
-                                                      `("GUILE_LOAD_PATH" prefix
-							(,(string-append out scm)))
-						       `("GUILE_LOAD_PATH" prefix  ;;this put (labsolns ....) on the path
-							                 (,out) )    ;; and makes the lib available
-						;;	(,(string-append out lib)))   
-						     `("GUILE_LOAD_COMPILED_PATH" prefix
-						       (,(string-append out go)))
-						    )		    
-				      #t)))		     			   
+					   (all-files '("start-limsn.sh" )))				      
+				      (map (lambda (file)
+					     (begin
+					       (install-file (string-append "./scripts/" file) bin-dir)
+					       (chmod (string-append bin-dir "/" file) #o555 ) ;;read execute, no write
+					       (wrap-program (string-append bin-dir "/" file)
+							     `( "PATH" ":" prefix  (,bin-dir) )							     
+							     `("GUILE_LOAD_PATH" prefix
+							       (,(string-append out scm)
+								,out  ;;this puts (labsolns ....) on the path and makes the lib available
+								"/gnu/store/rj0pzbki1m5hpcshs614mhkrgs2b3i9d-artanis-0.5.2/share/guile/site/3.0"
+								"/gnu/store/780bll8lp0xvj7rnazb2qdnrnb329lbw-guile-json-3.5.0/share/guile/site/3.0"
+								"/gnu/store/jmn100gjcpqbfpxrhrna6gzab8hxkc86-guile-redis-2.1.1/share/guile/site/3.0"
+								"/gnu/store/3f0lv3m4vlzqc86750025arbskfrq05p-guile-dbi-2.1.8/share/guile/site/3.0"
+								))
+							     `("GUILE_LOAD_COMPILED_PATH" prefix
+							       (,(string-append out go)))
+							     `("GUILE_DBD_PATH" prefix
+							       ("/gnu/store/vi3i4lc39qc8j1fl4apxz076qbv5cx4g-guile-dbd-postgresql-2.1.8/lib"))
+							     ))
+					       )
+					     all-files))					   					   	    
+				      #t))	
+		       
 	     )))
   (inputs
      `(("guile" ,guile-3.0)      
@@ -375,8 +398,6 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
 	  ("guile-dbi" ,guile-dbi)
 	  ("postgresql" ,postgresql)
 	  ("dbd-postgresql" ,guile-dbd-postgresql)
-;	  ("guile-json" ,guile-json-3)
-;	  ("guile-redis" ,guile-redis)
   		))
     (native-inputs
      `(("bash"       ,bash)         ;for the `source' builtin
@@ -392,5 +413,5 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
     (license (list license:gpl3+ license:lgpl3+)))) ;dual license
 
 
-
+limsn
 
