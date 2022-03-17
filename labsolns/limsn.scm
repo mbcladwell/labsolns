@@ -317,7 +317,7 @@ more. v0.5.2 contains feature enhancements required by LIMS*Nucleus")
 			     (setenv "GUILE_LOAD_PATH"
 				     (string-append
 				                "./limsn/lib:"  ;;needed for libraries
-						    "/home/mbc/.guix-profile/share/guile/site/3.0:"
+						 ;;   "/home/mbc/.guix-profile/share/guile/site/3.0:"
 				                ;;    "/gnu/store/rgydar9dfvflqqz2irgh7njj34amaxc6-glibc-utf8-locales-2.31/lib/locale/2.31:"
 						    "/gnu/store/rj0pzbki1m5hpcshs614mhkrgs2b3i9d-artanis-0.5.2/share/guile/site/3.0:"
 						   "/gnu/store/780bll8lp0xvj7rnazb2qdnrnb329lbw-guile-json-3.5.0/share/guile/site/3.0:"
@@ -371,17 +371,17 @@ more. v0.5.2 contains feature enhancements required by LIMS*Nucleus")
 					       (wrap-program (string-append bin-dir "/" file)
 							     `( "PATH" ":" prefix  (,bin-dir) )							     
 							     `("GUILE_LOAD_PATH" prefix
-							       (,(string-append out scm)
-								,out  ;;this puts (labsolns ....) on the path and makes the lib available
-								"/gnu/store/rj0pzbki1m5hpcshs614mhkrgs2b3i9d-artanis-0.5.2/share/guile/site/3.0"
-								"/gnu/store/780bll8lp0xvj7rnazb2qdnrnb329lbw-guile-json-3.5.0/share/guile/site/3.0"
-								"/gnu/store/jmn100gjcpqbfpxrhrna6gzab8hxkc86-guile-redis-2.1.1/share/guile/site/3.0"
-								"/gnu/store/3f0lv3m4vlzqc86750025arbskfrq05p-guile-dbi-2.1.8/share/guile/site/3.0"
+							       (,(string-append "$HOME" out scm)
+								,(string-append "$HOME" out)  ;;this puts (labsolns ....) on the path and makes the lib available
+								"$HOME/gnu/store/rj0pzbki1m5hpcshs614mhkrgs2b3i9d-artanis-0.5.2/share/guile/site/3.0"
+								"$HOME/gnu/store/780bll8lp0xvj7rnazb2qdnrnb329lbw-guile-json-3.5.0/share/guile/site/3.0"
+								"$HOME/gnu/store/jmn100gjcpqbfpxrhrna6gzab8hxkc86-guile-redis-2.1.1/share/guile/site/3.0"
+								"$HOME/gnu/store/3f0lv3m4vlzqc86750025arbskfrq05p-guile-dbi-2.1.8/share/guile/site/3.0"
 								))
 							     `("GUILE_LOAD_COMPILED_PATH" prefix
-							       (,(string-append out go)))
+							       (,(string-append "$HOME" out go)))
 							     `("GUILE_DBD_PATH" prefix
-							       ("/gnu/store/vi3i4lc39qc8j1fl4apxz076qbv5cx4g-guile-dbd-postgresql-2.1.8/lib"))
+							       ("$HOME/gnu/store/vi3i4lc39qc8j1fl4apxz076qbv5cx4g-guile-dbd-postgresql-2.1.8/lib"))
 							     ))
 					       )
 					     all-files))					   					   	    
