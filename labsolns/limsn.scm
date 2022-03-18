@@ -60,21 +60,9 @@
   #:use-module (guix utils)
   #:use-module (ice-9 pretty-print)
   #:autoload   (srfi srfi-98) (get-environment-variables)
-
-;;  #:use-module ((guix build utils) #:select (alist-replace))
   #:use-module (guix build utils)
   #:use-module (guix gexp)
   #:use-module (ice-9 match)
-;; may not need ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
-;  #:use-module (artanis artanis)
-;  #:use-module (artanis utils)
-;  #:use-module (artanis irregex)
-;  #:use-module (artanis config)
-;  #:use-module (guile-redis)
-;  #:use-module (guile-json-3)
-  ;;  #:use-module (dbi dbi)
-
-  ;;testing
   #:use-module (guix build-system cmake)
   #:use-module (guix build-system glib-or-gtk)
   #:use-module (guix build-system guile)
@@ -92,8 +80,6 @@
   #:use-module (gnu packages webkit)
   #:use-module (gnu packages xdisorg)
   #:use-module (gnu packages xorg)
-
-
   
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
  #:use-module ((srfi srfi-1) #:select (alist-delete)))
