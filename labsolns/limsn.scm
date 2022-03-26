@@ -175,7 +175,7 @@
 				(("  \\(or \\(%current-toplevel\\)\n")
 					 "  (define (original-current-toplevel)\n")
 				(("      \\(find-ENTRY-path identity #t\\)\\)\\)\n")
-				 "     (or (%original-current-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) \"/tmp/limsn\")"))
+				 "     (or (%original-current-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) \"$HOME/tmp/limsn\")"))
 	;;============END forguix mods=========================================================================
 				   
                    (substitute* "artanis/artanis.scm"
