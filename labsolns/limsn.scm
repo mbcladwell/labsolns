@@ -175,7 +175,7 @@
 				(("  \\(or \\(%current-toplevel\\)\n")
 					 "  (define (original-current-toplevel)\n")
 				(("      \\(find-ENTRY-path identity #t\\)\\)\\)\n")
-				 "     (or (%original-current-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) \"$HOME/tmp/limsn\")"))
+				 "     (or (%original-current-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) \"/var/tmp/limsn\")"))
 	;;============END forguix mods=========================================================================
 				   
                    (substitute* "artanis/artanis.scm"
@@ -291,8 +291,11 @@ more. v0.5.2 contains feature enhancements required by LIMS*Nucleus")
 			       (lambda* (#:key inputs outputs #:allow-other-keys)
 				 (substitute* '("./limsn/lib/labsolns/lnpg.scm"
 						"./scripts/start-limsn.sh"
-						"./scripts/init-limsn.sh"
+						"./scripts/init-limsn-pack.sh"
+						"./scripts/init-limsn-channel.sh"
 						"./scripts/install-pg-aws.sh"
+						"./scripts/lnpg.sh"
+					
 						"./scripts/load-pg.sh"
 						"./limsn/ENTRY")						
 						(("abcdefgh")
@@ -333,7 +336,7 @@ more. v0.5.2 contains feature enhancements required by LIMS*Nucleus")
 				  (lambda* (#:key inputs outputs #:allow-other-keys)
 				    (let* ((out (assoc-ref outputs "out"))
 					   (bin-dir (string-append out "/bin"))
-					   (all-files '( "init-limsn.sh" "load-pg.sh" "install-pg-aws.sh")))
+					   (all-files '( "init-limsn-pack.sh" "init-limsn-channel.sh" "lnpg.sh" "load-pg.sh" "install-pg-aws.sh")))
 				      (map (lambda (file)
 					     (begin
 					       (install-file (string-append "./scripts/" file) bin-dir)
