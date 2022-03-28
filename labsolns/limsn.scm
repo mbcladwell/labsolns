@@ -361,7 +361,7 @@ more. v0.5.2 contains feature enhancements required by LIMS*Nucleus")
 							     `( "PATH" ":" prefix  (,bin-dir) )							     
 							     `("GUILE_LOAD_PATH" prefix
 							       (,(string-append out scm)
-								,out  ;;this puts (labsolns ....) on the path and makes the lib available
+							;;	,out  ;;this puts (labsolns ....) on the path and makes the lib available
 							;;	"$HOME/gnu/store/rj0pzbki1m5hpcshs614mhkrgs2b3i9d-artanis-0.5.2/share/guile/site/3.0"
 							;;	"$HOME/gnu/store/780bll8lp0xvj7rnazb2qdnrnb329lbw-guile-json-3.5.0/share/guile/site/3.0"
 							;;	"$HOME/gnu/store/jmn100gjcpqbfpxrhrna6gzab8hxkc86-guile-redis-2.1.1/share/guile/site/3.0"
