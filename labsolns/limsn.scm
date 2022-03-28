@@ -289,13 +289,12 @@ more. v0.5.2 contains feature enhancements required by LIMS*Nucleus")
 			#:phases (modify-phases %standard-phases
     		       (add-after 'unpack 'patch-prefix
 			       (lambda* (#:key inputs outputs #:allow-other-keys)
-				 (substitute* '("./limsn/lib/labsolns/lnpg.scm"
+				 (substitute* '("./limsn/lib/lnpg.scm"
 						"./scripts/start-limsn.sh"
 						"./scripts/init-limsn-pack.sh"
 						"./scripts/init-limsn-channel.sh"
 						"./scripts/install-pg-aws.sh"
-						"./scripts/lnpg.sh"
-					
+						"./scripts/lnpg.sh"					
 						"./scripts/load-pg.sh"
 						"./limsn/ENTRY")						
 						(("abcdefgh")
@@ -314,15 +313,15 @@ more. v0.5.2 contains feature enhancements required by LIMS*Nucleus")
 						    "/gnu/store/3f0lv3m4vlzqc86750025arbskfrq05p-guile-dbi-2.1.8/share/guile/site/3.0:"
 						    (getenv "GUILE_LOAD_PATH")))
 			     #t))
-		       (add-before 'install 'make-lib-dir
-				   (lambda* (#:key outputs #:allow-other-keys)
-				     (let* ((out  (assoc-ref outputs "out"))
-					   (labsolns-dir (string-append out "/share/guile/site/3.0/labsolns"))
-					   (mkdir-p labsolns-dir)
-					   (dummy (copy-recursively "./limsn/lib/labsolns" labsolns-dir))
-					   ;;(dummy (delete-file-recursively "./limsn/lib"))
-					   ) 
-				       #t)))
+		       ;; (add-before 'install 'make-lib-dir
+		       ;; 		   (lambda* (#:key outputs #:allow-other-keys)
+		       ;; 		     (let* ((out  (assoc-ref outputs "out"))
+		       ;; 			   (labsolns-dir (string-append out "/share/guile/site/3.0/labsolns"))
+		       ;; 			   (mkdir-p labsolns-dir)
+		       ;; 			   (dummy (copy-recursively "./limsn/lib/labsolns" labsolns-dir))
+		       ;; 			   ;;(dummy (delete-file-recursively "./limsn/lib"))
+		       ;; 			   ) 
+		       ;; 		       #t)))
 
                        (add-before 'install 'make-scripts-dir
 			       (lambda* (#:key outputs #:allow-other-keys)
@@ -361,22 +360,12 @@ more. v0.5.2 contains feature enhancements required by LIMS*Nucleus")
 							     `( "PATH" ":" prefix  (,bin-dir) )							     
 							     `("GUILE_LOAD_PATH" prefix
 							       (,(string-append out scm)
-							;;	,out  ;;this puts (labsolns ....) on the path and makes the lib available
-							;;	"$HOME/gnu/store/rj0pzbki1m5hpcshs614mhkrgs2b3i9d-artanis-0.5.2/share/guile/site/3.0"
-							;;	"$HOME/gnu/store/780bll8lp0xvj7rnazb2qdnrnb329lbw-guile-json-3.5.0/share/guile/site/3.0"
-							;;	"$HOME/gnu/store/jmn100gjcpqbfpxrhrna6gzab8hxkc86-guile-redis-2.1.1/share/guile/site/3.0"
-							;;	"$HOME/gnu/store/3f0lv3m4vlzqc86750025arbskfrq05p-guile-dbi-2.1.8/share/guile/site/3.0"
 								))
 							     `("GUILE_LOAD_COMPILED_PATH" prefix
 							       (,(string-append out go)))
-							 ;;    `("GUILE_DBD_PATH" prefix
-							 ;;      ("$HOME/gnu/store/vi3i4lc39qc8j1fl4apxz076qbv5cx4g-guile-dbd-postgresql-2.1.8/lib"))
-							     ))
-					       )
+							     )))
 					     all-files))					   					   	    
-				      #t))	
-		       
-	     )))
+				      #t)))))
   (inputs
      `(("guile" ,guile-3.0)      
          ))
@@ -402,5 +391,5 @@ more. v0.5.2 contains feature enhancements required by LIMS*Nucleus")
     (license (list license:gpl3+ license:lgpl3+)))) ;dual license
 
 
-;;mod for commit
+
 
