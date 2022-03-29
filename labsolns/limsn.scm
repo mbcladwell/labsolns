@@ -304,7 +304,8 @@ more. v0.5.2 contains feature enhancements required by LIMS*Nucleus")
 			   (lambda _
 			     (setenv "GUILE_LOAD_PATH"
 				     (string-append
-				                "./limsn/lib:"  ;;needed for libraries
+				      "./limsn/lib:"  ;;needed for libraries
+				      ".:"
 						 ;;   "/home/mbc/.guix-profile/share/guile/site/3.0:"
 				                ;;    "/gnu/store/rgydar9dfvflqqz2irgh7njj34amaxc6-glibc-utf8-locales-2.31/lib/locale/2.31:"
 						    "/gnu/store/dfa7p2zvk4xlhaq1y3hsqkzpqd73ggni-artanis-0.5.2/share/guile/site/3.0:"
