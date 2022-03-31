@@ -293,7 +293,8 @@ more. v0.5.2 contains feature enhancements required by LIMS*Nucleus")
 						"./scripts/start-limsn.sh"
 						"./scripts/init-limsn-pack.sh"
 						"./scripts/init-limsn-channel.sh"
-						"./scripts/install-pg-aws.sh"
+						"./scripts/install-pg-aws-ec2.sh"
+						"./scripts/install-pg-aws-rds.sh"
 						"./scripts/lnpg.sh"					
 						"./scripts/load-pg.sh"
 						"./limsn/ENTRY")						
@@ -360,7 +361,7 @@ more. v0.5.2 contains feature enhancements required by LIMS*Nucleus")
 				  (lambda* (#:key inputs outputs #:allow-other-keys)
 				    (let* ((out (assoc-ref outputs "out"))
 					   (bin-dir (string-append out "/bin"))
-					   (all-files '( "init-limsn-pack.sh" "init-limsn-channel.sh" "lnpg.sh" "load-pg.sh" "install-pg-aws.sh")))
+					   (all-files '( "init-limsn-pack.sh" "init-limsn-channel.sh" "lnpg.sh" "load-pg.sh" "install-pg-aws-ec2.sh" "install-pg-aws-rds.sh")))
 				      (map (lambda (file)
 					     (begin
 					       (install-file (string-append "./scripts/" file) bin-dir)
