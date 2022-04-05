@@ -283,7 +283,8 @@ more. v0.5.2 contains feature enhancements required by LIMS*Nucleus")
    (build-system gnu-build-system)
    (arguments `(#:tests? #false ; there are none
 	       #:modules
-        ((ice-9 match)
+               ((ice-9 match)
+		(guix gexp)
          (ice-9 pretty-print)
          ,@%gnu-build-system-modules)
 			#:phases (modify-phases %standard-phases
