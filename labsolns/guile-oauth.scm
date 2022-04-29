@@ -8,7 +8,6 @@
  #:use-module (gnu packages linux)
  #:use-module (guix packages) 
   #:use-module (guix download)
-  #:use-module (guix git-dowload)
   #:use-module (guix utils)
   #:use-module (gnu packages)
   #:use-module (gnu packages tls)
