@@ -1,4 +1,4 @@
-(define-module (labsolns xkguile-oauth)
+(define-module (labsolns guile-oauth)
  #:use-module ((guix licenses) #:prefix license:)
  #:use-module (gnu packages autotools)
  #:use-module (gnu packages guile)
