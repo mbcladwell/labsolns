@@ -1,4 +1,4 @@
-(define-module (labsolns guile-oauth)
+(define-module (labsolns xkguile-oauth)
  #:use-module ((guix licenses) #:prefix license:)
  #:use-module (gnu packages autotools)
  #:use-module (gnu packages guile)
@@ -42,7 +42,7 @@
     `(("guile" ,guile-3.0)))
    (propagated-inputs
     `(
-      ("guile-json" ,guile-json-3)
+      ("guile-json" ,guile-json)
       ("guile-gcrypt" ,guile-gcrypt)
       ("gnutls" ,gnutls)
   		))
