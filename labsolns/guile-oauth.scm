@@ -42,7 +42,7 @@
     `(("guile" ,guile-3.0)))
    (propagated-inputs
     `(
-      ("guile-json" ,guile-json)
+      ("guile-json" ,guile-json-4)
       ("guile-gcrypt" ,guile-gcrypt)
       ("gnutls" ,gnutls)
   		))
@@ -58,6 +58,6 @@
   (description
     "guile-oauth is an OAuth client module for Guile.")
   (license license:gpl3)))
-  
+
 
 
