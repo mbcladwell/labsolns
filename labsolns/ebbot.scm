@@ -18,7 +18,7 @@
   (source (origin
            (method url-fetch)
 	  ;; (uri "file:///home/mbc/projects/ebbot/ebbot-0.1.tar.gz")
-	   (uri (string-append "https://github.com/mbcladwell/labsolns/releases/download/v0.1.0/ebbot-0.1.tar.gz"))
+	   (uri (string-append "https://github.com/mbcladwell/labsolns/releases/download/v0.1/ebbot-0.1.tar.gz"))
 	  (sha256
            (base32
             "0dijrqr7rbzrzdsgd3d78g56y18xwr7753d5v9jfglwzvp75c5gl"))
