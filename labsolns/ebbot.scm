@@ -9,7 +9,9 @@
   #:use-module (gnu packages guile-xyz)
   #:use-module (gnu packages pkg-config)
   #:use-module (gnu packages texinfo)
-  #:use-module (labsolns  guile-oauth))
+  #:use-module (labsolns  guile-oauth)
+  #:use-module (guile-json)
+  )
 
 (define-public ebbot
 (package
