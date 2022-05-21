@@ -10,7 +10,7 @@
   #:use-module (gnu packages pkg-config)
   #:use-module (gnu packages texinfo)
   #:use-module (labsolns  guile-oauth)
-  #:use-module (guile-json)
+  #:use-module (json)
   )
 
 (define-public ebbot
