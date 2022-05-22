@@ -19,7 +19,7 @@
   (version "0.1")
   (source (origin
            (method url-fetch)
-	  ;; (uri "file:///home/mbc/projects/ebbot/ebbot-0.1.tar.gz")
+	   ;;(uri "file:///home/mbc/projects/ebbot/ebbot-0.1.tar.gz")
 	   (uri (string-append "https://github.com/mbcladwell/ebbot/releases/download/v0.1/ebbot-0.1.tar.gz"))
 	  (sha256
            (base32
@@ -29,11 +29,24 @@
   (arguments `(#:tests? #false ; there are none
 			#:phases (modify-phases %standard-phases
     		       (add-after 'unpack 'patch-prefix
-			       (lambda* (#:key inputs outputs #:allow-other-keys)
-				 (substitute* '("scripts/ebbot.sh"
-						                )
-						(("abcdefgh")
-						(assoc-ref outputs "out" )) )
+				  (lambda* (#:key inputs outputs #:allow-other-keys)
+				    (let ((out  (assoc-ref outputs "out")))
+					  
+				 (substitute* "scripts/ebbot.sh"
+						(("ebbotstorepath")
+						 out))
+				 (substitute* "scripts/ebbot.sh"
+						(("guileloadpath")
+						 (string-append "\"$HOME" (assoc-ref inputs "guile")  "/share/guile/site/3.0:"
+								(assoc-ref inputs "guile-json")  "/share/guile/site/3.0:"
+								(assoc-ref inputs "guile-oauth")  "/share/guile/site/3.0:"
+								(getenv "GUILE_LOAD_PATH") "\"")))
+				  (substitute* "scripts/ebbot.sh"
+						(("guileloadcompiledpath")
+						 (string-append "\"$HOME" (assoc-ref inputs "guile")  "/lib/guile/3.0/site-ccache:"
+								(assoc-ref inputs "guile-json")  "/lib/guile/3.0/site-ccache:"
+								(assoc-ref inputs "guile-oauth")  "/lib/guile/3.0/site-ccache:"
+								(getenv "GUILE_LOAD_COMPILED_PATH") "\""))))
 					#t))		    
 		       (add-before 'install 'make-scripts-dir
 			       (lambda* (#:key outputs #:allow-other-keys)
@@ -79,4 +92,5 @@
   (description "Auto tweeter for educational tweets concerning propaganda")
   (home-page "www.build-a-bot.biz")
   (license license:gpl3+)))
+
 
