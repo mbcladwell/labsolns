@@ -40,12 +40,14 @@
 						 (string-append "\"$HOME" (assoc-ref inputs "guile")  "/share/guile/site/3.0:"
 								(assoc-ref inputs "guile-json")  "/share/guile/site/3.0:"
 								(assoc-ref inputs "guile-oauth")  "/share/guile/site/3.0:"
+								out "/share/guile/site/3.0:"
 								(getenv "GUILE_LOAD_PATH") "\"")))
 				  (substitute* "scripts/ebbot.sh"
 						(("guileloadcompiledpath")
 						 (string-append "\"$HOME" (assoc-ref inputs "guile")  "/lib/guile/3.0/site-ccache:"
 								(assoc-ref inputs "guile-json")  "/lib/guile/3.0/site-ccache:"
 								(assoc-ref inputs "guile-oauth")  "/lib/guile/3.0/site-ccache:"
+								out  "/lib/guile/3.0/site-ccache:"
 								(getenv "GUILE_LOAD_COMPILED_PATH") "\""))))
 					#t))		    
 		       (add-before 'install 'make-scripts-dir
