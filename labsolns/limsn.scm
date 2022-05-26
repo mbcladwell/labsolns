@@ -193,7 +193,7 @@
     ;; projects.
     ;; TODO: Add guile-dbi and guile-dbd optional dependencies.
     (propagated-inputs
-     `(("guile-json" ,guile-json-4) 
+     `(("guile-json" ,guile-json-35) 
        ("guile-readline" ,guile-readline)
        ("guile-redis" ,guile-redis)))
     (native-inputs
@@ -264,6 +264,24 @@ frameworks, session management, URL-remapping for RESTful, page caching, and
 more. v0.5.2 contains feature enhancements required by LIMS*Nucleus")
     (home-page "https://www.gnu.org/software/artanis/")
     (license (list license:gpl3+ license:lgpl3+)))) ;dual license
+
+
+(define-public guile-json-35
+  ;; This version is incompatible with 1.x; see the 'NEWS' file.
+  (package
+    (inherit guile-json-1)
+    (name "guile-json")
+    (version "3.5.0")
+    (source (origin
+              (method url-fetch)
+              (uri (string-append "mirror://savannah/guile-json/guile-json-"
+                                  version ".tar.gz"))
+              (sha256
+               (base32
+                "0nj0684qgh6ppkbdyxqfyjwsv2qbyairxpi8fzrhsi3xnc7jn4im"))))
+    (native-inputs (list pkg-config guile-3.0))
+    (inputs (list guile-3.0))))
+
 
 
 (define-public limsn
@@ -401,7 +419,7 @@ more. v0.5.2 contains feature enhancements required by LIMS*Nucleus")
       ("guile-dbi" ,guile-dbi)
       ("postgresql" ,postgresql)
       ("dbd-postgresql" ,guile-dbd-postgresql)
-      ("guile-json" ,guile-json-4)
+      ("guile-json" ,guile-json-35)
       ("guile-redis" ,guile-redis)
   		))
     (native-inputs
