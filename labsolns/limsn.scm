@@ -418,5 +418,5 @@ more. v0.5.2 contains feature enhancements required by LIMS*Nucleus")
     (license (list license:gpl3+ license:lgpl3+)))) ;dual license
 
 
-limsn
+
 
