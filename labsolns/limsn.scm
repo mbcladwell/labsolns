@@ -401,7 +401,7 @@ more. v0.5.2 contains feature enhancements required by LIMS*Nucleus")
       ("guile-dbi" ,guile-dbi)
       ("postgresql" ,postgresql)
       ("dbd-postgresql" ,guile-dbd-postgresql)
-      ("guile-json" ,guile-json-3)
+      ("guile-json" ,guile-json-4)
       ("guile-redis" ,guile-redis)
   		))
     (native-inputs
