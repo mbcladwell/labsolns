@@ -51,7 +51,8 @@
 		       (add-before 'install 'make-scripts-dir
 			       (lambda* (#:key outputs #:allow-other-keys)
 				    (let* ((out  (assoc-ref outputs "out"))
-					   (bin-dir (string-append out "/bin"))			      		   
+					   (bin-dir (string-append out "/bin"))
+			      		   (dummy (install-file "scripts/format.sh" bin-dir))
 					   )            				       
 				      (install-file "scripts/ebbot.sh" bin-dir)
 				       #t)))
