@@ -88,7 +88,7 @@
 					    (scm  "/share/guile/site/3.0")
 					    (go   "/lib/guile/3.0/site-ccache")
 					    (dummy (chmod (string-append out "/bin/format.sh") #o555 ))
-					    (dummy (chmod (string-append out "/share/guile/site/3.0/format.scm") #o555 ))
+					    (dummy (chmod (string-append out "/share/guile/site/3.0/ebbot/format.scm") #o555 ))
 					    ) ;;read execute, no write
 				      (wrap-program (string-append out "/bin/format.sh")
 						    `( "PATH" ":" prefix  (,bin-dir) )
