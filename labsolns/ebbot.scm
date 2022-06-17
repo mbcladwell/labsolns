@@ -23,7 +23,7 @@
 	   (uri (string-append "https://github.com/mbcladwell/ebbot/releases/download/v0.1/ebbot-0.1.tar.gz"))
 	  (sha256
            (base32
-            "1j2nlb9p8l1jclpmrmgw34v2lbhlpjqgxi6vfb22ibylvg1y0y3i"))
+            "00xg3s8if367jgl3bnsjpp6bnwix430sfwidil24ppx2b23a79yg"))
 	  ))
   (build-system gnu-build-system)
   (arguments `(#:tests? #false ; there are none
@@ -32,22 +32,20 @@
 				  (lambda* (#:key inputs outputs #:allow-other-keys)
 				    (let ((out  (assoc-ref outputs "out")))
 					  
-				 (substitute* "scripts/ebbot.sh"
+				 (substitute* '("scripts/ebbot.sh" "scripts/format.sh")
 						(("ebbotstorepath")
 						 out))
-				 (substitute* "scripts/ebbot.sh"
+				 (substitute* '("scripts/ebbot.sh" "scripts/format.sh")
 						(("guileloadpath")
 						 (string-append "\"$HOME" (assoc-ref inputs "guile")  "/share/guile/site/3.0:"
 								(assoc-ref inputs "guile-json")  "/share/guile/site/3.0:"
 								(assoc-ref inputs "guile-oauth")  "/share/guile/site/3.0:"
-								out "/share/guile/site/3.0:"
 								(getenv "GUILE_LOAD_PATH") "\"")))
-				  (substitute* "scripts/ebbot.sh"
+				  (substitute* '("scripts/ebbot.sh" "scripts/format.sh")
 						(("guileloadcompiledpath")
 						 (string-append "\"$HOME" (assoc-ref inputs "guile")  "/lib/guile/3.0/site-ccache:"
 								(assoc-ref inputs "guile-json")  "/lib/guile/3.0/site-ccache:"
 								(assoc-ref inputs "guile-oauth")  "/lib/guile/3.0/site-ccache:"
-								out  "/lib/guile/3.0/site-ccache:"
 								(getenv "GUILE_LOAD_COMPILED_PATH") "\""))))
 					#t))		    
 		       (add-before 'install 'make-scripts-dir
@@ -65,7 +63,7 @@
 					   (dummy (copy-recursively "./ebbot" ebbot-dir))) 
 				       #t)))
 	       
-		       (add-after 'install 'wrap-lnpg
+		       (add-after 'install 'wrap-ebbotsh
 				  (lambda* (#:key inputs outputs #:allow-other-keys)
 				    (let* ((out (assoc-ref outputs "out"))
 					   (bin-dir (string-append out "/bin"))
@@ -81,7 +79,25 @@
 						     `("GUILE_LOAD_COMPILED_PATH" prefix
 						       (,(string-append out go)))
 						     )		    
+				      #t)))
+		       (add-after 'install 'wrap-formatsh
+				  (lambda* (#:key inputs outputs #:allow-other-keys)
+				    (let* ((out (assoc-ref outputs "out"))
+					   (bin-dir (string-append out "/bin"))
+					    (scm  "/share/guile/site/3.0")
+					    (go   "/lib/guile/3.0/site-ccache")
+					    (dummy (chmod (string-append out "/bin/format.sh") #o555 ))
+					    (dummy (chmod (string-append out "/share/guile/site/3.0/format.scm") #o555 ))
+					    ) ;;read execute, no write
+				      (wrap-program (string-append out "/bin/format.sh")
+						    `( "PATH" ":" prefix  (,bin-dir) )
+						     `("GUILE_LOAD_PATH" prefix
+						       (,(string-append out scm)))						
+						     `("GUILE_LOAD_COMPILED_PATH" prefix
+						       (,(string-append out go)))
+						     )		    
 				      #t)))	       
+
 		       )))
   (native-inputs
     `(("autoconf" ,autoconf)
