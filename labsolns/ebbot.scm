@@ -50,7 +50,7 @@
 								(assoc-ref inputs "guile-oauth")  "/lib/guile/3.0/site-ccache:"
 								(getenv "GUILE_LOAD_COMPILED_PATH") "\"")))
 				  (substitute* '("scripts/ebbot.sh")
-						(("guile")
+						(("guileexecutable")
 						 (string-append  (assoc-ref inputs "guile")  "/bin/guile")))
 				  )
 				    #t))		    
