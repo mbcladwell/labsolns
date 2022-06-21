@@ -48,8 +48,12 @@
 								(assoc-ref inputs "guile")  "/lib/guile/3.0/site-ccache:"
 								(assoc-ref inputs "guile-json")  "/lib/guile/3.0/site-ccache:"
 								(assoc-ref inputs "guile-oauth")  "/lib/guile/3.0/site-ccache:"
-								(getenv "GUILE_LOAD_COMPILED_PATH") "\""))))
-					#t))		    
+								(getenv "GUILE_LOAD_COMPILED_PATH") "\"")))
+				  (substitute* '("scripts/ebbot.sh")
+						(("guile")
+						 (string-append  (assoc-ref inputs "guile")  "/bin/guile")))
+				  )
+				    #t))		    
 		       (add-before 'install 'make-scripts-dir
 			       (lambda* (#:key outputs #:allow-other-keys)
 				    (let* ((out  (assoc-ref outputs "out"))
