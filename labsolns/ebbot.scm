@@ -23,7 +23,7 @@
 	   (uri (string-append "https://github.com/mbcladwell/ebbot/releases/download/v0.1/ebbot-0.1.tar.gz"))
 	  (sha256
            (base32
-            "06gjyhys0qy8ph213pmkpvnvp11fbcmzbc1xymbz82vyg11dld3j"))
+            "0nqgyhj0lab9khn6wdjqx0yqsbfvqwcv1rh8xxqq4siiz9w4vaz2"))
 	  ))
   (build-system gnu-build-system)
   (arguments `(#:tests? #false ; there are none
@@ -41,14 +41,14 @@
 								(assoc-ref inputs "guile")  "/share/guile/site/3.0:"
 								(assoc-ref inputs "guile-json")  "/share/guile/site/3.0:"
 								(assoc-ref inputs "guile-oauth")  "/share/guile/site/3.0:"
-								(getenv "GUILE_LOAD_PATH") "\"")))
+								(getenv "GUILE_LOAD_PATH") )))
 				  (substitute* '("scripts/ebbot.sh" "scripts/format.sh")
 						(("guileloadcompiledpath")
 						 (string-append  out "/lib/guile/3.0/site-ccache:"
 								(assoc-ref inputs "guile")  "/lib/guile/3.0/site-ccache:"
 								(assoc-ref inputs "guile-json")  "/lib/guile/3.0/site-ccache:"
 								(assoc-ref inputs "guile-oauth")  "/lib/guile/3.0/site-ccache:"
-								(getenv "GUILE_LOAD_COMPILED_PATH") "\"")))
+								(getenv "GUILE_LOAD_COMPILED_PATH") )))
 				  (substitute* '("scripts/ebbot.sh")
 						(("guileexecutable")
 						 (string-append  (assoc-ref inputs "guile")  "/bin/guile")))
