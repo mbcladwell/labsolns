@@ -37,18 +37,18 @@
 						 out))
 				 (substitute* '("scripts/ebbot.sh" "scripts/format.sh")
 						(("guileloadpath")
-						 (string-append  out "/share/guile/site/3.0:"
+						 (string-append "\"" out "/share/guile/site/3.0:"
 								(assoc-ref inputs "guile")  "/share/guile/site/3.0:"
 								(assoc-ref inputs "guile-json")  "/share/guile/site/3.0:"
 								(assoc-ref inputs "guile-oauth")  "/share/guile/site/3.0:"
-								(getenv "GUILE_LOAD_PATH") )))
+								(getenv "GUILE_LOAD_PATH") "\"")))
 				  (substitute* '("scripts/ebbot.sh" "scripts/format.sh")
 						(("guileloadcompiledpath")
-						 (string-append  out "/lib/guile/3.0/site-ccache:"
+						 (string-append "\"" out "/lib/guile/3.0/site-ccache:"
 								(assoc-ref inputs "guile")  "/lib/guile/3.0/site-ccache:"
 								(assoc-ref inputs "guile-json")  "/lib/guile/3.0/site-ccache:"
 								(assoc-ref inputs "guile-oauth")  "/lib/guile/3.0/site-ccache:"
-								(getenv "GUILE_LOAD_COMPILED_PATH") )))
+								(getenv "GUILE_LOAD_COMPILED_PATH") "\"" )))
 				  (substitute* '("scripts/ebbot.sh")
 						(("guileexecutable")
 						 (string-append  (assoc-ref inputs "guile")  "/bin/guile")))
