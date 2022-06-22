@@ -23,7 +23,7 @@
 	   (uri (string-append "https://github.com/mbcladwell/ebbot/releases/download/v0.1/ebbot-0.1.tar.gz"))
 	  (sha256
            (base32
-            "0q8rks4sm98xyg3pgqrjc1rwrbpil7zd0q3ln9zdbqk1xf3kkmda"))
+            "0969rdciv75jmlmh3yzc0kh3lw2xd15fpdy31ganhacnb5dby79b"))
 	  ))
   (build-system gnu-build-system)
   (arguments `(#:tests? #false ; there are none
