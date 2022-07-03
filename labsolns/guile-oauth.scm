@@ -28,13 +28,13 @@
 (define-public guile-oauth
 (package
   (name "guile-oauth")
-  (version "1.1.0") 
+  (version "1.3.0") 
    (source (origin
             (method url-fetch)
-             (uri "https://github.com/mbcladwell/guile-oauth/releases/download/1.1.0/guile-oauth-1.1.0.tar.gz")          
+             (uri "https://github.com/mbcladwell/guile-oauth/releases/download/1.3.0/guile-oauth-1.3.0.tar.gz")          
             (sha256
              (base32
-              "1ly1nvwyk7n0i8f2rpx78lx4jvfk5z9g4ng52wb1q56p96w21qz7"))))
+              "05cvqbybxnsic0ibyrlxyrjkwsyvncb808kgl8vlxwqx8zmn1v9k"))))
    
   (properties `((upstream-name . "guile-oauth")))
   (build-system gnu-build-system)
