@@ -245,7 +245,7 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
     (home-page "https://www.gnu.org/software/artanis/")
     (license (list license:gpl3+ license:lgpl3+)))) ;dual license
 
-
+(define-public myapp
   (package
     (name "myapp")
     (version "0.1.0")
@@ -363,7 +363,7 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
     (synopsis "Microwell Plate management Software")
     (description "description")
     (home-page "http://www.labsolns.com/")
-    (license (list license:gpl3+ license:lgpl3+))) ;dual license
+    (license (list license:gpl3+ license:lgpl3+)))) ;dual license
 
 
 
