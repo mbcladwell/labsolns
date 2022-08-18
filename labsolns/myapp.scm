@@ -268,20 +268,37 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
 						(("abcdefgh")
 						(assoc-ref outputs "out" )) )
 				 #t))		       			       
-		(add-after 'unpack 'augment-GUILE_LOAD_PATH
-			 ;;  (lambda* _
-			   (lambda* (#:key inputs #:allow-other-keys)
-			     (setenv "GUILE_LOAD_PATH"
-				     (string-append
-						    ".:"
-						    (assoc-ref inputs "guile-json")  "/share/guile/site/3.0:"
-						    (assoc-ref inputs "guile-redis")  "/share/guile/site/3.0:"
-						    (assoc-ref inputs "artanis")  "/share/guile/site/3.0:"
-						    (assoc-ref inputs "guile-dbi")  "/share/guile/site/3.0:"
-						    ;;   out "/myapp/lib:"
-						   ;; "/gnu/store/s99zvmlxjsq6m9iw00as91hrga2fbp1j-artanis-0.5.3/share/guile/site/3.0:"
-						    (getenv "GUILE_LOAD_PATH")))
-			     #t))
+		;; (add-after 'unpack 'augment-GUILE_LOAD_PATH
+		;; 	 ;;  (lambda* _
+		;; 	   (lambda* (#:key inputs #:allow-other-keys)
+		;; 	     (setenv "GUILE_LOAD_PATH"
+		;; 		     (string-append
+		;; 				    ".:"
+		;; 				    (assoc-ref inputs "guile-json")  "/share/guile/site/3.0:"
+		;; 				    (assoc-ref inputs "guile-redis")  "/share/guile/site/3.0:"
+		;; 				    (assoc-ref inputs "artanis")  "/share/guile/site/3.0:"
+		;; 				    (assoc-ref inputs "guile-dbi")  "/share/guile/site/3.0:"
+		;; 				    ;;   out "/myapp/lib:"
+		;; 				   ;; "/gnu/store/s99zvmlxjsq6m9iw00as91hrga2fbp1j-artanis-0.5.3/share/guile/site/3.0:"
+		;; 				    (getenv "GUILE_LOAD_PATH")))
+		;; 	     #t))
+
+
+		       (add-after 'unpack 'augment-GUILE_LOAD_PATH
+				  (lambda* (#:key inputs outputs #:allow-other-keys)
+				    (let* ((out  (assoc-ref outputs "out"))
+					   (scm  "/share/guile/site/3.0"))
+				      (setenv "GUILE_LOAD_PATH"
+					      (string-append
+					      ;; "./limsn/lib:"  ;;needed for libraries
+					       (string-append out scm ":")
+					       (assoc-ref inputs "artanis") "/share/guile/site/3.0:"
+					       (assoc-ref inputs "guile-json") "/share/guile/site/3.0:"
+					       (assoc-ref inputs "guile-redis") "/share/guile/site/3.0:"
+					       (assoc-ref inputs "guile-dbi") "/share/guile/site/3.0:"					       
+					       (getenv "GUILE_LOAD_PATH")))
+				      #t)))
+		
                        (add-before 'install 'make-lib-dir
 			       (lambda* (#:key outputs #:allow-other-keys)
 				    (let* ((out  (assoc-ref outputs "out"))
@@ -298,21 +315,7 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
 					   (dummy (mkdir-p scripts-dir)))            				       
 				       (copy-recursively "./scripts" scripts-dir)
 				       #t)))
-		       ;; (add-after 'install 'make-bin-dir
-		       ;; 		  (lambda* (#:key inputs outputs #:allow-other-keys)
-		       ;; 		    (let* ((out (assoc-ref outputs "out"))
-		       ;; 			   (bin-dir (string-append out "/share/guile/site/3.0/myapp/bin"))
-		       ;; 			   (dummy (install-file "./scripts/init-myapp.sh" bin-dir))				
-		       ;; 			   (dummy (install-file "./scripts/start-myapp.sh" bin-dir))				
-		       ;; 			   (dummy (chmod (string-append bin-dir "/init-myapp.sh") #o555 ))
-		       ;; 			   (dummy (chmod (string-append bin-dir "/start-myapp.sh") #o555 ))
-		       ;; 			   (dummy (wrap-program (string-append bin-dir "/init-myapp.sh")
-		       ;; 				    `( "PATH" ":" prefix  (,bin-dir) )))
-		       ;; 			   ) ;;read execute, no write
-		       ;; 		      (wrap-program (string-append bin-dir "/start-myapp.sh")
-		       ;; 				    `( "PATH" ":" prefix  (,bin-dir) ))		    
-		       ;; 		      #t)))
-
+		      
 		        (add-after 'install 'make-bin-dir
 				  (lambda* (#:key inputs outputs #:allow-other-keys)
 				    (let* ((out (assoc-ref outputs "out"))
