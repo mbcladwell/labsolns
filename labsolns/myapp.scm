@@ -295,7 +295,6 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
 					       (assoc-ref inputs "artanis") "/share/guile/site/3.0:"
 					       (assoc-ref inputs "guile-json") "/share/guile/site/3.0:"
 					       (assoc-ref inputs "guile-redis") "/share/guile/site/3.0:"
-					       (assoc-ref inputs "guile-dbi") "/share/guile/site/3.0:"					       
 					       (getenv "GUILE_LOAD_PATH")))
 				      #t)))
 		
@@ -347,9 +346,6 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
 	  ("artanis" ,artanis-053)
 	  ("guile-json" ,guile-json-3) 
 	  ("guile-redis" ,guile-redis)
-	  ("guile-dbi" ,guile-dbi)
-          ("postgresql" ,postgresql)
-	  ("dbd-postgresql" ,guile-dbd-postgresql)
   
 		))
     (native-inputs
