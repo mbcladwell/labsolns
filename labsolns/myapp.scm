@@ -277,6 +277,7 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
 						    (assoc-ref inputs "guile-json")  "/share/guile/site/3.0:"
 						    (assoc-ref inputs "guile-redis")  "/share/guile/site/3.0:"
 						    (assoc-ref inputs "artanis")  "/share/guile/site/3.0:"
+						    (assoc-ref inputs "guile-dbi")  "/share/guile/site/3.0:"
 						    ;;   out "/myapp/lib:"
 						   ;; "/gnu/store/s99zvmlxjsq6m9iw00as91hrga2fbp1j-artanis-0.5.3/share/guile/site/3.0:"
 						    (getenv "GUILE_LOAD_PATH")))
