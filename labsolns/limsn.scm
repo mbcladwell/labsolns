@@ -414,7 +414,7 @@ more. v0.5.2 contains feature enhancements required by LIMS*Nucleus")
     `(("guile" ,guile-3.0)))
    (propagated-inputs
     `(
-      ("artanis" ,artanis-052)
+      ("artanis" ,artanis-053)
       ("gnuplot" ,gnuplot)
       ("guile-dbi" ,guile-dbi)
       ("postgresql" ,postgresql)
