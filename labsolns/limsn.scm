@@ -84,10 +84,10 @@
   ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
  #:use-module ((srfi srfi-1) #:select (alist-delete)))
 
-(define-public artanis-052
+(define-public artanis-053
   (package
     (name "artanis")
-    (version "0.5.2")
+    (version "0.5.3")
     (source (origin
               (method url-fetch)
               (uri (string-append "mirror://gnu/artanis/artanis-0.5.tar.gz"))
@@ -152,7 +152,7 @@
 				(("\\(add-to-load-path \\(current-toplevel\\)\\)")
 				 "(add-to-load-path (original-current-toplevel))")
 				(("\\(add-to-load-path \\(string-append \\(current-toplevel\\) \"/lib\"\\)\\)")
-				 "(add-to-load-path (string-append (original-current-toplevel) \"/lib\"))"))		
+				 "(add-to-load-path (string-append (original-current-toplevel) \"/..\"))"))		
 		   (substitute* '("artanis/tpl/parser.scm"
 				  "artanis/mvc/controller.scm"
 				  "artanis/webapi/restful.scm")			      			       
