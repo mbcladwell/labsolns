@@ -256,7 +256,7 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
             (method url-fetch)
             ;;(uri (string-append "file:///home/admin/myapp-0.1.tar.gz"))
 	    (uri (string-append "https://github.com/mbcladwell/myapp/releases/download/v0.1/myapp-0.1.tar.gz"))	    
-             "12rzxc7xbd88d5ga5c6p6ngd37x1al9kds2hnv7si6b82mwzsapq"(sha256
+             "0hsqyp1mn9cg1l75p8afccq0fsj0n03z3z61bnrz2421ifp6ajc9"(sha256
              (base32
               "0yr2nnn337bcryzk9hf7z43r64wr74dri9s0w38gbgkvhp0ycrwa"))))
    (build-system gnu-build-system)
