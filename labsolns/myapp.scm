@@ -256,7 +256,7 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
 	    (uri (string-append "https://github.com/mbcladwell/myapp/releases/download/v0.1/myapp-0.1.tar.gz"))	    
             (sha256
              (base32
-             "06m86rsd4fdk5ppr9liviibcq9l9kdn3xmryal0pz1rvgjmr7ddx"))))
+             "1sm45vfqxqs1px9yqv1dlah5nkg8cw8qw1kw7pcz1np3kvgimvdj"))))
    (build-system gnu-build-system)
   (arguments `(#:tests? #false ; there are none
 			#:phases (modify-phases %standard-phases
@@ -290,7 +290,7 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
 					   (scm  "/share/guile/site/3.0"))
 				      (setenv "GUILE_LOAD_PATH"
 					      (string-append
-					       "./myapp:./myapp/lib:"  ;;needed for libraries
+					       "./myapp:"  ;;needed for libraries
 					       (string-append out scm ":")
 					       (assoc-ref inputs "artanis") "/share/guile/site/3.0:"
 					       (assoc-ref inputs "guile-json") "/share/guile/site/3.0:"
