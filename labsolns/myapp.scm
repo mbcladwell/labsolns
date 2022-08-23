@@ -290,7 +290,7 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
 					   (scm  "/share/guile/site/3.0"))
 				      (setenv "GUILE_LOAD_PATH"
 					      (string-append
-					      ;; "./limsn/lib:"  ;;needed for libraries
+					       "./myapp:./myapp/lib:"  ;;needed for libraries
 					       (string-append out scm ":")
 					       (assoc-ref inputs "artanis") "/share/guile/site/3.0:"
 					       (assoc-ref inputs "guile-json") "/share/guile/site/3.0:"
