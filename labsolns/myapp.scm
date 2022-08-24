@@ -151,12 +151,12 @@
 				(("      \\(find-ENTRY-path identity #t\\)\\)\\)\n")
 			;;	 "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) \"/tmp/myapp\")"))
 				 "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) (string-append \"/tmp/\" (substring \"/myapp\" (+ (string-rindex \"/myapp\" #\\/) 1) (string-length \"/myapp\") ) ))")
-			;;	 "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) (string-append (current-appname) (substring %immutable-toplevel (+ (string-rindex %immutable-toplevel #\\/) 1) (string-length %immutable-toplevel) ) ))"
-			;;	 "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) (string-append \"/tmp/\" (current-appname)     ))")
-				 
-				
-				)
+				;;	 "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) (string-append (current-appname) (substring %immutable-toplevel (+ (string-rindex %immutable-toplevel #\\/) 1) (string-length %immutable-toplevel) ) ))"
 
+				;;use of (current-appname) causes disk thrashing and freezing
+			;;	 "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) (string-append \"/tmp/\" (current-appname)     ))")
+				 				
+				)
 ;;   \"/myapp\"  should be replaced with (find-ENTRY-path identity #t)	   
 	;;============END forguix mods=========================================================================
 				   
@@ -258,7 +258,7 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
 	    (uri (string-append "https://github.com/mbcladwell/myapp/releases/download/v0.1/myapp-0.1.tar.gz"))	    
             (sha256
              (base32
-              "1309j8816rgr83cricnvxb167ad6wjlvzsfdhs4xzzb9cmy10358"))))
+             "0qjgbcma33j74kn83497i35fy2s9hga5a6znkp3n5jgw4sb9fax6"))))
    (build-system gnu-build-system)
   (arguments `(#:tests? #false ; there are none
 			#:phases (modify-phases %standard-phases
@@ -271,20 +271,32 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
 						(assoc-ref outputs "out" )) )
 				 #t))		       			       
 
+		       ;; (add-after 'unpack 'augment-GUILE_LOAD_PATH
+		       ;; 		  (lambda* (#:key inputs outputs #:allow-other-keys)
+		       ;; 		    (let* ((out  (assoc-ref outputs "out"))
+		       ;; 			   (scm  "/share/guile/site/3.0"))
+		       ;; 		      (setenv "GUILE_LOAD_PATH"
+		       ;; 			      (string-append
+		       ;; 			       "./myapp:"  ;;needed for libraries
+		       ;; 			       (string-append out scm ":")
+		       ;; 			       (assoc-ref inputs "artanis") "/share/guile/site/3.0:"
+		       ;; 			       (assoc-ref inputs "guile-json") "/share/guile/site/3.0:"
+		       ;; 			       (assoc-ref inputs "guile-redis") "/share/guile/site/3.0:"
+		       ;; 			       (getenv "GUILE_LOAD_PATH")))
+		       ;; 		      #t)))
 		       (add-after 'unpack 'augment-GUILE_LOAD_PATH
 				  (lambda* (#:key inputs outputs #:allow-other-keys)
 				    (let* ((out  (assoc-ref outputs "out"))
-					   (scm  "/share/guile/site/3.0"))
+					   (scm  "/share/guile/site/3.0:"))
 				      (setenv "GUILE_LOAD_PATH"
-					      (string-append
-					       "./myapp:"  ;;needed for libraries
-					       (string-append out scm ":")
-					       (assoc-ref inputs "artanis") "/share/guile/site/3.0:"
-					       (assoc-ref inputs "guile-json") "/share/guile/site/3.0:"
-					       (assoc-ref inputs "guile-redis") "/share/guile/site/3.0:"
+					      (string-append out scm
+					        out scm "/myapp:"	 ;;needed for libraries				       
+					       (assoc-ref inputs "artanis") scm
+					       (assoc-ref inputs "guile-json") scm
+					       (assoc-ref inputs "guile-redis") scm
 					       (getenv "GUILE_LOAD_PATH")))
 				      #t)))
-		
+			
                        (add-before 'install 'make-lib-dir
 			       (lambda* (#:key outputs #:allow-other-keys)
 				    (let* ((out  (assoc-ref outputs "out"))
