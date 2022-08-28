@@ -260,6 +260,17 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
              (base32
               "1309j8816rgr83cricnvxb167ad6wjlvzsfdhs4xzzb9cmy10358"))))
    (build-system gnu-build-system)
+     (inputs (list guile-3.0 gnuplot))
+  (propagated-inputs (list artanis-053 guile-json-3 guile-redis))
+  (native-inputs
+     ;; ;; `(("bash"       ,bash)         ;for the `source' builtin
+     ;; ;;   ("pkgconfig"  ,pkg-config)
+     ;; ;;   ("autoconf" ,autoconf)
+     ;; ;;   ("automake" ,automake)
+     ;; ;;   ("texinfo" ,texinfo)
+     ;;   ("util-linux" ,util-linux))
+     (list bash pkg-config autoconf automake texinfo util-linux)) ;for the `script' command
+
   (arguments `(#:tests? #false ; there are none
 			#:phases (modify-phases %standard-phases
     		       (add-after 'unpack 'patch-prefix
@@ -349,16 +360,6 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
     ;;    ("guile-json" ,guile-json-3) 
     ;;    ("guile-redis" ,guile-redis)
     ;;    ))
-  (inputs (list guile-3.0 gnuplot))
-  (propagated-inputs (list artanis-053 guile-json-3 guile-redis))
-  (native-inputs
-     ;; ;; `(("bash"       ,bash)         ;for the `source' builtin
-     ;; ;;   ("pkgconfig"  ,pkg-config)
-     ;; ;;   ("autoconf" ,autoconf)
-     ;; ;;   ("automake" ,automake)
-     ;; ;;   ("texinfo" ,texinfo)
-     ;;   ("util-linux" ,util-linux))
-     (list bash pkg-config autoconf automake texinfo util-linux)) ;for the `script' command
 
     (synopsis "Microwell Plate management Software")
     (description "description")
