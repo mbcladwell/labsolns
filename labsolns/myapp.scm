@@ -258,7 +258,7 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
 	    (uri (string-append "https://github.com/mbcladwell/myapp/releases/download/v0.1/myapp-0.1.tar.gz"))	    
             (sha256
              (base32
-             "13sk7p3kqszsad73ix4cnq619ghp1f9why348slszix8f4sxlmjj"))))
+             "0c8qgabp59rfy2zyb1dvn88l651hkr2w6r7wfbwhm0w7aqihfiqc"))))
    (build-system gnu-build-system)
   (arguments `(#:tests? #false ; there are none
 			#:phases (modify-phases %standard-phases
