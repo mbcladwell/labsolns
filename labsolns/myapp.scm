@@ -258,7 +258,7 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
 	    (uri (string-append "https://github.com/mbcladwell/myapp/releases/download/v0.1/myapp-0.1.tar.gz"))	    
             (sha256
              (base32
-              "1309j8816rgr83cricnvxb167ad6wjlvzsfdhs4xzzb9cmy10358"))))
+             "07cynwcjdx6gmnrg29pyriwy240a47v98iliq5kcv3g26njaj96p"))))
    (build-system gnu-build-system)
      (inputs (list guile-3.0 gnuplot))
   (propagated-inputs (list artanis-053 guile-json-3 guile-redis))
