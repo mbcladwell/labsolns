@@ -304,8 +304,8 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
 				      (setenv "GUILE_LOAD_PATH"
 					      (string-append out scm
 					        out scm "/myapp:"	 ;;needed for libraries				       
-					       (assoc-ref inputs "artanis-053") scm
-					       (assoc-ref inputs "guile-json-3") scm
+					       (assoc-ref inputs "artanis") scm
+					       (assoc-ref inputs "guile-json") scm
 					       (assoc-ref inputs "guile-redis") scm
 					       (getenv "GUILE_LOAD_PATH")))
 				      #t)))
