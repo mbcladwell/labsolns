@@ -258,7 +258,7 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
 	    (uri (string-append "https://github.com/mbcladwell/myapp/releases/download/v0.1/myapp-0.1.tar.gz"))	    
             (sha256
              (base32
-             "0pjv700zfr8ildwfidlm2y750mq4pdgddf220cggnskpf0wpxcxh"))))
+              "1309j8816rgr83cricnvxb167ad6wjlvzsfdhs4xzzb9cmy10358"))))
    (build-system gnu-build-system)
   (arguments `(#:tests? #false ; there are none
 			#:phases (modify-phases %standard-phases
@@ -266,8 +266,8 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
 			       (lambda* (#:key inputs outputs #:allow-other-keys)
 				 (substitute* '("./scripts/init-myapp.sh"
 						"./scripts/start-myapp.sh"
-					;;	"./myapp/ENTRY")
-					      	"./ENTRY")
+						"./myapp/ENTRY")
+					;;      	"./ENTRY")
 					      
 						(("abcdefgh")
 						(assoc-ref outputs "out" )) )
@@ -293,9 +293,9 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
 				      (setenv "GUILE_LOAD_PATH"
 					      (string-append out scm
 					        out scm "/myapp:"	 ;;needed for libraries				       
-					       (assoc-ref inputs "artanis") scm
-					       (assoc-ref inputs "guile-json") scm
-					       (assoc-ref inputs "guile-redis") scm
+					       (assoc-ref inputs artanis-053) scm
+					       (assoc-ref inputs guile-json-3) scm
+					       (assoc-ref inputs guile-redis) scm
 					       (getenv "GUILE_LOAD_PATH")))
 				      #t)))
 			
@@ -337,31 +337,28 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
 							     )))
 					     all-files))					   					   	    
 				      #t))
-		       )))
-    (inputs
-     `(("guile" ,guile-3.0)
-       ("gnuplot" ,gnuplot)
-       ))
-    (propagated-inputs
-     `(
-       ("artanis" ,artanis-053)
-       ("guile-json" ,guile-json-3) 
-       ("guile-redis" ,guile-redis)
-       ))
-    (native-inputs
+			)))
+  
+    ;; (inputs
+    ;;  `(("guile" ,guile-3.0)
+    ;;    ("gnuplot" ,gnuplot)
+    ;;    ))
+    ;; (propagated-inputs
+    ;;  `(
+    ;;    ("artanis" ,artanis-053)
+    ;;    ("guile-json" ,guile-json-3) 
+    ;;    ("guile-redis" ,guile-redis)
+    ;;    ))
+  (inputs (list guile-3.0 gnuplot))
+  (propagated-inputs (list artanis-053 guile-json-3 guile-redis))
+  (native-inputs
      ;; ;; `(("bash"       ,bash)         ;for the `source' builtin
      ;; ;;   ("pkgconfig"  ,pkg-config)
      ;; ;;   ("autoconf" ,autoconf)
      ;; ;;   ("automake" ,automake)
      ;; ;;   ("texinfo" ,texinfo)
      ;;   ("util-linux" ,util-linux))
-     
-     (list bash pkg-config
-       autoconf
-       automake
-       texinfo
-       util-linux)    
-     ) ;for the `script' command
+     (list bash pkg-config autoconf automake texinfo util-linux)) ;for the `script' command
 
     (synopsis "Microwell Plate management Software")
     (description "description")
