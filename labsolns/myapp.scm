@@ -150,7 +150,7 @@
 					 "  (define (immutable-toplevel)\n")
 				(("      \\(find-ENTRY-path identity #t\\)\\)\\)\n")
 			;;	 "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) \"/tmp/myapp\")"))
-				 "     (or (%immutable-toplevel)\n         (string-append (find-ENTRY-path identity #t) \"/myapp\")))\n\n(define (current-toplevel) (string-append \"/tmp/\" (substring \"/myapp\" (+ (string-rindex \"/myapp\" #\\/) 1) (string-length \"/myapp\") ) ))")
+				 "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) (string-append \"/tmp/\" (substring \"/myapp\" (+ (string-rindex \"/myapp\" #\\/) 1) (string-length \"/myapp\") ) ))")
 				;;	 "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) (string-append (current-appname) (substring %immutable-toplevel (+ (string-rindex %immutable-toplevel #\\/) 1) (string-length %immutable-toplevel) ) ))"
 
 				;;use of (current-appname) causes disk thrashing and freezing
@@ -258,7 +258,7 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
 	    (uri (string-append "https://github.com/mbcladwell/myapp/releases/download/v0.1/myapp-0.1.tar.gz"))	    
             (sha256
              (base32
-             "1b91kl4p4imqi0z4p1kdxvhgr8y0k1yw6920vriq58jcyv7f6f21"))))
+             "0pjv700zfr8ildwfidlm2y750mq4pdgddf220cggnskpf0wpxcxh"))))
    (build-system gnu-build-system)
   (arguments `(#:tests? #false ; there are none
 			#:phases (modify-phases %standard-phases
@@ -342,20 +342,26 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
      `(("guile" ,guile-3.0)
        ("gnuplot" ,gnuplot)
        ))
-       (propagated-inputs
-	`(
-	  ("artanis" ,artanis-053)
-	  ("guile-json" ,guile-json-3) 
-	  ("guile-redis" ,guile-redis)
-  
-		))
+    (propagated-inputs
+     `(
+       ("artanis" ,artanis-053)
+       ("guile-json" ,guile-json-3) 
+       ("guile-redis" ,guile-redis)
+       ))
     (native-inputs
-     `(("bash"       ,bash)         ;for the `source' builtin
-       ("pkgconfig"  ,pkg-config)
-       ("autoconf" ,autoconf)
-       ("automake" ,automake)
-       ("texinfo" ,texinfo)
-       ("util-linux" ,util-linux))) ;for the `script' command
+     ;; ;; `(("bash"       ,bash)         ;for the `source' builtin
+     ;; ;;   ("pkgconfig"  ,pkg-config)
+     ;; ;;   ("autoconf" ,autoconf)
+     ;; ;;   ("automake" ,automake)
+     ;; ;;   ("texinfo" ,texinfo)
+     ;;   ("util-linux" ,util-linux))
+     
+     (list bash pkg-config
+       autoconf
+       automake
+       texinfo
+       util-linux)    
+     ) ;for the `script' command
 
     (synopsis "Microwell Plate management Software")
     (description "description")
