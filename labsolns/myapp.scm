@@ -145,8 +145,8 @@
 					 "(define %immutable-toplevel (make-parameter #f))\n")
 				(("  \\(or \\(%current-toplevel\\)\n")
 					 "  (define (immutable-toplevel)\n")
-				(("      \\(find-ENTRY-path identity #t\\)\\)\\)\n")		 
-			      	 "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) (string-append \"/tmp/\" (substring  \"/myapp\" (+ (string-rindex  \"/myapp\" #\\/) 1) (string-length  \"/myapp\" ) )) )")
+			;;	(("      \\(find-ENTRY-path identity #t\\)\\)\\)\n")		 
+			  ;;    	 "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) (string-append \"/tmp/\" (substring  \"/myapp\" (+ (string-rindex  \"/myapp\" #\\/) 1) (string-length  \"/myapp\" ) )) )")
                                 				
 				;;use of (current-appname) causes disk thrashing and freezing
 				(("\\(define \\(has-cache-handler? uid\\) \\(hash-ref *cache-handlers-table* uid\\)\\) \n")		 
@@ -254,7 +254,7 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
 	    (uri (string-append "https://github.com/mbcladwell/myapp/releases/download/v0.1/myapp-0.1.tar.gz"))	    
             (sha256
              (base32
-             "1cyrbhksi82rykpwld8gdh11vcw0sivzl0pziirj06fg4dngzmv3"))));;anchor1
+             "0yyzn8i2if8fjiv127vnq3ai2q3013cbmxnrbxkmhcjrwbsy900k"))));;anchor1
    (build-system gnu-build-system)
    
    (inputs (list guile-3.0 gnuplot))
