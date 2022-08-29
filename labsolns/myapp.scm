@@ -144,16 +144,13 @@
 				(("\\(define \\(current-toplevel\\)\n")
 					 "(define %immutable-toplevel (make-parameter #f))\n")
 				(("  \\(or \\(%current-toplevel\\)\n")
-					 "  (define (immutable-toplevel)\n")
+					 "  (define immutable-toplevel\n")
 				(("      \\(find-ENTRY-path identity #t\\)\\)\\)\n")
 				 ;;	 "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) \"/tmp/myapp\")"))
 				 
 				;; "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) (string-append \"/tmp/\" (substring \"/myapp\" (+ (string-rindex \"/myapp\" #\\/) 1) (string-length \"/myapp\") ) ))")
-			      	;; "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) (string-append \"/tmp/\" (substring (immutable-toplevel) (+ (string-rindex (immutable-toplevel) #\\/) 1) (string-length (immutable-toplevel) ) )) )")
-
-                                   "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) (string-append \"/tmp/\" (substring (immutable-toplevel) 5 10 )) )")
-
-				
+			      	 "     (or %immutable-toplevel\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) (string-append \"/tmp/\" (substring immutable-toplevel (+ (string-rindex immutable-toplevel #\\/) 1) (string-length immutable-toplevel ) )) )")
+                                				
 				;;use of (current-appname) causes disk thrashing and freezing
 			;;	 "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) (string-append \"/tmp/\" (current-appname)     ))")
 				 				
@@ -259,7 +256,7 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
 	    (uri (string-append "https://github.com/mbcladwell/myapp/releases/download/v0.1/myapp-0.1.tar.gz"))	    
             (sha256
              (base32
-             "1fhmc903nnb1z7ih3nm0ydv4zkrx1rqp0rq07sqqhc7ckxx6hrwh"))))
+             "059ax7149ijb0yh1zb4ck46y5rnfdkrbmv2p6c2cazcdfwy66w8w"))))
    (build-system gnu-build-system)
    
    (inputs (list guile-3.0 gnuplot))
