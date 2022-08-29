@@ -145,14 +145,12 @@
 					 "(define %immutable-toplevel (make-parameter #f))\n")
 				(("  \\(or \\(%current-toplevel\\)\n")
 					 "  (define (immutable-toplevel)\n")
-				(("      \\(find-ENTRY-path identity #t\\)\\)\\)\n")
-				 ;;	 "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) \"/tmp/myapp\")"))
-				 
-				;; "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) (string-append \"/tmp/\" (substring \"/myapp\" (+ (string-rindex \"/myapp\" #\\/) 1) (string-length \"/myapp\") ) ))")
+				(("      \\(find-ENTRY-path identity #t\\)\\)\\)\n")		 
 			      	 "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) (string-append \"/tmp/\" (substring  \"/myapp\" (+ (string-rindex  \"/myapp\" #\\/) 1) (string-length  \"/myapp\" ) )) )")
                                 				
 				;;use of (current-appname) causes disk thrashing and freezing
-			;;	 "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) (string-append \"/tmp/\" (current-appname)     ))")
+				(("\\(define \\(has-cache-handler? uid\\) \\(hash-ref *cache-handlers-table* uid\\)\\) \n")		 
+			      	 "(define (has-cache-handler? uid) (hash-ref *cache-handlers-table* uid)) \n\n(define (current-toplevel) (string-append \"/tmp/\" (substring  (current-appname) (+ (string-rindex  (current-appname) #\\/) 1) (string-length  (current-appname) ) )) )")
 				 				
 				)
 ;;   \"/myapp\"  should be replaced with (find-ENTRY-path identity #t)	   
@@ -256,7 +254,7 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
 	    (uri (string-append "https://github.com/mbcladwell/myapp/releases/download/v0.1/myapp-0.1.tar.gz"))	    
             (sha256
              (base32
-             "14fgpi4cipas2y15smmy58dzqs0ma4lxrlnh5yz4c5sa1a98qz3d"))))
+             "1cyrbhksi82rykpwld8gdh11vcw0sivzl0pziirj06fg4dngzmv3"))));;anchor1
    (build-system gnu-build-system)
    
    (inputs (list guile-3.0 gnuplot))
