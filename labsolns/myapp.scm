@@ -256,10 +256,10 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
    (source (origin
             (method url-fetch)
             ;;(uri (string-append "file:///home/admin/myapp-0.1.tar.gz"))
-             "0h0fs8gs6lih4hms52wdz4l7g8nxbzvsja3skzzlfh0r4v1jpijx"	    (uri (string-append "https://github.com/mbcladwell/myapp/releases/download/v0.1/myapp-0.1.tar.gz"))	    
+	    (uri (string-append "https://github.com/mbcladwell/myapp/releases/download/v0.1/myapp-0.1.tar.gz"))	    
             (sha256
              (base32
-              "1309j8816rgr83cricnvxb167ad6wjlvzsfdhs4xzzb9cmy10358"))))
+             "1yfb4zv1qh766bfgn868jdqysnvq2q6prpz9ni6s4pb0f562ga0w"))))
    (build-system gnu-build-system)
    
    (inputs (list guile-3.0 gnuplot))
