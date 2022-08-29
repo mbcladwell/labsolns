@@ -69,11 +69,6 @@
   #:use-module (guix utils)
   #:use-module ((guix build utils) #:select (alist-replace))
   #:use-module (ice-9 match)
- ; #:use-module (artanis artanis)
- ; #:use-module (artanis utils)
- ; #:use-module (artanis irregex)
- ; #:use-module (artanis config)  
-;  #:use-module (dbi dbi)    
   #:use-module ((srfi srfi-1) #:select (alist-delete)))
 
 (define-public artanis-053
@@ -137,21 +132,23 @@
 				(("\\(if \\(current-toplevel\\)")
 				 "(if (immutable-toplevel)")
 				(("\\(format \\#f \"~a/pub/~a\" \\(current-toplevel\\) path\\)")
-				 "(format #f \"~a/pub/~a\" (immutable-toplevel) path)"))				
-		   (substitute* "artanis/env.scm"			      			       
-				(("            current-toplevel\n")
-				 "            current-toplevel\n            %immutable-toplevel\n            immutable-toplevel\n")
-				(("\\(define \\(current-toplevel\\)\n")
-					 "(define %immutable-toplevel (make-parameter #f))\n")
-				(("  \\(or \\(%current-toplevel\\)\n")
-					 "  (define (immutable-toplevel)\n")
-				(("      \\(find-ENTRY-path identity #t\\)\\)\\)\n")		 
-			     	 "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t))\n\n")
-                                (("\\(define \\(has-cache-handler\\? uid\\) \\(hash-ref \\*cache-handlers-table\\* uid\\)\\)")		 
-			      	 "(define (has-cache-handler? uid) (hash-ref *cache-handlers-table* uid))\n\n(define (current-toplevel) (string-append \"/tmp/\" (substring  (current-appname) (+ (string-rindex  (current-appname) #\\/) 1) (string-length  (current-appname) ) )) )")				
-				;;use of (current-appname) causes disk thrashing and freezing
-							 				
-				)
+				 "(format #f \"~a/pub/~a\" (immutable-toplevel) path)"))						  				
+				
+		  (substitute* "artanis/env.scm"                                                      
+                                (("            current-toplevel\n")
+                                 "            current-toplevel\n            %immutable-toplevel\n            immutable-toplevel\n")
+                                (("\\(define \\(current-toplevel\\)\n")
+                                         "(define %immutable-toplevel (make-parameter #f))\n")
+                                (("  \\(or \\(%current-toplevel\\)\n")
+                                         "  (define (immutable-toplevel)\n")
+                                (("      \\(find-ENTRY-path identity #t\\)\\)\\)\n")
+                        ;;       "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) \"/tmp/myapp\")"))
+                                 "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) (string-append \"/tmp/\" (substring \"/myapp\" (+ (string-rindex \"/myapp\" #\\/) 1) (string-length \"/myapp\") ) ))")
+                        ;;       "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) (string-append \"/tmp/\" (substring %immutable-toplevel (+ (string-rindex %immutable-toplevel #\\/) 1) (string-length %immutable-toplevel) ) ))")
+                               
+                                )    ;;use of (current-appname) causes disk thrashing and freezing
+				
+				
 ;;   \"/myapp\"  should be replaced with (find-ENTRY-path identity #t)	   
 	;;============END forguix mods=========================================================================
 				   
@@ -253,7 +250,7 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
 	    (uri (string-append "https://github.com/mbcladwell/myapp/releases/download/v0.1/myapp-0.1.tar.gz"))	    
             (sha256
              (base32
-             "039jvszdc9k3k1qfs79vvzjakd8vax61wkrppjxpgdlcd85b0jwf"))));;anchor1
+             "1gslwvgx4imhd9l886nbs865lk7m5hn52hxwx1dxnm63dpmvs2mn"))));;anchor1
    (build-system gnu-build-system)
    
    (inputs (list guile-3.0 gnuplot))
