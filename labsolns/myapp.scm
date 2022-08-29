@@ -149,8 +149,11 @@
 				 ;;	 "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) \"/tmp/myapp\")"))
 				 
 				;; "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) (string-append \"/tmp/\" (substring \"/myapp\" (+ (string-rindex \"/myapp\" #\\/) 1) (string-length \"/myapp\") ) ))")
-			      	 "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) (string-append \"/tmp/\" (substring (immutable-toplevel) (+ (string-rindex (immutable-toplevel) #\\/) 1) (string-length (immutable-toplevel) ) )) )")
+			      	;; "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) (string-append \"/tmp/\" (substring (immutable-toplevel) (+ (string-rindex (immutable-toplevel) #\\/) 1) (string-length (immutable-toplevel) ) )) )")
 
+                                   "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) (string-append \"/tmp/\" (substring (immutable-toplevel) 5 (string-length (immutable-toplevel) ) )) )")
+
+				
 				;;use of (current-appname) causes disk thrashing and freezing
 			;;	 "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) (string-append \"/tmp/\" (current-appname)     ))")
 				 				
@@ -253,10 +256,10 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
    (source (origin
             (method url-fetch)
             ;;(uri (string-append "file:///home/admin/myapp-0.1.tar.gz"))
-	    (uri (string-append "https://github.com/mbcladwell/myapp/releases/download/v0.1/myapp-0.1.tar.gz"))	    
+             "0h0fs8gs6lih4hms52wdz4l7g8nxbzvsja3skzzlfh0r4v1jpijx"	    (uri (string-append "https://github.com/mbcladwell/myapp/releases/download/v0.1/myapp-0.1.tar.gz"))	    
             (sha256
              (base32
-             "0misij67vmgib5fh91b8sj91kws149hz3g1k7ccsgma7p0c2pm6h"))))
+              "1309j8816rgr83cricnvxb167ad6wjlvzsfdhs4xzzb9cmy10358"))))
    (build-system gnu-build-system)
    
    (inputs (list guile-3.0 gnuplot))
