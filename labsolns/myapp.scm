@@ -76,9 +76,6 @@
 ;  #:use-module (dbi dbi)    
   #:use-module ((srfi srfi-1) #:select (alist-delete)))
 
-
-
-
 (define-public artanis-053
   (package
     (name "artanis")
@@ -117,7 +114,7 @@
                                     post)))
 		
 		  ;;============START forguix mods=========================================================================
-		  ;;immutable-current-toplevel is the original current-toplevel in /gnu/store
+		  ;;immutable-toplevel is the original current-toplevel in /gnu/store
 		  ;;current-toplevel is the mutable toplevel in /tmp/myapp/tmp/cache
 	
 		   (substitute* "artanis/commands/work.scm"			      			       
@@ -149,9 +146,10 @@
 				(("  \\(or \\(%current-toplevel\\)\n")
 					 "  (define (immutable-toplevel)\n")
 				(("      \\(find-ENTRY-path identity #t\\)\\)\\)\n")
-			;;	 "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) \"/tmp/myapp\")"))
-				 "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) (string-append \"/tmp/\" (substring \"/myapp\" (+ (string-rindex \"/myapp\" #\\/) 1) (string-length \"/myapp\") ) ))")
-				;;	 "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) (string-append (current-appname) (substring %immutable-toplevel (+ (string-rindex %immutable-toplevel #\\/) 1) (string-length %immutable-toplevel) ) ))"
+				 ;;	 "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) \"/tmp/myapp\")"))
+				 
+				;; "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) (string-append \"/tmp/\" (substring \"/myapp\" (+ (string-rindex \"/myapp\" #\\/) 1) (string-length \"/myapp\") ) ))")
+			      	 "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) (string-append \"/tmp/\" (substring immutable-toplevel (+ (string-rindex immutable-toplevel #\\/) 1) (string-length immutable-toplevel) ) ))"
 
 				;;use of (current-appname) causes disk thrashing and freezing
 			;;	 "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) (string-append \"/tmp/\" (current-appname)     ))")
@@ -257,46 +255,26 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
             ;;(uri (string-append "file:///home/admin/myapp-0.1.tar.gz"))
 	    (uri (string-append "https://github.com/mbcladwell/myapp/releases/download/v0.1/myapp-0.1.tar.gz"))	    
             (sha256
-             (base32
-             "07cynwcjdx6gmnrg29pyriwy240a47v98iliq5kcv3g26njaj96p"))))
+             "1gpmw4x40cswpccfwn71j5sandj2ddj605zz3j8rpfrzvrrba0hh"(base32
+              "1309j8816rgr83cricnvxb167ad6wjlvzsfdhs4xzzb9cmy10358"))))
    (build-system gnu-build-system)
-     (inputs (list guile-3.0 gnuplot))
-  (propagated-inputs (list artanis-053 guile-json-3 guile-redis))
-  (native-inputs
-     ;; ;; `(("bash"       ,bash)         ;for the `source' builtin
-     ;; ;;   ("pkgconfig"  ,pkg-config)
-     ;; ;;   ("autoconf" ,autoconf)
-     ;; ;;   ("automake" ,automake)
-     ;; ;;   ("texinfo" ,texinfo)
-     ;;   ("util-linux" ,util-linux))
-     (list bash pkg-config autoconf automake texinfo util-linux)) ;for the `script' command
+   
+   (inputs (list guile-3.0 gnuplot))
+   (propagated-inputs (list artanis-053 guile-json-3 guile-redis))
+   (native-inputs (list bash pkg-config autoconf automake texinfo util-linux)) ;for the `script' command
 
-  (arguments `(#:tests? #false ; there are none
+   (arguments `(#:tests? #false ; there are none
 			#:phases (modify-phases %standard-phases
     		       (add-after 'unpack 'patch-prefix
 			       (lambda* (#:key inputs outputs #:allow-other-keys)
 				 (substitute* '("./scripts/init-myapp.sh"
 						"./scripts/start-myapp.sh"
 						"./myapp/ENTRY")
-					;;      	"./ENTRY")
-					      
+					;;      	"./ENTRY")					      
 						(("abcdefgh")
 						(assoc-ref outputs "out" )) )
 				 #t))		       			       
 
-		       ;; (add-after 'unpack 'augment-GUILE_LOAD_PATH
-		       ;; 		  (lambda* (#:key inputs outputs #:allow-other-keys)
-		       ;; 		    (let* ((out  (assoc-ref outputs "out"))
-		       ;; 			   (scm  "/share/guile/site/3.0"))
-		       ;; 		      (setenv "GUILE_LOAD_PATH"
-		       ;; 			      (string-append
-		       ;; 			       "./myapp:"  ;;needed for libraries
-		       ;; 			       (string-append out scm ":")
-		       ;; 			       (assoc-ref inputs "artanis") "/share/guile/site/3.0:"
-		       ;; 			       (assoc-ref inputs "guile-json") "/share/guile/site/3.0:"
-		       ;; 			       (assoc-ref inputs "guile-redis") "/share/guile/site/3.0:"
-		       ;; 			       (getenv "GUILE_LOAD_PATH")))
-		       ;; 		      #t)))
 		       (add-after 'unpack 'augment-GUILE_LOAD_PATH
 				  (lambda* (#:key inputs outputs #:allow-other-keys)
 				    (let* ((out  (assoc-ref outputs "out"))
@@ -349,19 +327,7 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
 					     all-files))					   					   	    
 				      #t))
 			)))
-  
-    ;; (inputs
-    ;;  `(("guile" ,guile-3.0)
-    ;;    ("gnuplot" ,gnuplot)
-    ;;    ))
-    ;; (propagated-inputs
-    ;;  `(
-    ;;    ("artanis" ,artanis-053)
-    ;;    ("guile-json" ,guile-json-3) 
-    ;;    ("guile-redis" ,guile-redis)
-    ;;    ))
-
-    (synopsis "Microwell Plate management Software")
+      (synopsis "Microwell Plate management Software")
     (description "description")
     (home-page "http://www.labsolns.com/")
     (license (list license:gpl3+ license:lgpl3+)))) ;dual license
