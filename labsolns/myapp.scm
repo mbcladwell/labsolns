@@ -132,7 +132,7 @@
 				(("\\(if \\(current-toplevel\\)")
 				 "(if (immutable-toplevel)")
 				((" \\(let \\(\\(p \\(-> path\\)\\)\\)")
-				  " (let ((p (-> path))(dummy (DEBUG \"current-appname: ~a\" (currrent-appname))))")
+				  " (let ((p (-> path))(dummy (format (artanis-current-output) \"current-appname: ~a\" (current-appname) ))")
 				(("\\(format \\#f \"~a/pub/~a\" \\(current-toplevel\\) path\\)")
 				 "(format #f \"~a/pub/~a\" (immutable-toplevel) path)")
 				(("        \\(format \\#f \"~a\\/tmp\\/cache\\/index.html\" \\(current-toplevel\\)\\)")		 
@@ -257,7 +257,7 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
 	    (uri (string-append "https://github.com/mbcladwell/myapp/releases/download/v0.1/myapp-0.1.tar.gz"))	    
             (sha256
              (base32
-             "1p7hb4zz85906a3cpnlprnpygi6qbl1clghbnlk3ks4slans6bp4"))));;anchor1
+             "15gksvfnc8akc80ggband6932l1mv8xfg1zx7xqr6vzi65b90nz2"))));;anchor1
    (build-system gnu-build-system)
    
    (inputs (list guile-3.0 gnuplot))
