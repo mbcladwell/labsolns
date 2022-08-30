@@ -134,7 +134,9 @@
 				(("\\(format \\#f \"~a/pub/~a\" \\(current-toplevel\\) path\\)")
 				 "(format #f \"~a/pub/~a\" (immutable-toplevel) path)"))						  				
 				
-		  (substitute* "artanis/env.scm"                                                      
+		   (substitute* "artanis/env.scm"
+                                (("\\#\\:use-module \\(artanis version\\)")		 
+			      	 "#:use-module (artanis version)\n#:use-module (artanis utils)")
                                 (("            current-toplevel\n")
                                  "            current-toplevel\n            %immutable-toplevel\n            immutable-toplevel\n")
                                 (("\\(define \\(current-toplevel\\)\n")
@@ -250,7 +252,7 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
 	    (uri (string-append "https://github.com/mbcladwell/myapp/releases/download/v0.1/myapp-0.1.tar.gz"))	    
             (sha256
              (base32
-             "0cfjykbq85iv8npj0bfp352jhj9793fjjrya7pq0i561pk37zfqn"))));;anchor1
+             "1i7vbkzfyldwx1viy9mibk9bx32qy6m8n0yjbbsb3ik6rbbw7sqb"))));;anchor1
    (build-system gnu-build-system)
    
    (inputs (list guile-3.0 gnuplot))
