@@ -131,11 +131,12 @@
 				"(immutable-toplevel) file)))")
 				(("\\(if \\(current-toplevel\\)")
 				 "(if (immutable-toplevel)")
+				((" \\(let \\(\\(p \\(-> path\\)\\)\\)")
+				  " (let ((p (-> path))(dummy (DEBUG \"current-appname: ~a\" (currrent-appname))))")
 				(("\\(format \\#f \"~a/pub/~a\" \\(current-toplevel\\) path\\)")
 				 "(format #f \"~a/pub/~a\" (immutable-toplevel) path)")
 				(("        \\(format \\#f \"~a\\/tmp\\/cache\\/index.html\" \\(current-toplevel\\)\\)")		 
-			      	 "     (DEBUG \"current-appname: ~a\" (current-appname))\n
-        (format #f \"/tmp/~a/cache/index.html\" (current-appname))")
+			      	 "        (format #f \"/tmp/~a/cache/index.html\" (current-appname))")
 				(("\\(format \\#f \"~a\\/tmp\\/cache\\/~a.html\" \\(current-toplevel\\) \\(-> path\\)\\)\\)\\)\\)")
 				 "(format #f \"/tmp/~a/cache/~a.html\" (current-appname) (-> path)))))")
 				)						  				
@@ -256,7 +257,7 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
 	    (uri (string-append "https://github.com/mbcladwell/myapp/releases/download/v0.1/myapp-0.1.tar.gz"))	    
             (sha256
              (base32
-             "1p5mhgb8x6r0yh754qw73la9lkqkk8r94wscpmm3az9ajw0hgsa9"))));;anchor1
+             "0ikhc4h42lgvn22r3g4f8bfikbqs5iikybmhilr6ajy7xa1kccdj"))));;anchor1
    (build-system gnu-build-system)
    
    (inputs (list guile-3.0 gnuplot))
