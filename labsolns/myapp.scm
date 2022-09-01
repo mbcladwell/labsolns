@@ -132,13 +132,13 @@
 				(("\\(if \\(current-toplevel\\)")
 				 "(if (immutable-toplevel)")
 				((" \\(let \\(\\(p \\(-> path\\)\\)\\)")
-				  " (let ((p (-> path))(dummy (format (artanis-current-output) \"current-appname: ~a\" (current-appname) ))")
+				  " (let ((p (-> path))(dummy (format (artanis-current-output) \"current-appname: ~a\" (current-appname) )))")
 				(("\\(format \\#f \"~a/pub/~a\" \\(current-toplevel\\) path\\)")
 				 "(format #f \"~a/pub/~a\" (immutable-toplevel) path)")
-				(("        \\(format \\#f \"~a\\/tmp\\/cache\\/index.html\" \\(current-toplevel\\)\\)")		 
-			      	 "        (format #f \"/tmp/~a/tmp/cache/index.html\" (current-appname))")
-				(("\\(format \\#f \"~a\\/tmp\\/cache\\/~a.html\" \\(current-toplevel\\) \\(-> path\\)\\)\\)\\)\\)")
-				 "(format #f \"/tmp/~a/tmp/cache/~a.html\" (current-appname) (-> path)))))")
+			;;	(("        \\(format \\#f \"~a\\/tmp\\/cache\\/index.html\" \\(current-toplevel\\)\\)")		 
+			;;      	 "        (format #f \"/tmp/~a/tmp/cache/index.html\" (current-appname))")
+			;;	(("\\(format \\#f \"~a\\/tmp\\/cache\\/~a.html\" \\(current-toplevel\\) \\(-> path\\)\\)\\)\\)\\)")
+			;;	 "(format #f \"/tmp/~a/tmp/cache/~a.html\" (current-appname) (-> path)))))")
 				)						  				
 				
 		   (substitute* "artanis/env.scm"
@@ -257,7 +257,7 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
 	    (uri (string-append "https://github.com/mbcladwell/myapp/releases/download/v0.1/myapp-0.1.tar.gz"))	    
             (sha256
              (base32
-             "1lnbff9d1jindla7hpd1amxpbhs3ckbwidhvm3hjfv8njfhgsxn6"))));;anchor1
+             "1blbyc67yzdx4xz24ad3554y3d5bdh6kz6ry1q5a8xav432mdhxh"))));;anchor1
    (build-system gnu-build-system)
    
    (inputs (list guile-3.0 gnuplot))
