@@ -239,7 +239,7 @@ services and web resources.  The framework aims to alleviate the overhead
 associated with common activities performed in web development.  Artanis
 provides several tools for web development: database access, templating
 frameworks, session management, URL-remapping for RESTful, page caching, and
-more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
+more. v0.5.2 contains feature enhancements required by LIMS*Nucleus")
     (home-page "https://www.gnu.org/software/artanis/")
     (license (list license:gpl3+ license:lgpl3+)))) ;dual license
 
@@ -254,7 +254,7 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
 	    (uri (string-append "https://github.com/mbcladwell/myapp/releases/download/v0.1/myapp-0.1.tar.gz"))	    
             (sha256
              (base32
-             "0phdrz5682fbfrw44924sd47zg6i3p8as4395lzpgi0ylv7iny32"))));;anchor1
+             "1blzn6334m872qfjmdhjnmzfg806mg63f6fa5mk5d789dpdq5lfs"))));;anchor1
    (build-system gnu-build-system)
    
    (inputs (list guile-3.0 gnuplot))
