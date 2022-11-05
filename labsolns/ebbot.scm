@@ -44,7 +44,7 @@
 								(getenv "GUILE_LOAD_PATH") "\"")))
 				  (substitute* '("scripts/ebbot.sh" "scripts/format.sh" "scripts/init-acct.sh")
 						(("guileexecutable")
-						   "guile"))
+						   (string-append (assoc-ref inputs "guile") "/bin/guile")))
 				 
 				  (substitute* '("scripts/ebbot.sh" "scripts/format.sh" "scripts/init-acct.sh")
 						(("guileloadcompiledpath")
