@@ -43,6 +43,10 @@
 								(assoc-ref inputs "guile-oauth")  "/share/guile/site/3.0:"
 								(getenv "GUILE_LOAD_PATH") "\"")))
 				  (substitute* '("scripts/ebbot.sh" "scripts/format.sh" "scripts/init-acct.sh")
+						(("guileexecutable")
+						 (assoc-ref inputs "guile")  "/bin/guile"))
+				 
+				  (substitute* '("scripts/ebbot.sh" "scripts/format.sh" "scripts/init-acct.sh")
 						(("guileloadcompiledpath")
 						 (string-append  out "/lib/guile/3.0/site-ccache:"
 								(assoc-ref inputs "guile")  "/lib/guile/3.0/site-ccache:"
