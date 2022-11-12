@@ -1,4 +1,4 @@
-(define-module (myapp3)
+(define-module (labsolns myapp3)
   #:use-module (gnu packages)
   #:use-module (guix packages)
   #:use-module (guix download)
