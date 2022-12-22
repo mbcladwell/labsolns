@@ -17,7 +17,7 @@ To do so, add it to =~/.config/guix/channels.scm=:
           ;; Enable signature verification:
           (introduction
            (make-channel-introduction
-            "1d6418bca78f0ea76e258a4842bfbe46cf76cbba"
+            "bde283c98706c13c0f73a65ec23a8a2963fadceb"
             (openpgp-fingerprint
              "E709 94D1 9CB0 FE2B CAC4  9E54 0BF8 F292 4D2B 1944"))))
          %default-channels)
