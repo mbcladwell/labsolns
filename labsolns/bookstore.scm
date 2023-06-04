@@ -19,7 +19,7 @@
   )
 
 (define-public bookstore
-             (let ((commit "095c0cc4dad2622314b65b67aae3fa29b4706d5c")
+             (let ((commit "75e26a7ee861ab4da004a7591b0c483c03efbed9")
         (revision "1"))
   (package
     (name "bookstore")
