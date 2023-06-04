@@ -1,4 +1,4 @@
-(define-module (bookstore)
+(define-module (labsolns bookstore)
  
   #:use-module (guix packages)
   #:use-module (guix download)
