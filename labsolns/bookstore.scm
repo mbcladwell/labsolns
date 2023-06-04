@@ -9,7 +9,7 @@
   #:use-module (guix utils)
   #:use-module ((guix build utils) #:select (alist-replace))
   #:use-module (ice-9 match)
-  #:use-module (ice-9 readline)
+;;  #:use-module (ice-9 readline)
   #:use-module (guix gexp)
 ;;  #:use-module (dbi dbi)
   #:use-module ((guix licenses) #:prefix license:)
