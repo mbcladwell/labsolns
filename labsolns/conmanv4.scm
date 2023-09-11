@@ -12,7 +12,7 @@
   (gnutls))
 
 (define-public conmanv4
-             (let ((commit "2e3d2eb5e9412b14f3508e2a9f00615c95eb676b")
+             (let ((commit "81625acc3f703da4a12d5632a73ebba6f8e5fe54")
         (revision "1"))
   (package
     (name "conmanv4")
