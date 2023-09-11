@@ -1,4 +1,4 @@
-(define-module (conmanv4)
+(define-module (labsolns conmanv4)
    #:use-module (guix packages)
    #:use-module ((guix licenses) #:prefix license:)
    #:use-module (guix download)
