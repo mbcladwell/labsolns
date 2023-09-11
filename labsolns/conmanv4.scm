@@ -25,7 +25,7 @@
              (commit commit)))
               (file-name (git-file-name name version))
               (sha256
-             (base32 "0l264qscqwj2fkqz50mq4vnkcny18bnlwp4gvrvg8ykc81kw3d90"))))
+             (base32 "05kzg3mnq88pkr6c6zwgy9ql9cdyrb00iba0h98fbkr4krc7cgnq"))))
     (build-system guile-build-system)
     (arguments `(
 		 #:phases (modify-phases %standard-phases
