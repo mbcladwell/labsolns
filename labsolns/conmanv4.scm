@@ -87,7 +87,7 @@
   (native-inputs
    `(
       ("texinfo" ,texinfo)))
-  (inputs `(("guile" ,guile-3.0))
+  (inputs `(("guile" ,guile-3.0)))
 	   ; ("gnutls" ,gnutls)))
   (propagated-inputs `())
   (synopsis "")
