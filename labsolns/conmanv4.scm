@@ -44,15 +44,15 @@
 					 			       (assoc-ref inputs "guile")  "/share/guile/site/3.0:")))
 					 			       ;;  (assoc-ref inputs "gnutls")  "/share/guile/site/3.0:"
 					  			       (getenv "GUILE_LOAD_PATH") "\"")))
-					 ;; (substitute* '("scripts/conman.sh")
-					 ;; 	      (("guileexecutable")
-					 ;; 	       (string-append (assoc-ref inputs "guile") "/bin/guile")))
-					 ;; (substitute* '("scripts/conman.sh")
-					 ;; 	      (("guileloadcompiledpath")
-					 ;; 	       (string-append  out "/lib/guile/3.0/site-ccache:"
-					 ;; 			       (assoc-ref inputs "guile")  "/lib/guile/3.0/site-ccache:"
-					 ;; 			       ;; (assoc-ref inputs "gnutls")  "/lib/guile/3.0/site-ccache:"
-					 ;; 			       (getenv "GUILE_LOAD_COMPILED_PATH") "\""))))
+					 (substitute* '("scripts/conman.sh")
+						      (("guileexecutable")
+						       (string-append (assoc-ref inputs "guile") "/bin/guile")))
+					 (substitute* '("scripts/conman.sh")
+						      (("guileloadcompiledpath")
+						       (string-append  out "/lib/guile/3.0/site-ccache:"
+								       (assoc-ref inputs "guile")  "/lib/guile/3.0/site-ccache:"
+								       ;; (assoc-ref inputs "gnutls")  "/lib/guile/3.0/site-ccache:"
+								       (getenv "GUILE_LOAD_COMPILED_PATH") "\""))))
 					 )
 				    #t))		    
 		       (add-after 'patch-prefix 'make-dir
