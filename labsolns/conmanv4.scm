@@ -5,6 +5,8 @@
    #:use-module (guix git-download)
    #:use-module (guix utils)
    #:use-module (guix build-system guile)
+   #:use-module (guix build-system gnu)
+   #:use-module (gnu packages bash)
    #:use-module (gnu packages)
    #:use-module (gnu packages autotools)
    #:use-module (gnu packages guile)
@@ -41,7 +43,7 @@
 					  	       (string-append  out "/share/guile/site/3.0:"
 					 			       (assoc-ref inputs "guile")  "/share/guile/site/3.0:")))
 					 			       ;;  (assoc-ref inputs "gnutls")  "/share/guile/site/3.0:"
-					  			      ;; (getenv "GUILE_LOAD_PATH") "\"")))
+					  			       (getenv "GUILE_LOAD_PATH") "\"")))
 					 ;; (substitute* '("scripts/conman.sh")
 					 ;; 	      (("guileexecutable")
 					 ;; 	       (string-append (assoc-ref inputs "guile") "/bin/guile")))
