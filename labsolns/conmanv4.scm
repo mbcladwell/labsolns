@@ -16,7 +16,7 @@
    #:use-module (gnutls))
 
 (define-public conmanv4
-             (let ((commit "3b3d164a0e6b1dd23bbbe01e8dd2b7440c12dfb7")
+             (let ((commit "b8463aeb534912252df182c4c0c64f9bb7decc03")
         (revision "1"))
   (package
     (name "conmanv4")
@@ -28,7 +28,7 @@
              (commit commit)))
               (file-name (git-file-name name version))
               (sha256
-             (base32 "1jrbkpb79k33g0b8r2q05ajs4v5sl874psi8mfzhv1l8n1jxfdgc"))))
+             (base32 "007di6walrmv8r7qq41zs3bbkg32z6cwcrqx8xhjkhak5c9yxlah"))))
     (build-system guile-build-system)
     (arguments `(
 		 #:phases (modify-phases %standard-phases
