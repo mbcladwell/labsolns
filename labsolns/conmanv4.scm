@@ -38,17 +38,19 @@
 					 (substitute* '("conmanv4/env.scm")
 						      (("conmanstorepath")
 						       out))
-					  (substitute* '("scripts/conman.sh")
-					  	      (("guileloadpath")
-					  	       (string-append  out "/share/guile/site/3.0:"
-					 			       (assoc-ref inputs "guile")  "/share/guile/site/3.0:"
+					 )
+					 
+				;	  (substitute* '("scripts/conman.sh")
+				;	  	      (("guileloadpath")
+				;	  	       (string-append  out "/share/guile/site/3.0:"
+				;	 			       (assoc-ref inputs "guile")  "/share/guile/site/3.0:"
 					 			       ;;  (assoc-ref inputs "gnutls")  "/share/guile/site/3.0:"
 				;	  			       (getenv "GUILE_LOAD_PATH") "\"")))
-					 ) )))
+				     
 				;	 (substitute* '("scripts/conman.sh")
 				;		      (("guileexecutable")
 				;		       (string-append (assoc-ref inputs "guile") "/bin/guile")))
-				;	 )
+				
 					 
 				;	 (substitute* '("scripts/conman.sh")
 				;		      (("guileloadcompiledpath")
@@ -99,3 +101,4 @@
   (home-page "www.labsolns.com")
   (license license:gpl3+))))
 
+conmanv4
