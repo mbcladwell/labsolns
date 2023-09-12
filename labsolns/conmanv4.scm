@@ -33,7 +33,7 @@
 						  (lambda* (#:key inputs outputs #:allow-other-keys)
 						    (let ((out  (assoc-ref outputs "out")))					  
 						      (substitute* '("conmanv4/env.scm")
-								   (("ebbotstorepath")
+								   (("conmanstorepath")
 								    out))
 						      (substitute* '("scripts/conman.sh")
 								   (("guileloadpath")
@@ -56,7 +56,7 @@
 		       (add-after 'patch-prefix 'make-dir
 			 (lambda* (#:key outputs #:allow-other-keys)
 			   (let* ((out  (assoc-ref outputs "out"))
-				  (conman-dir (string-append out "/share/guile/site/3.0/ebbot"))
+				  (conman-dir (string-append out "/share/guile/site/3.0/conmanv4"))
 				  (mkdir-p conman-dir)
 				  (dummy (copy-recursively "./conmanv4" conman-dir))) 
 			     #t)))
