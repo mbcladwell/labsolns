@@ -45,7 +45,8 @@
 					  	       (string-append  out "/share/guile/site/3.0:"
 					 			       (assoc-ref inputs "guile")  "/share/guile/site/3.0:"
 					 			       ;;  (assoc-ref inputs "gnutls")  "/share/guile/site/3.0:"
-					  			       (getenv "GUILE_LOAD_PATH") "\"")))
+					  		;	       (getenv "GUILE_LOAD_PATH") "\""
+						       )))
 				     )
 				;	 (substitute* '("scripts/conman.sh")
 				;		      (("guileexecutable")
