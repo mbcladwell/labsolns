@@ -95,7 +95,7 @@
 			  (add-after 'make-bin-dir 'cp-smtp-cli
 				  (lambda* (#:key inputs outputs #:allow-other-keys)
 				    (let* ((out (assoc-ref outputs "out"))
-					   (bin-dir (string-append out "/bin")))
+					   (bin-dir (string-append out "/share/guile/site/3.0/conmanv4/bin")))
 				      (copy-recursively "./bin" bin-dir))
 				    #t))
 
