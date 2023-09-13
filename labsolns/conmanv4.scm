@@ -59,8 +59,8 @@
 						       (string-append  out "/lib/guile/3.0/site-ccache:"
 								       (assoc-ref inputs "guile")  "/lib/guile/3.0/site-ccache:"
 								       ;; (assoc-ref inputs "gnutls")  "/lib/guile/3.0/site-ccache:"
-					;				       (getenv "GUILE_LOAD_COMPILED_PATH") "\""))))
-								       ))))
+									       ,(getenv "GUILE_LOAD_COMPILED_PATH") "\""))))
+								       
        			    #t))		    
 		       (add-after 'patch-prefix 'make-dir
 			 (lambda* (#:key outputs #:allow-other-keys)
