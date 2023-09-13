@@ -96,8 +96,8 @@
   (native-inputs
    `(("guile" ,guile-3.0)
       ("texinfo" ,texinfo)))
-  (inputs `(("bash" ,bash-minimal)))
-	   ; ("gnutls" ,gnutls)))
+  (inputs `(("bash" ,bash-minimal)
+	    ("gnutls" ,gnutls)))
   (propagated-inputs `())
   (synopsis "")
   (description "")
