@@ -14,7 +14,7 @@
    #:use-module (gnu packages pkg-config)
    #:use-module (gnu packages texinfo)
   #:use-module (guile-gnutls)
-   #:use-module (gnutls)
+;;   #:use-module (gnutls)
    )
 
 (define-public conmanv4
@@ -95,8 +95,10 @@
 			  (add-after 'make-bin-dir 'cp-smtp-cli
 				  (lambda* (#:key inputs outputs #:allow-other-keys)
 				    (let* ((out (assoc-ref outputs "out"))
-					   (bin-dir (string-append out "/share/guile/site/3.0/conmanv4/bin")))
-				      (copy-recursively "./bin" bin-dir))
+					   (bin-dir (string-append out "/bin")))
+				      (install-file "./bin/smtp-cli" bin-dir)
+				      (chmod (string-append bin-dir "/smtp-cli") #o555 )
+				      )
 				    #t))
 
 		       )))
