@@ -18,7 +18,7 @@
    )
 
 (define-public conmanv4
-             (let ((commit "b8463aeb534912252df182c4c0c64f9bb7decc03")
+             (let ((commit "d4b28ec7822e213dea794ff22575734732a114d0")
         (revision "1"))
   (package
     (name "conmanv4")
@@ -30,7 +30,7 @@
              (commit commit)))
               (file-name (git-file-name name version))
               (sha256
-             (base32 "007di6walrmv8r7qq41zs3bbkg32z6cwcrqx8xhjkhak5c9yxlah"))))
+             (base32 "0g3iqjwpvfyjvg51z7rya933dldd2nw47kqx0qfpwcxkppr93wj7"))))
     (build-system guile-build-system)
     (arguments `(
 		 #:phases (modify-phases %standard-phases
@@ -96,8 +96,8 @@
 				  (lambda* (#:key inputs outputs #:allow-other-keys)
 				    (let* ((out (assoc-ref outputs "out"))
 					   (bin-dir (string-append out "/bin")))
-				      (install-file "./bin/smtp-cli" bin-dir)
-				      (chmod (string-append bin-dir "/smtp-cli") #o555 )
+				      (install-file "./bin/test.txt" bin-dir)
+				     ;; (chmod (string-append bin-dir "/smtp-cli") #o555 )
 				      )
 				    #t))
 
