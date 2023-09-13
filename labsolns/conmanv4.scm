@@ -13,7 +13,7 @@
    #:use-module (gnu packages guile-xyz)
    #:use-module (gnu packages pkg-config)
    #:use-module (gnu packages texinfo)
-   #:use-module (gnutls)
+;;   #:use-module (gnutls)
    )
 
 (define-public conmanv4
@@ -97,7 +97,7 @@
    `(("guile" ,guile-3.0)
       ("texinfo" ,texinfo)))
   (inputs `(("bash" ,bash-minimal)
-	    ("gnutls" ,gnutls)))
+	    ("guile-gnutls" ,gnutls)))
   (propagated-inputs `())
   (synopsis "")
   (description "")
