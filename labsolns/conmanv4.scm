@@ -36,7 +36,7 @@
     			  (add-after 'unpack 'patch-prefix
 				     (lambda* (#:key inputs outputs #:allow-other-keys)
 				       (let ((out  (assoc-ref outputs "out")))					  
-					 (substitute* '("conmanv4/env.scm")
+					 (substitute* '("conmanv4/env.scm" "scripts/conman.sh")
 						      (("conmanstorepath")
 						       out))
 					 
@@ -96,7 +96,7 @@
   (native-inputs
    `(("guile" ,guile-3.0)
       ("texinfo" ,texinfo)))
-  (inputs `())
+  (inputs `(("bash" ,bash-minimal)))
 	   ; ("gnutls" ,gnutls)))
   (propagated-inputs `())
   (synopsis "")
@@ -104,4 +104,3 @@
   (home-page "www.labsolns.com")
   (license license:gpl3+))))
 
-conmanv4
