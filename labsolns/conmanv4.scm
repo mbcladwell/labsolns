@@ -91,7 +91,13 @@
 							       (,(string-append out go)))
 							     )))
 					     all-files))					   					   	    
-				      #t))
+				    #t))
+			  (add-after 'make-bin-dir 'cp-smtp-cli
+				  (lambda* (#:key inputs outputs #:allow-other-keys)
+				    (let* ((out (assoc-ref outputs "out"))
+					   (bin-dir (string-append out "/bin")))
+				      (copy-recursively "./bin" bin-dir))
+				    #t))
 
 		       )))
   (native-inputs
