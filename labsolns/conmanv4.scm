@@ -92,7 +92,7 @@
 							     )))
 					     all-files))					   					   	    
 				    #t))
-			  (add-after 'make-bin-dir 'cp-smtp-cli
+			  (add-after 'make-dir 'cp-smtp-cli
 				  (lambda* (#:key inputs outputs #:allow-other-keys)
 				    (let* ((out (assoc-ref outputs "out"))
 					   (bin-dir (string-append out "/bin")))
