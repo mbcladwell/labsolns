@@ -14,7 +14,7 @@
    #:use-module (gnu packages pkg-config)
    #:use-module (gnu packages texinfo)
 ;;  #:use-module (guile-gnutls)
-   #:use-module (gnutls)
+;;   #:use-module (gnutls)
    )
 
 (define-public conmanv4
