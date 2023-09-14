@@ -106,7 +106,7 @@
    `(("guile" ,guile-3.0)
       ("texinfo" ,texinfo)))
   (inputs `(("bash" ,bash-minimal)
-	    ("guile-gnutls" ,guile-gnutls)
+	   ;; ("guile-gnutls" ,guile-gnutls)
 	    ("gnutls" ,gnutls)
 	    ))
   (propagated-inputs `())
