@@ -19,7 +19,7 @@
 
 (define-public conmanv4
              (let ((commit "b1c4e93e52f118549a4e57943f7625de846a0ab1")
-        (revision "1"))
+        (revision "2"))
   (package
     (name "conmanv4")
     (version (string-append "0.1." (string-take commit 7)))
@@ -115,4 +115,4 @@
   (home-page "www.labsolns.com")
   (license license:gpl3+))))
 
-
+;;ksjdkfjsidu
