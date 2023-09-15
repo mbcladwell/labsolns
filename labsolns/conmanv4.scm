@@ -84,7 +84,7 @@
 					       (install-file (string-append "./scripts/" file) bin-dir)
 					       (chmod (string-append bin-dir "/" file) #o555 ) ;;read execute, no write
 					       (wrap-program (string-append bin-dir "/" file)
-							     `( "PATH" ":" prefix  ,(bin-dir) )							     
+							     `( "PATH" ":" prefix  (,bin-dir) )							     
 							     `("GUILE_LOAD_PATH" prefix
 							       (,(string-append out scm)
 								))
@@ -97,7 +97,7 @@
 				  (lambda* (#:key inputs outputs #:allow-other-keys)
 				    (let* ((out (assoc-ref outputs "out"))
 					   (bin-dir (string-append out "/bin")))
-				      ,(install-file "./bin/test.txt" bin-dir)
+				      ,(install-file "./bin/test.txt" ,bin-dir)
 				     ;; (chmod (string-append bin-dir "/smtp-cli") #o555 )
 				      )
 				    #t))
