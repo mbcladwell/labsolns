@@ -4,6 +4,7 @@
    #:use-module (guix download)
    #:use-module (guix git-download)
    #:use-module (guix utils)
+   #:use-module (guix build utils)
    #:use-module (guix build-system guile)
    #:use-module (guix build-system gnu)
    #:use-module (gnu packages bash)
