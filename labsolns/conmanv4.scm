@@ -107,7 +107,7 @@
       ("texinfo" ,texinfo)))
   (inputs `(("bash" ,bash-minimal)
 	   ;; ("guile-gnutls" ,guile-gnutls)
-	    ("gnutls" ,gnutls)
+	   ;; ("gnutls" ,gnutls)
 	    ))
   (propagated-inputs `())
   (synopsis "")
@@ -115,4 +115,4 @@
   (home-page "www.labsolns.com")
   (license license:gpl3+))))
 
-;;ksjdkfjsidu
+conmanv4
