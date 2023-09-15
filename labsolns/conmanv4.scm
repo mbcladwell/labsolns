@@ -84,7 +84,7 @@
 					       (install-file (string-append "./scripts/" file) bin-dir)
 					       (chmod (string-append bin-dir "/" file) #o555 ) ;;read execute, no write
 					       (wrap-program (string-append bin-dir "/" file)
-							     `( "PATH" ":" prefix  (,bin-dir) )							     
+							     `( "PATH" ":" prefix  ,(bin-dir) )							     
 							     `("GUILE_LOAD_PATH" prefix
 							       (,(string-append out scm)
 								))
