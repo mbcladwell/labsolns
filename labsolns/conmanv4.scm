@@ -97,7 +97,7 @@
 				  (lambda* (#:key inputs outputs #:allow-other-keys)
 				    (let* ((out (assoc-ref outputs "out"))
 					   (bin-dir (string-append out "/bin")))
-				      ,(install-file "./bin/test.txt" ,bin-dir)
+				      (install-file "./bin/test.txt" bin-dir)
 				     ;; (chmod (string-append bin-dir "/smtp-cli") #o555 )
 				      )
 				    #t))
