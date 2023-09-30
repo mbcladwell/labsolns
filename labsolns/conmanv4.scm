@@ -14,8 +14,6 @@
    #:use-module (gnu packages guile-xyz)
    #:use-module (gnu packages pkg-config)
    #:use-module (gnu packages texinfo)
-;;  #:use-module (guile-gnutls)
-;;   #:use-module (gnutls)
    )
 
 (define-public conmanv4
@@ -60,7 +58,6 @@
 						      (("guileloadcompiledpath")
 						       (string-append  out "/lib/guile/3.0/site-ccache:"
 								       (assoc-ref inputs "guile")  "/lib/guile/3.0/site-ccache:"
-								       ;; (assoc-ref inputs "gnutls")  "/lib/guile/3.0/site-ccache:"
 									       ,(getenv "GUILE_LOAD_COMPILED_PATH") "\""))))
 								       
        			    #t))		    
@@ -107,8 +104,6 @@
    `(("guile" ,guile-3.0)
       ("texinfo" ,texinfo)))
   (inputs `(("bash" ,bash-minimal)
-	   ;; ("guile-gnutls" ,guile-gnutls)
-	   ;; ("gnutls" ,gnutls)
 	    ))
   (propagated-inputs `())
   (synopsis "")
