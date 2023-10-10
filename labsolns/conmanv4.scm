@@ -29,7 +29,7 @@
              (commit commit)))
               (file-name (git-file-name name version))
               (sha256
-             (base32 "1jmx7d8rpcj0vza1c17500shgqcz6ws3r39i60r3hamc8ji6cmlw"))))
+             (base32 "0bzdw8dhkid256080f3fy55c2vqjy5qws8yy9jgbsqnnllkjg5za"))))
     (build-system guile-build-system)
     (arguments `(
 		 #:phases (modify-phases %standard-phases
