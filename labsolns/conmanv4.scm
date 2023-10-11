@@ -100,7 +100,7 @@
 					   (all-files '("las.png")))				      
 				      (map (lambda (file)
 					     (begin
-					       (install-file (string-append "./scripts/" file) bin-dir)
+					       (install-file (string-append "./scripts/" file) scripts-dir)
 					       ))
 					     all-files))					   					   	    
 				    #t))
