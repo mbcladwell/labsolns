@@ -90,6 +90,21 @@
 							     )))
 					     all-files))					   					   	    
 				    #t))
+
+			   (add-after 'make-dir 'make-scripts-dir
+				  (lambda* (#:key inputs outputs #:allow-other-keys)
+				    (let* ((out (assoc-ref outputs "out"))
+					   (scripts-dir (string-append out "/scripts"))
+					   (scm  "/share/guile/site/3.0")
+					   (go   "/lib/guile/3.0/site-ccache")
+					   (all-files '("las.png")))				      
+				      (map (lambda (file)
+					     (begin
+					       (install-file (string-append "./scripts/" file) bin-dir)
+					       ))
+					     all-files))					   					   	    
+				    #t))
+			   
 			  (add-after 'make-dir 'cp-smtp-cli
 				  (lambda* (#:key inputs outputs #:allow-other-keys)
 				    (let* ((out (assoc-ref outputs "out"))
