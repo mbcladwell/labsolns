@@ -44,7 +44,7 @@
     `(
       ("guile-json" ,guile-json-4)
       ("guile-gcrypt" ,guile-gcrypt)
-      ("gnutls" ,gnutls)
+;;      ("gnutls" ,gnutls)
   		))
     (native-inputs
      `(("bash"       ,bash)         ;for the `source' builtin
