@@ -13,7 +13,7 @@
 ;;  #:use-module (guile-gcrypt)
   #:use-module (gnu packages gnupg)
   #:use-module (gnu packages tls)
-  #:use-module (guile-json)
+;;  #:use-module (guile-json)
   #:use-module ((guix licenses) #:prefix license:)
   #:use-module ((srfi srfi-1) #:select (alist-delete))
   )
