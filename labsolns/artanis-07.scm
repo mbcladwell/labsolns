@@ -12,7 +12,7 @@
   #:use-module (json)
   #:use-module (gnu packages curl)
   #:use-module (gnu packages linux)
-   #:use-module (ice-9 readline)
+;;   #:use-module (ice-9 readline)
    #:use-module (gnu packages nss) ;;;;;;;;;;
   #:use-module (gnu packages)
   #:use-module (gnu packages base)
@@ -96,9 +96,6 @@
   
     (arguments
      '(
-        #:modules
-                ((ice-9 readline)	
-          )
        #:phases
        (modify-phases %standard-phases
          (add-after 'unpack 'patch-site-dir
