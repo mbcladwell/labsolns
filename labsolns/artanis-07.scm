@@ -1,4 +1,4 @@
-(define-module (artanis-07)
+(define-module (labsolns artanis-07)
   #:use-module (guix packages)
   #:use-module ((guix licenses) #:prefix license:)
   #:use-module (guix download)
