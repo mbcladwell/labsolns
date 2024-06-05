@@ -96,6 +96,9 @@
   
     (arguments
      '(
+        #:modules
+                ((ice-9 readline)	
+          )
        #:phases
        (modify-phases %standard-phases
          (add-after 'unpack 'patch-site-dir
