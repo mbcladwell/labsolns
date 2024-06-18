@@ -38,7 +38,7 @@
      (list
         guile-json-4       
         guile-gcrypt
-       ;;       ("gnutls" ,gnutls)
+        guile-gnutls
        ))
     (home-page "https://github.com/mbcladwell/guile-oauth")
     (synopsis "guile-oauth is an OAuth client module for Guile.")
