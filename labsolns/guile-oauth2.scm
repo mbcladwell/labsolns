@@ -36,7 +36,7 @@
      `(("guile" ,guile-3.0)))
     (propagated-inputs
      (list
-        guile-json       
+        guile-json-4       
         guile-gcrypt
        ;;       ("gnutls" ,gnutls)
        ))
