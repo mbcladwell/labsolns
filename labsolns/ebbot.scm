@@ -100,7 +100,7 @@
 		       )))
   (native-inputs
     `(("guile" ,guile-3.0)))
-  (propagated-inputs `( ("guile-json" ,guile-json-4) ("guile-oauth" ,guile-oauth)("bash" ,bash)))
+  (propagated-inputs `( ("guile-json" ,guile-json-4) ("guile-oauth" ,guile-oauth)("bash" ,bash)("artanis" ,artanis)))
   (synopsis "Auto tweeter for educational tweets concerning propaganda")
   (description "Auto tweeter for educational tweets concerning propaganda")
   (home-page "www.build-a-bot.biz")
