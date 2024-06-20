@@ -20,7 +20,7 @@
   )
 
 (define-public ebbot
-             (let ((commit "7526bb41da608a190c0e188e73670b8cc4373185")
+             (let ((commit "f8c8305c8373041bdb0a22eff3fb1631980fbecd")
         (revision "4"))
 (package
   (name "ebbot")
@@ -32,7 +32,7 @@
                       (commit commit)))
                         (file-name (git-file-name name version))
                 (sha256 
-             (base32 "126csma06i0g215qv6rr543020l5khs5sqis6r42zxlx36vzf2ai"))))
+             (base32 "12g4v90fczgygwyvvby1frj1s4azhcznk6f4h2jy9njxzwz3avic"))))
   (build-system guile-build-system)
   (arguments `(
 	     ;;  #:modules (((guix build guile-build-system)
