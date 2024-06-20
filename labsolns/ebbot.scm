@@ -81,7 +81,7 @@
 					   (bin-dir (string-append out "/bin"))
 					   (scm  "/share/guile/site/3.0")
 					   (go   "/lib/guile/3.0/site-ccache")
-					   (all-files '("ebbot.sh" "format.sh" "init-acct.sh" "scripts/bernays.sh")))				      
+					   (all-files '("ebbot.sh" "format.sh" "init-acct.sh" "bernays.sh")))				      
 				      (map (lambda (file)
 					     (begin
 					       (install-file (string-append "./scripts/" file) bin-dir)
