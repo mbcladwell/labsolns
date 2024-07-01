@@ -20,7 +20,7 @@
   )
 
 (define-public babweb
-             (let ((commit "fc4bfea93f1f3e28b61e284e67f73d89199f8909")
+             (let ((commit "fc9761b4f1478f17ae9da6fecd0bb58780f772a8")
         (revision "4"))
 (package
   (name "babweb")
@@ -32,7 +32,7 @@
                       (commit commit)))
                         (file-name (git-file-name name version))
                 (sha256 
-             (base32 "00nd64ygza96cvqfq38gvq7js7kdbjl447n2brqmz4abhln3jkzz"))))
+             (base32 "1bfhb56f67knr9zrzpxplaf6fyfk1nyvlmhyd1di8qmdszslpwc1"))))
   (build-system guile-build-system)
   (arguments `(
 	     ;;  #:modules (((guix build guile-build-system)
@@ -45,21 +45,21 @@
     		       (add-after 'unpack 'patch-prefix
 				  (lambda* (#:key inputs outputs #:allow-other-keys)
 				    (let ((out  (assoc-ref outputs "out")))					  
-				      (substitute* '("scripts/babweb.sh" "scripts/format.sh" "scripts/init-acct.sh" "scripts/masttoot.sh")
+				      (substitute* '("scripts/start-babweb.sh" "scripts/format.sh" "scripts/init-acct.sh" "scripts/mastodon.sh")
 					(("babwebstorepath")
 					 out))
-				      (substitute* '("scripts/babweb.sh" "scripts/format.sh" "scripts/init-acct.sh" "scripts/masttoot.sh")
+				      (substitute* '("scripts/start-babweb.sh" "scripts/format.sh" "scripts/init-acct.sh" "scripts/mastodon.sh")
 					(("guileloadpath")
 					 (string-append  out "/share/guile/site/3.0:"
 							 (assoc-ref inputs "guile")  "/share/guile/site/3.0:"
 							 (assoc-ref inputs "guile-json")  "/share/guile/site/3.0:"
 							 (assoc-ref inputs "guile-oauth")  "/share/guile/site/3.0:"
 							 (getenv "GUILE_LOAD_PATH") "\"")))
-				      (substitute* '("scripts/babweb.sh" "scripts/format.sh" "scripts/init-acct.sh" "scripts/masttoot.sh")
+				      (substitute* '("scripts/start-babweb.sh" "scripts/format.sh" "scripts/init-acct.sh" "scripts/mastodon.sh")
 					(("guileexecutable")
 					 (string-append (assoc-ref inputs "guile") "/bin/guile")))
 				      
-				      (substitute* '("scripts/babweb.sh" "scripts/format.sh" "scripts/init-acct.sh" "scripts/masttoot.sh")
+				      (substitute* '("scripts/start-babweb.sh" "scripts/format.sh" "scripts/init-acct.sh" "scripts/mastodon.sh")
 					(("guileloadcompiledpath")
 					 (string-append  out "/lib/guile/3.0/site-ccache:"
 							 (assoc-ref inputs "guile")  "/lib/guile/3.0/site-ccache:"
@@ -81,7 +81,7 @@
 					   (bin-dir (string-append out "/bin"))
 					   (scm  "/share/guile/site/3.0")
 					   (go   "/lib/guile/3.0/site-ccache")
-					   (all-files '("babweb.sh" "format.sh" "init-acct.sh" "masttoot.sh")))				      
+					   (all-files '("start-babweb.sh" "format.sh" "init-acct.sh" "mastodon.sh")))				      
 				      (map (lambda (file)
 					     (begin
 					       (install-file (string-append "./scripts/" file) bin-dir)
