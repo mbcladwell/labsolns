@@ -32,7 +32,7 @@
                       (commit commit)))
                         (file-name (git-file-name name version))
                 (sha256 
-             (base32 "0c9sjqr01s9z1my3q64h2f09qbbxzdqnvqvrcl12qq9an6pkkybp"))))
+             (base32 "07d1583w7f8q1ddjibg047q5giqrwkfslj7pz9axqhqz4jarp47a"))))
   (build-system guile-build-system)
   (arguments `(
 	     ;;  #:modules (((guix build guile-build-system)
