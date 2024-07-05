@@ -20,7 +20,7 @@
   )
 
 (define-public babweb
-             (let ((commit "607b10fb246fa49407bf3825008b5c2bab4b0703")
+             (let ((commit "b262c8c6cfd8d12d915ce6d86bac2166814ecd45")
         (revision "4"))
 (package
   (name "babweb")
@@ -32,7 +32,7 @@
                       (commit commit)))
                         (file-name (git-file-name name version))
                 (sha256 
-             (base32 "07d1583w7f8q1ddjibg047q5giqrwkfslj7pz9axqhqz4jarp47a"))))
+             (base32 "1j8bg1w6ni06znh7z1m86r08pjzrw2v5h42prix5b3akxps4yh5p"))))
   (build-system guile-build-system)
   (arguments `(
 	     ;;  #:modules (((guix build guile-build-system)
