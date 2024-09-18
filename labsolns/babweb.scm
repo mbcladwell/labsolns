@@ -45,21 +45,21 @@
     		       (add-after 'unpack 'patch-prefix
 				  (lambda* (#:key inputs outputs #:allow-other-keys)
 				    (let ((out  (assoc-ref outputs "out")))					  
-				      (substitute* '("scripts/start-babweb.sh" "scripts/format.sh" "scripts/init-acct.sh" "scripts/masttoot.sh")
+				      (substitute* '("scripts/start-babweb.sh" "scripts/format.sh" "scripts/init-acct.sh" "scripts/masttoot.sh" "scripts/tweet.sh")
 					(("babwebstorepath")
 					 out))
-				      (substitute* '("scripts/start-babweb.sh" "scripts/format.sh" "scripts/init-acct.sh" "scripts/masttoot.sh")
+				      (substitute* '("scripts/start-babweb.sh" "scripts/format.sh" "scripts/init-acct.sh" "scripts/masttoot.sh" "scripts/tweet.sh")
 					(("guileloadpath")
 					 (string-append  out "/share/guile/site/3.0:"
 							 (assoc-ref inputs "guile")  "/share/guile/site/3.0:"
 							 (assoc-ref inputs "guile-json")  "/share/guile/site/3.0:"
 							 (assoc-ref inputs "guile-oauth")  "/share/guile/site/3.0:"
 							 (getenv "GUILE_LOAD_PATH") "\"")))
-				      (substitute* '("scripts/start-babweb.sh" "scripts/format.sh" "scripts/init-acct.sh" "scripts/masttoot.sh")
+				      (substitute* '("scripts/start-babweb.sh" "scripts/format.sh" "scripts/init-acct.sh" "scripts/masttoot.sh" "scripts/tweet.sh")
 					(("guileexecutable")
 					 (string-append (assoc-ref inputs "guile") "/bin/guile")))
 				      
-				      (substitute* '("scripts/start-babweb.sh" "scripts/format.sh" "scripts/init-acct.sh" "scripts/masttoot.sh")
+				      (substitute* '("scripts/start-babweb.sh" "scripts/format.sh" "scripts/init-acct.sh" "scripts/masttoot.sh" "scripts/tweet.sh")
 					(("guileloadcompiledpath")
 					 (string-append  out "/lib/guile/3.0/site-ccache:"
 							 (assoc-ref inputs "guile")  "/lib/guile/3.0/site-ccache:"
@@ -81,7 +81,7 @@
 					   (bin-dir (string-append out "/bin"))
 					   (scm  "/share/guile/site/3.0")
 					   (go   "/lib/guile/3.0/site-ccache")
-					   (all-files '("start-babweb.sh" "format.sh" "init-acct.sh" "masttoot.sh")))				      
+					   (all-files '("start-babweb.sh" "format.sh" "init-acct.sh" "masttoot.sh" "tweet.sh")))
 				      (map (lambda (file)
 					     (begin
 					       (install-file (string-append "./scripts/" file) bin-dir)
