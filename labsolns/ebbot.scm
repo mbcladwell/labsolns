@@ -14,13 +14,13 @@
   #:use-module (gnu packages pkg-config)
   #:use-module (gnu packages texinfo)
   #:use-module (labsolns guile-oauth)
-  #:use-module (labsolns artanis-07)
+;;  #:use-module (labsolns artanis-07)
   #:use-module (json)
 
   )
 
 (define-public ebbot
-             (let ((commit "543e6dfd43150d3745ecc4c94f1f2e9377acc3eb")
+             (let ((commit "144a0b3921a2c7e3c7d542a0602fc698bf374f5f")
         (revision "4"))
 (package
   (name "ebbot")
@@ -32,7 +32,7 @@
                       (commit commit)))
                         (file-name (git-file-name name version))
                 (sha256 
-             (base32 "1f65gxicqag3vhy76f431vyckqcs6wr6nac0sgpbwl82sjlkh2c4"))))
+             (base32 "0845z3zfb7cn79n8q7r2kzvk8l94nkxwglkpsiyyb3r8da7qb2kn"))))
   (build-system guile-build-system)
   (arguments `(
 	     ;;  #:modules (((guix build guile-build-system)
@@ -45,21 +45,21 @@
     		       (add-after 'unpack 'patch-prefix
 				  (lambda* (#:key inputs outputs #:allow-other-keys)
 				    (let ((out  (assoc-ref outputs "out")))					  
-				      (substitute* '("scripts/ebbot.sh" "scripts/format.sh" "scripts/init-acct.sh" "scripts/masttoot.sh")
+				      (substitute* '("scripts/ebbot.sh" "scripts/format.sh" "scripts/init-acct.sh" "scripts/masttoot.sh" "tweet.sh")
 					(("ebbotstorepath")
 					 out))
-				      (substitute* '("scripts/ebbot.sh" "scripts/format.sh" "scripts/init-acct.sh" "scripts/masttoot.sh")
+				      (substitute* '("scripts/ebbot.sh" "scripts/format.sh" "scripts/init-acct.sh" "scripts/masttoot.sh" "tweet.sh")
 					(("guileloadpath")
 					 (string-append  out "/share/guile/site/3.0:"
 							 (assoc-ref inputs "guile")  "/share/guile/site/3.0:"
 							 (assoc-ref inputs "guile-json")  "/share/guile/site/3.0:"
 							 (assoc-ref inputs "guile-oauth")  "/share/guile/site/3.0:"
 							 (getenv "GUILE_LOAD_PATH") "\"")))
-				      (substitute* '("scripts/ebbot.sh" "scripts/format.sh" "scripts/init-acct.sh" "scripts/masttoot.sh")
+				      (substitute* '("scripts/ebbot.sh" "scripts/format.sh" "scripts/init-acct.sh" "scripts/masttoot.sh" "tweet.sh")
 					(("guileexecutable")
 					 (string-append (assoc-ref inputs "guile") "/bin/guile")))
 				      
-				      (substitute* '("scripts/ebbot.sh" "scripts/format.sh" "scripts/init-acct.sh" "scripts/masttoot.sh")
+				      (substitute* '("scripts/ebbot.sh" "scripts/format.sh" "scripts/init-acct.sh" "scripts/masttoot.sh" "tweet.sh")
 					(("guileloadcompiledpath")
 					 (string-append  out "/lib/guile/3.0/site-ccache:"
 							 (assoc-ref inputs "guile")  "/lib/guile/3.0/site-ccache:"
@@ -100,7 +100,9 @@
 		       )))
   (native-inputs
     `(("guile" ,guile-3.0)))
-  (propagated-inputs `( ("guile-json" ,guile-json-4) ("guile-oauth" ,guile-oauth)("bash" ,bash)("artanis" ,artanis-07)))
+  (propagated-inputs `( ("guile-json" ,guile-json-4) ("guile-oauth" ,guile-oauth)("bash" ,bash)
+	       ;;			("artanis" ,artanis-07)
+			))
   (synopsis "Auto tweeter for educational tweets concerning propaganda")
   (description "Auto tweeter for educational tweets concerning propaganda")
   (home-page "www.build-a-bot.biz")
