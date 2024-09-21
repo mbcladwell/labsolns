@@ -102,8 +102,6 @@
   (native-inputs
     `(("guile" ,guile-3.0)))
   (propagated-inputs `( ("guile-json" ,guile-json-4) ("guile-oauth" ,guile-oauth)("bash" ,bash)
-;;			("gnutls" ,gnutls)
-	       ;;			("artanis" ,artanis-07)
 			))
   (synopsis "Auto tweeter for educational tweets concerning propaganda")
   (description "Auto tweeter for educational tweets concerning propaganda")
