@@ -16,7 +16,7 @@
   #:use-module (labsolns guile-oauth)
 ;;  #:use-module (labsolns artanis-07)
   #:use-module (json)
-  #:use-module (gnutls)
+;;  #:use-module (gnutls)
 
   )
 
@@ -102,7 +102,7 @@
   (native-inputs
     `(("guile" ,guile-3.0)))
   (propagated-inputs `( ("guile-json" ,guile-json-4) ("guile-oauth" ,guile-oauth)("bash" ,bash)
-			("gnutls" ,gnutls)
+;;			("gnutls" ,gnutls)
 	       ;;			("artanis" ,artanis-07)
 			))
   (synopsis "Auto tweeter for educational tweets concerning propaganda")
