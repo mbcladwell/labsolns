@@ -13,7 +13,7 @@
 ;;  #:use-module (guile-gcrypt)
   #:use-module (gnu packages gnupg)
   #:use-module (gnu packages tls)
-;;  #:use-module (guile-json)
+  #:use-module (gnutls)
   #:use-module ((guix licenses) #:prefix license:)
   #:use-module ((srfi srfi-1) #:select (alist-delete))
   )
@@ -38,7 +38,7 @@
      (list
         guile-json-4       
         guile-gcrypt
-;;        guile-gnutls
+        gnutls
        ))
     (home-page "https://github.com/mbcladwell/guile-oauth")
     (synopsis "guile-oauth is an OAuth client module for Guile.")
