@@ -22,7 +22,7 @@
   )
 
 (define-public ebbot
-             (let ((commit "651d334f13bfdadac3edca6f890ec1ea50341b8f")
+             (let ((commit "bbc8d311e80a876b983c2cc834f0b56a3d7a6d68")
         (revision "4"))
 (package
   (name "ebbot")
@@ -34,7 +34,7 @@
                       (commit commit)))
                         (file-name (git-file-name name version))
                 (sha256 
-             (base32 "024zk3ihj85jdgqq010vih13chq9z4vz1f0j4kbmliha9kvkbrry"))))
+             (base32 "0sg9zfbqbx0bnzly0x23kc87nsxzyll0vgvmzwqkqnrbds8m9px7"))))
   (build-system guile-build-system)
   (arguments `(
 	     ;;  #:modules (((guix build guile-build-system)
@@ -103,7 +103,7 @@
   (native-inputs
     `(("guile" ,guile-3.0)))
   (propagated-inputs `( ("guile-json" ,guile-json-4) ("guile-oauth" ,guile-oauth)("bash" ,bash)
-			("gnutls" ,gnutls)("guile-gnutls" ,guile-gnutls)
+			("gnutls" ,gnutls)("guile-gnutls" ,guile-gnutls)("artanis" ,artanis)
 			))
   (synopsis "Auto tweeter for educational tweets concerning propaganda")
   (description "Auto tweeter for educational tweets concerning propaganda")
