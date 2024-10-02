@@ -77,7 +77,7 @@
                    (commit commit)))
              (file-name (git-file-name name version))
               (sha256
-               (base32 "0ykc8xayad8jskqc1abyhv0kgq2kkf4gmhcyciwl0g2i1432grix"))
+               (base32 "0jd0jh0jz2vfmxdzcpnmqa38lw9m0l3dyz1ynaw9d96xb5bzc1va"))
               (modules '((guix build utils)))
 
 	      ))
