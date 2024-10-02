@@ -138,8 +138,7 @@
              (let* ((out (assoc-ref outputs "out"))
                     (bin (string-append out "/bin"))
                     (scm (string-append out "/share/guile/site/3.0/"))
-                    (go (string-append out "/lib/guile/3.0/"
-                                       "/site-ccache")))
+                    (go (string-append out "/lib/guile/3.0/site-ccache")))
                (wrap-program (string-append bin "/art")
                  `("GUILE_LOAD_PATH" ":" prefix
                    (,scm ,(getenv "GUILE_LOAD_PATH")))
