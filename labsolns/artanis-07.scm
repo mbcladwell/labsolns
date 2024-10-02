@@ -8,7 +8,7 @@
   #:use-module (gnu packages guile)
   #:use-module (guix build-system guile)
   #:use-module (gnu packages guile-xyz)
-  #:use-module (gnu packages pkg-config)
+;;  #:use-module (gnu packages pkg-config)
   #:use-module (json)
   #:use-module (gnu packages curl)
   #:use-module (gnu packages linux)
@@ -83,7 +83,7 @@
 	      ))
     (build-system guile-build-system)
     (inputs
-     (list bash-minimal guile-3.0 nspr nss))
+     (list guile-3.0 nspr nss))
     ;; FIXME the bundled csv contains one more exported procedure
     ;; (sxml->csv-string) than guile-csv. The author is maintainer of both
     ;; projects.
@@ -91,8 +91,8 @@
     (propagated-inputs
      (list guile-json-4 guile-curl guile-readline))
     (native-inputs
-     (list bash-minimal                           ;for the `source' builtin
-           pkg-config
+     (list ;;bash-minimal                           ;for the `source' builtin
+          ;; pkg-config
            util-linux))                           ;for the `script' command
     (arguments
      `(#:modules ((guix build guile-build-system)
