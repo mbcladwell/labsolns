@@ -97,7 +97,7 @@
     (arguments
      `(#:modules ((guix build guile-build-system)
                  ;;  #:select (target-guile-effective-version)
-		   )
+		   
                   ,@%default-gnu-modules)
        #:imported-modules ((guix build guile-build-system)
                            ,@%default-gnu-imported-modules)
@@ -149,5 +149,5 @@ provides several tools for web development: database access, templating
 frameworks, session management, URL-remapping for RESTful, page caching, and
 more.")
     (home-page "https://www.gnu.org/software/artanis/")
-    (license (list license:gpl3+ license:lgpl3+)))) ;dual license
+    (license (list license:gpl3+ license:lgpl3+))))) ;dual license
 
