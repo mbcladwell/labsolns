@@ -65,7 +65,7 @@
 
 
 (define-public artanis-07
-  (let ((commit "c86a63b8c16d0242fec4181b3bfd305717c0bce3")
+             (let ((commit "e669af085e697b52c1faad6048ddf2f59837cea5")
         (revision "4"))
   (package
     (name "artanis")
@@ -139,7 +139,7 @@
                     (bin (string-append out "/bin"))
                     (scm (string-append out "/share/guile/site/3.0/"))
                     (go (string-append out "/lib/guile/3.0/site-ccache")))
-               (wrap-program (string-append bin "/art")
+               (wrap-program (string-append bin "/art.in")
                  `("GUILE_LOAD_PATH" ":" prefix
                    (,scm ,(getenv "GUILE_LOAD_PATH")))
                  `("GUILE_LOAD_COMPILED_PATH" ":" prefix
