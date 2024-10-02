@@ -12,8 +12,8 @@
   #:use-module (json)
   #:use-module (gnu packages curl)
   #:use-module (gnu packages linux)
-   #:use-module (ice-9 readline)
-   #:use-module (gnu packages nss) ;;;;;;;;;;
+;;  #:use-module (ice-9 readline)
+  #:use-module (gnu packages nss) ;;;;;;;;;;
   #:use-module (gnu packages)
   #:use-module (gnu packages base)
   #:use-module (gnu packages bash)
