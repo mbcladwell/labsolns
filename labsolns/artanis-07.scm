@@ -8,7 +8,7 @@
   #:use-module (gnu packages guile)
   #:use-module (guix build-system guile)
   #:use-module (gnu packages guile-xyz)
-;;  #:use-module (gnu packages pkg-config)
+  #:use-module (gnu packages pkg-config)
   #:use-module (json)
   #:use-module (gnu packages curl)
   #:use-module (gnu packages linux)
@@ -92,7 +92,7 @@
      (list guile-json-4 guile-curl guile-readline))
     (native-inputs
      (list ;;bash-minimal                           ;for the `source' builtin
-      ;; pkg-config
+       pkg-config
       guile-3.0                                   ;;required for guile-build-system see docs
            util-linux))                           ;for the `script' command
     (arguments
