@@ -109,7 +109,7 @@
        ;; 			    )
      
        #:phases
-       #~(modify-phases %standard-phases
+       (modify-phases %standard-phases
          (add-after 'unpack 'patch-site-dir
            (lambda* (#:key outputs #:allow-other-keys)
              (substitute* "artanis/commands/help.scm"
