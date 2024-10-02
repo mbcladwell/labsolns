@@ -138,7 +138,7 @@
                  "ffi-binding \"" (assoc-ref inputs "nss") "/lib/nss/libssl3.so\"")))))
          (add-after 'patch-reference-to-libnss 'substitute-root-dir
            (lambda* (#:key outputs #:allow-other-keys)
-             (let ((out  (assoc-ref outputs "out"))
+             (let* ((out  (assoc-ref outputs "out"))
 		   (bin-dir (string-append out "/bin"))
 		   (_ (mkdir-p bin-dir))
                    )
