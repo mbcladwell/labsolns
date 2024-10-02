@@ -65,7 +65,7 @@
 
 
 (define-public artanis-07
-             (let ((commit "69de573cffe92c95892bf997978ad99dc6b42493")
+  (let ((commit "69de573cffe92c95892bf997978ad99dc6b42493")
         (revision "4"))
   (package
     (name "artanis")
@@ -95,7 +95,7 @@
            pkg-config
            util-linux))                           ;for the `script' command
     (arguments
-     `(#:modules (((guix build guile-build-system)
+     `(#:modules ((guix build guile-build-system)
                  ;;  #:select (target-guile-effective-version)
 		   )
                   ,@%default-gnu-modules)
