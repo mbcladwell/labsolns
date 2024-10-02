@@ -142,7 +142,7 @@
 		   (bin-dir (string-append out "/bin"))
 		   (_ (mkdir-p bin-dir))
                    )
-	       (copy-recursively "./bin" bin-dir)))
+	       (copy-recursively "./bin" bin-dir))))
          (add-after 'substitute-root-dir 'wrap-art
            (lambda* (#:key inputs outputs #:allow-other-keys)
              (let* ((out (assoc-ref outputs "out"))
