@@ -97,12 +97,14 @@
            util-linux))                           ;for the `script' command
     (arguments
      `(
-        #:modules ((guix build guile-build-system)
+       #:modules ((guix build guile-build-system)
+		  (guix build gnu-build-system)
        ;;           ;;  #:select (target-guile-effective-version)
 		   
 		   ;;            ,@%default-gnu-modules
 		   )
-        #:imported-modules ((guix build guile-build-system)
+		 #:imported-modules ((guix build guile-build-system)
+				     (guix build gnu-build-system)
 			    ;;                     ,@%default-gnu-imported-modules
 			    )
      
