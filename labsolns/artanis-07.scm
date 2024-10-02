@@ -83,7 +83,7 @@
 	      ))
     (build-system guile-build-system)
     (inputs
-     (list guile-3.0 nspr nss))
+     (list bash-minimal guile-3.0 nspr nss))
     ;; FIXME the bundled csv contains one more exported procedure
     ;; (sxml->csv-string) than guile-csv. The author is maintainer of both
     ;; projects.
@@ -91,7 +91,7 @@
     (propagated-inputs
      (list guile-json-4 guile-curl guile-readline))
     (native-inputs
-     (list ;;bash-minimal                           ;for the `source' builtin
+     (list bash-minimal                           ;for the `source' builtin
        pkg-config
       guile-3.0                                   ;;required for guile-build-system see docs
            util-linux))                           ;for the `script' command
