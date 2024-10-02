@@ -118,7 +118,14 @@
                                (assoc-ref outputs "out")
                                "/share/guile/site/3.0/"
                                "\"")))))
-         (add-after 'patch-site-dir 'patch-reference-to-libnss
+	 (add-after 'patch-site-dir 'modify-executable
+	   (lambda* (#:key inputs outputs #:allow-other-keys)
+	     (let ((out  (assoc-ref outputs "out")))					  
+	       (substitute* '("./bin/art.in")
+		 (("guileexecutable")
+		  (string-append (assoc-ref inputs "guile") "/bin/guile"))) )
+				    #t))		    	 	 
+         (add-after 'modify-executable 'patch-reference-to-libnss
            (lambda* (#:key inputs #:allow-other-keys)
              (substitute* "artanis/security/nss.scm"
                (("ffi-binding \"libnss3\"")
@@ -131,8 +138,11 @@
                  "ffi-binding \"" (assoc-ref inputs "nss") "/lib/nss/libssl3.so\"")))))
          (add-after 'patch-reference-to-libnss 'substitute-root-dir
            (lambda* (#:key outputs #:allow-other-keys)
-             (let ((out  (assoc-ref outputs "out")))            
-               (mkdir-p (string-append out "/bin")) )))
+             (let ((out  (assoc-ref outputs "out"))
+		   (bin-dir (string-append out "/bin"))
+		   (_ (mkdir-p bin-dir))
+                   )
+	       (copy-recursively "./bin" bin-dir)))
          (add-after 'substitute-root-dir 'wrap-art
            (lambda* (#:key inputs outputs #:allow-other-keys)
              (let* ((out (assoc-ref outputs "out"))
