@@ -92,7 +92,8 @@
      (list guile-json-4 guile-curl guile-readline))
     (native-inputs
      (list ;;bash-minimal                           ;for the `source' builtin
-          ;; pkg-config
+      ;; pkg-config
+      guile-3.0                                   ;;required for guile-build-system see docs
            util-linux))                           ;for the `script' command
     (arguments
      `(#:modules ((guix build guile-build-system)
