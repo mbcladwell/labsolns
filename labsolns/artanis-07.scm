@@ -118,7 +118,7 @@
                                (assoc-ref outputs "out")
                                "/share/guile/site/3.0/"
                                "\"")))))
-         (add-after 'unpack 'patch-reference-to-libnss
+         (add-after 'patch-site-dir 'patch-reference-to-libnss
            (lambda* (#:key inputs #:allow-other-keys)
              (substitute* "artanis/security/nss.scm"
                (("ffi-binding \"libnss3\"")
@@ -129,11 +129,11 @@
                (("ffi-binding \"libssl3\"")
                 (string-append
                  "ffi-binding \"" (assoc-ref inputs "nss") "/lib/nss/libssl3.so\"")))))
-         (add-before 'install 'substitute-root-dir
+         (add-after 'patch-reference-to-libnss 'substitute-root-dir
            (lambda* (#:key outputs #:allow-other-keys)
              (let ((out  (assoc-ref outputs "out")))            
                (mkdir-p (string-append out "/bin")) )))
-         (add-after 'install 'wrap-art
+         (add-after 'substitute-root-dir 'wrap-art
            (lambda* (#:key inputs outputs #:allow-other-keys)
              (let* ((out (assoc-ref outputs "out"))
                     (bin (string-append out "/bin"))
