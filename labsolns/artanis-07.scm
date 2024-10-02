@@ -65,7 +65,7 @@
 
 
 (define-public artanis-07
-             (let ((commit "e669af085e697b52c1faad6048ddf2f59837cea5")
+             (let ((commit "0ef6dc04770ca5bd4c762d611c86a4cdaf7b2e77")
         (revision "4"))
   (package
     (name "artanis")
