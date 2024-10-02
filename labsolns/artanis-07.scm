@@ -110,8 +110,7 @@
                (("\\(%site-dir\\)")
                 (string-append "\""
                                (assoc-ref outputs "out")
-                               "/share/guile/site/"
-                               (target-guile-effective-version)
+                               "/share/guile/site/3.0/"
                                "\"")))))
          (add-after 'unpack 'patch-reference-to-libnss
            (lambda* (#:key inputs #:allow-other-keys)
@@ -131,10 +130,9 @@
          (add-after 'install 'wrap-art
            (lambda* (#:key inputs outputs #:allow-other-keys)
              (let* ((out (assoc-ref outputs "out"))
-                    (effective-version (target-guile-effective-version))
                     (bin (string-append out "/bin"))
-                    (scm (string-append out "/share/guile/site/" effective-version))
-                    (go (string-append out "/lib/guile/" effective-version
+                    (scm (string-append out "/share/guile/site/3.0/"))
+                    (go (string-append out "/lib/guile/3.0/"
                                        "/site-ccache")))
                (wrap-program (string-append bin "/art")
                  `("GUILE_LOAD_PATH" ":" prefix
