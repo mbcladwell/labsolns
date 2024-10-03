@@ -105,7 +105,7 @@
   ;; (propagated-inputs `( ("guile-json" ,guile-json-4) ("guile-oauth" ,guile-oauth)("bash" ,bash)
   ;; 			("gnutls" ,gnutls)("guile-gnutls" ,guile-gnutls)("artanis" ,artanis)
   ;; 			))
-  (propagated-inputs (list guile-json-4 guile-oauth bash gnutls guile-gnutls artanis)
+  (propagated-inputs (list guile-json-4 guile-oauth bash gnutls guile-gnutls artanis-07)
 			)
   (synopsis "Auto tweeter for educational tweets concerning propaganda")
   (description "Auto tweeter for educational tweets concerning propaganda")
