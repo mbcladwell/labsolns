@@ -14,7 +14,7 @@
   #:use-module (gnu packages pkg-config)
   #:use-module (gnu packages texinfo)
   #:use-module (labsolns guile-oauth)
-;;  #:use-module (labsolns artanis-07)
+  #:use-module (labsolns artanis-07)
   #:use-module (json)
   #:use-module (gnutls)
   #:use-module (gnu packages tls)
