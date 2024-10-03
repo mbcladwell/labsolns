@@ -68,9 +68,9 @@
              (let ((commit "0ef6dc04770ca5bd4c762d611c86a4cdaf7b2e77")
         (revision "4"))
   (package
-    (name "artanis-07")
-;;   (version (string-append "0.7." (string-take commit 7)))
-   (version  (string-take commit 7))
+    (name "artanis")
+   (version (string-append "0.7." (string-take commit 7)))
+ ;;  (version  (string-take commit 7))
     (source (origin
 	     (method git-fetch)
              (uri (git-reference
