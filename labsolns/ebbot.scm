@@ -131,13 +131,14 @@ more.")
 ;;         (revision "4"))
 (package
  (name "ebbot")
- (commit "bbc8d311e80a876b983c2cc834f0b56a3d7a6d68")
-  (version (string-append "0.1." (string-take commit 7)))
+;; (commit "bbc8d311e80a876b983c2cc834f0b56a3d7a6d68")
+;;  (version (string-append "0.1." (string-take commit 7)))
+  (version (string-append "0.1." (string-take "bbc8d311e80a876b983c2cc834f0b56a3d7a6d68" 7)))
   (source (origin
            (method git-fetch)
                 (uri (git-reference
                       (url "https://github.com/mbcladwell/ebbot")
-                      (commit commit)))
+                      (commit "bbc8d311e80a876b983c2cc834f0b56a3d7a6d68")))
                         (file-name (git-file-name name version))
                 (sha256 
              (base32 "0sg9zfbqbx0bnzly0x23kc87nsxzyll0vgvmzwqkqnrbds8m9px7"))))
