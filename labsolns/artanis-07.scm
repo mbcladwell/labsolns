@@ -85,7 +85,7 @@
     (build-system guile-build-system)
     (inputs
      (list bash-minimal guile-3.0 nss
-	  ;; nspr
+	   nspr
 	   ))
     ;; FIXME the bundled csv contains one more exported procedure
     ;; (sxml->csv-string) than guile-csv. The author is maintainer of both
