@@ -91,7 +91,7 @@
                       (commit commit)))
                         (file-name (git-file-name name version))
                 (sha256 
-             (base32 "001ibczrj5f9ll2sgmi9iwf7zwl6frqrfmrm67aa33m3p87z29d1"))))
+             (base32 "0il6fbgaf0yzj8gc1dhnyk4xf0nchgyn8yphvdfb3qk3vgilhk0h"))))
   
    
    (build-system guile-build-system)
@@ -100,8 +100,13 @@
     		       (add-after 'unpack 'patch-prefix
 			       (lambda* (#:key inputs outputs #:allow-other-keys)
 				 (substitute* '("./limsn/lib/lnpg.scm"
+						"./scripts/init-limsn-channel.sh"
+						"./scripts/init-limsn-pack.sh"
+						"./scripts/install-pg-aws-ec2.sh"
+						"./scripts/install-pg-aws-rds.sh"
+						"./scripts/lnpg.sh"
+						"./scripts/load-pg.sh"
 						"./scripts/start-limsn.sh"
-						"./scripts/init-ln.sh"
 						"./limsn/ENTRY")						
 						(("abcdefgh")
 						(assoc-ref outputs "out" )) )
