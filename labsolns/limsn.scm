@@ -127,7 +127,7 @@
 		       ;; 			   (dummy (copy-recursively "./limsn/lib/labsolns" labsolns-dir))) 
 		       ;; 		       #t)))
 
-                       (add-after 'make-dir 'make-scripts-dir
+                       (add-after 'make-lib-dir 'make-scripts-dir
 			       (lambda* (#:key outputs #:allow-other-keys)
 				    (let* ((out  (assoc-ref outputs "out"))
 					   (scripts-dir (string-append out "/share/guile/site/3.0/limsn/scripts"))
