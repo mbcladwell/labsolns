@@ -91,7 +91,7 @@
                       (commit commit)))
                         (file-name (git-file-name name version))
                 (sha256 
-             (base32 "001ibczrj5f9ll2sgmi9iwf7zwl6frqrfmrm67aa33m3p87z29d1"))))
+             (base32 "0il6fbgaf0yzj8gc1dhnyk4xf0nchgyn8yphvdfb3qk3vgilhk0h"))))
   
    
    (build-system guile-build-system)
@@ -139,7 +139,7 @@
 				  (lambda* (#:key inputs outputs #:allow-other-keys)
 				    (let* ((out (assoc-ref outputs "out"))
 					   (bin-dir (string-append out "/share/guile/site/3.0/limsn/bin"))
-					   (dummy (install-file "limsn/bin/start-limsn.sh" bin-dir))				
+					   (dummy (install-file "./scripts/start-limsn.sh" bin-dir))				
 					   (dummy (chmod (string-append bin-dir "/start-limsn.sh") #o555 ))) ;;read execute, no write
 				      (wrap-program (string-append bin-dir "/start-limsn.sh")
 						    `( "PATH" ":" prefix  (,bin-dir) ))		    
