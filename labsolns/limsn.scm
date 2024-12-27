@@ -91,7 +91,7 @@
                       (commit commit)))
                         (file-name (git-file-name name version))
                 (sha256 
-             (base32 "001ibczrj5f9ll2sgmi9iwf7zwl6frqrfmrm67aa33m3p87z29d1"))))
+             (base32 "0il6fbgaf0yzj8gc1dhnyk4xf0nchgyn8yphvdfb3qk3vgilhk0h"))))
   
    
    (build-system guile-build-system)
@@ -135,7 +135,7 @@
 					   (dummy (mkdir-p scripts-dir)))            				       
 				       (copy-recursively "./scripts" scripts-dir)
 				       #t)))
-		       (add-after 'install 'make-bin-dir
+		       (add-after 'make-scripts-dir 'make-bin-dir
 				  (lambda* (#:key inputs outputs #:allow-other-keys)
 				    (let* ((out (assoc-ref outputs "out"))
 					   (bin-dir (string-append out "/share/guile/site/3.0/limsn/bin"))
