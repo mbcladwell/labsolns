@@ -149,10 +149,10 @@
        ("gnuplot" ,gnuplot)
        ("guile-dbi" ,guile-dbi)
        ))
-       (propagated-inputs
-	`(
-	  ("artanis" ,artanis-07)
-		))
+    (propagated-inputs
+     `(
+       ("artanis" ,artanis-07)
+       ))
     (native-inputs
      `(("bash"       ,bash)         ;for the `source' builtin
      ;;  ("pkgconfig"  ,pkg-config)
@@ -164,7 +164,7 @@
     (synopsis "Microwell Plate management Software")
     (description "description")
     (home-page "http://www.labsolns.com/")
-    (license (list license:gpl3+ license:lgpl3+))) ;dual license
+    (license (list license:gpl3+ license:lgpl3+))))) ;dual license
 
 
 
