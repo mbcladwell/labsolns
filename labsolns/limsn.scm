@@ -99,7 +99,7 @@
 			#:phases (modify-phases %standard-phases
     		       (add-after 'unpack 'patch-prefix
 			       (lambda* (#:key inputs outputs #:allow-other-keys)
-				 (substitute* '("./limsn/lib/labsolns/lnpg.scm"
+				 (substitute* '("./limsn/lib/lnpg.scm"
 						"./scripts/start-limsn.sh"
 						"./scripts/init-ln.sh"
 						"./limsn/ENTRY")						
