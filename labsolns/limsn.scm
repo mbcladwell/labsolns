@@ -91,7 +91,7 @@
                       (commit commit)))
                         (file-name (git-file-name name version))
                 (sha256 
-             (base32 "001ibczrj5f9ll2sgmi9iwf7zwl6frqrfmrm67aa33m3p87z29d1"))))
+             (base32 "0il6fbgaf0yzj8gc1dhnyk4xf0nchgyn8yphvdfb3qk3vgilhk0h"))))
   
    
    (build-system guile-build-system)
@@ -112,14 +112,14 @@
 				     (string-append "./limsn/lib:"
 						    (getenv "GUILE_LOAD_PATH")))
 			     #t))
-                       (add-before 'install 'make-lib-dir
+                       (add-after 'unpack 'make-lib-dir
 			       (lambda* (#:key outputs #:allow-other-keys)
 				    (let* ((out  (assoc-ref outputs "out"))
 					   (lib-dir (string-append out "/share/guile/site/3.0/limsn/lib"))
 					   (dummy (mkdir-p lib-dir)))            				       
 				       (copy-recursively "./limsn/lib" lib-dir)
 				       #t)))
-		       (add-after 'unpack 'make-dir
+		       (add-after 'make-lib-dir 'make-dir
 				   (lambda* (#:key outputs #:allow-other-keys)
 				     (let* ((out  (assoc-ref outputs "out"))
 					   (labsolns-dir (string-append out "/labsolns"))
@@ -127,7 +127,7 @@
 					   (dummy (copy-recursively "./limsn/lib/labsolns" labsolns-dir))) 
 				       #t)))
 
-                       (add-before 'install 'make-scripts-dir
+                       (add-after 'make-dir 'make-scripts-dir
 			       (lambda* (#:key outputs #:allow-other-keys)
 				    (let* ((out  (assoc-ref outputs "out"))
 					   (scripts-dir (string-append out "/share/guile/site/3.0/limsn/scripts"))
