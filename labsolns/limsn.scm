@@ -91,7 +91,7 @@
                       (commit commit)))
                         (file-name (git-file-name name version))
                 (sha256 
-             (base32 "001ibczrj5f9ll2sgmi9iwf7zwl6frqrfmrm67aa33m3p87z29d1"))))
+             (base32 "0il6fbgaf0yzj8gc1dhnyk4xf0nchgyn8yphvdfb3qk3vgilhk0h"))))
   
    
    (build-system guile-build-system)
@@ -119,13 +119,13 @@
 					   (dummy (mkdir-p lib-dir)))            				       
 				       (copy-recursively "./limsn/lib" lib-dir)
 				       #t)))
-		       (add-after 'make-lib-dir 'make-dir
-				   (lambda* (#:key outputs #:allow-other-keys)
-				     (let* ((out  (assoc-ref outputs "out"))
-					   (labsolns-dir (string-append out "/labsolns"))
-					   (mkdir-p labsolns-dir)
-					   (dummy (copy-recursively "./limsn/lib/labsolns" labsolns-dir))) 
-				       #t)))
+		       ;; (add-after 'make-lib-dir 'make-dir
+		       ;; 		   (lambda* (#:key outputs #:allow-other-keys)
+		       ;; 		     (let* ((out  (assoc-ref outputs "out"))
+		       ;; 			   (labsolns-dir (string-append out "/labsolns"))
+		       ;; 			   (mkdir-p labsolns-dir)
+		       ;; 			   (dummy (copy-recursively "./limsn/lib/labsolns" labsolns-dir))) 
+		       ;; 		       #t)))
 
                        (add-after 'make-dir 'make-scripts-dir
 			       (lambda* (#:key outputs #:allow-other-keys)
