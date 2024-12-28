@@ -73,7 +73,7 @@
   #:use-module ((srfi srfi-1) #:select (alist-delete)))
 
 (define-public limsn
-             (let ((commit "2c7df02e4603ce3aafde56a77c00682eb0c9e76c");;anchor1
+             (let ((commit "ca5f01b7bdf5482699f3547e0e0df9a0dfadc227");;anchor1
         (revision "2"))
 
   (package
@@ -124,45 +124,50 @@
 					   (dummy (mkdir-p lib-dir)))            				       
 				       (copy-recursively "./limsn/lib" lib-dir)
 				       #t)))
-		       ;; (add-after 'make-lib-dir 'make-dir
-		       ;; 		   (lambda* (#:key outputs #:allow-other-keys)
-		       ;; 		     (let* ((out  (assoc-ref outputs "out"))
-		       ;; 			   (labsolns-dir (string-append out "/labsolns"))
-		       ;; 			   (mkdir-p labsolns-dir)
-		       ;; 			   (dummy (copy-recursively "./limsn/lib/labsolns" labsolns-dir))) 
+		    
+                       ;; (add-after 'make-lib-dir 'make-scripts-dir
+		       ;; 	       (lambda* (#:key outputs #:allow-other-keys)
+		       ;; 		    (let* ((out  (assoc-ref outputs "out"))
+		       ;; 			   (scripts-dir (string-append out "/share/guile/site/3.0/limsn/scripts"))
+		       ;; 			;;   (scripts-dir (string-append out "/scripts"))
+		       ;; 			   (dummy (mkdir-p scripts-dir)))            				       
+		       ;; 		       (copy-recursively "./scripts" scripts-dir)
 		       ;; 		       #t)))
-
-                       (add-after 'make-lib-dir 'make-scripts-dir
-			       (lambda* (#:key outputs #:allow-other-keys)
-				    (let* ((out  (assoc-ref outputs "out"))
-					   (scripts-dir (string-append out "/share/guile/site/3.0/limsn/scripts"))
-					;;   (scripts-dir (string-append out "/scripts"))
-					   (dummy (mkdir-p scripts-dir)))            				       
-				       (copy-recursively "./scripts" scripts-dir)
-				       #t)))
-		       (add-after 'make-scripts-dir 'make-bin-dir
-				  (lambda* (#:key inputs outputs #:allow-other-keys)
-				    (let* ((out (assoc-ref outputs "out"))
-					   (bin-dir (string-append out "/share/guile/site/3.0/limsn/bin"))
-					   (dummy (install-file "./scripts/start-limsn.sh" bin-dir))				
-					   (dummy (chmod (string-append bin-dir "/start-limsn.sh") #o555 ))) ;;read execute, no write
-				      (wrap-program (string-append bin-dir "/start-limsn.sh")
-						    `( "PATH" ":" prefix  (,bin-dir) ))		    
-				      #t)))
+		       ;; (add-after 'make-scripts-dir 'make-bin-dir
+		       ;; 		  (lambda* (#:key inputs outputs #:allow-other-keys)
+		       ;; 		    (let* ((out (assoc-ref outputs "out"))
+		       ;; 			   (bin-dir (string-append out "/share/guile/site/3.0/limsn/bin"))
+		       ;; 			   (dummy (install-file "./scripts/start-limsn.sh" bin-dir))				
+		       ;; 			   (dummy (chmod (string-append bin-dir "/start-limsn.sh") #o555 ))) ;;read execute, no write
+		       ;; 		      (wrap-program (string-append bin-dir "/start-limsn.sh")
+		       ;; 				    `( "PATH" ":" prefix  (,bin-dir) ))		    
+		       ;; 		      #t)))
 
 
-       (add-after 'make-scripts-dir 'make-bin-dir
+       (add-after 'make-lib-dir 'make-bin-dir
            (lambda* (#:key outputs #:allow-other-keys)
              (let* ((out  (assoc-ref outputs "out"))
-		   (bin-dir (string-append out "/bin"))
-		   (_ (mkdir-p bin-dir))
-                   )
-	       (copy-recursively "./bin" bin-dir))))
+		    (bin-dir (string-append out "/bin")))
+	       (begin
+		   (mkdir-p bin-dir)                
+		   (copy-recursively "./scripts" bin-dir)
 
+		   (wrap-program (string-append bin-dir "/start-limsn.sh")
+				 `( "PATH" ":" prefix  (,bin-dir) )
+				 `("GUILE_LOAD_PATH" ":" prefix
+				   (,scm ,(getenv "GUILE_LOAD_PATH")))
+				 `("GUILE_LOAD_COMPILED_PATH" ":" prefix
+				   (,go ,(getenv "GUILE_LOAD_COMPILED_PATH")))
+				 )
+		   (wrap-program (string-append bin-dir "/init-limsn-pack.sh")
+				 `( "PATH" ":" prefix  (,bin-dir) )
+				 `("GUILE_LOAD_PATH" ":" prefix
+				   (,scm ,(getenv "GUILE_LOAD_PATH")))
+				 `("GUILE_LOAD_COMPILED_PATH" ":" prefix
+				   (,go ,(getenv "GUILE_LOAD_COMPILED_PATH"))))
 
-
-		       
-		       )))
+		   )		       
+	       #t)))
     (inputs
      `(("guile" ,guile-3.0)
        ("gnuplot" ,gnuplot)
