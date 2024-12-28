@@ -121,7 +121,7 @@
 			     (setenv "GUILE_LOAD_PATH"
 				     (string-append
 						    ".:./limsn/lib:"
-						  ;;  (assoc-ref inputs "guile-json")  "/share/guile/site/3.0:"
+						    (assoc-ref inputs "guile-json")  "/share/guile/site/3.0:"
 						  ;;  (assoc-ref inputs "guile-redis")  "/share/guile/site/3.0:"
 						    (assoc-ref inputs "artanis")  "/share/guile/site/3.0:"
 						    (getenv "GUILE_LOAD_PATH")))
@@ -168,6 +168,7 @@
     (propagated-inputs
      `(
        ("artanis" ,artanis-07)
+       ("guile-json" ,guile-json-4)
        ))
     (native-inputs
      `(("bash"       ,bash)         ;for the `source' builtin
