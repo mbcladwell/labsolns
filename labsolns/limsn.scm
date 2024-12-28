@@ -115,7 +115,7 @@
 							     ;;  (assoc-ref inputs "guile-redis")  "/share/guile/site/3.0:"
 							     (assoc-ref inputs "artanis")  "/share/guile/site/3.0:"
 							     (getenv "GUILE_LOAD_PATH")))
-			     #t))
+						    #t))
 
                        (add-after 'unpack 'make-lib-dir
 			       (lambda* (#:key outputs #:allow-other-keys)
@@ -167,7 +167,7 @@
 				   (,go ,(getenv "GUILE_LOAD_COMPILED_PATH"))))
 
 		   )		       
-	       #t)))
+	       )))
     (inputs
      `(("guile" ,guile-3.0)
        ("gnuplot" ,gnuplot)
