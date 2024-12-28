@@ -90,7 +90,7 @@
                       (commit commit)))
                         (file-name (git-file-name name version))
                 (sha256 
-             (base32 "001ibczrj5f9ll2sgmi9iwf7zwl6frqrfmrm67aa33m3p87z29d1"))));;anchor2
+             (base32 "1p3c5df3bsd2yffhmz1v3h7xwixsyajl3a9rph0scxj0s7a4ys8d"))));;anchor2
   
    
    (build-system guile-build-system)
