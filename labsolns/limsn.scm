@@ -151,7 +151,6 @@
 	       (begin
 		   (mkdir-p bin-dir)                
 		   (copy-recursively "./scripts" bin-dir)
-
 		   (wrap-program (string-append bin-dir "/start-limsn.sh")
 				 `( "PATH" ":" prefix  (,bin-dir) )
 				 `("GUILE_LOAD_PATH" ":" prefix
@@ -167,7 +166,7 @@
 				   (,go ,(getenv "GUILE_LOAD_COMPILED_PATH"))))
 
 		   )		       
-	       )))
+	       ))))
     (inputs
      `(("guile" ,guile-3.0)
        ("gnuplot" ,gnuplot)
