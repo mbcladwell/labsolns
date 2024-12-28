@@ -70,15 +70,14 @@
   #:use-module (guix utils)
   #:use-module ((guix build utils) #:select (alist-replace))
   #:use-module (ice-9 match)
-;;  #:use-module (labsolns artanis-07)
- ; #:use-module (artanis utils)
- ; #:use-module (artanis irregex)
- ; #:use-module (artanis config)  
+;  #:use-module (artanis utils)
+;  #:use-module (artanis irregex)
+;  #:use-module (artanis config)  
 ;;  #:use-module (dbi dbi)    
   #:use-module ((srfi srfi-1) #:select (alist-delete)))
 
 (define-public limsn
-             (let ((commit "5b77d07c73476ef070876f38638bd7447dd3fd40")
+             (let ((commit "5b77d07c73476ef070876f38638bd7447dd3fd40");;anchor1
         (revision "2"))
 
   (package
@@ -91,7 +90,7 @@
                       (commit commit)))
                         (file-name (git-file-name name version))
                 (sha256 
-             (base32 "0il6fbgaf0yzj8gc1dhnyk4xf0nchgyn8yphvdfb3qk3vgilhk0h"))))
+             (base32 "0il6fbgaf0yzj8gc1dhnyk4xf0nchgyn8yphvdfb3qk3vgilhk0h"))));;anchor2
   
    
    (build-system guile-build-system)
@@ -174,7 +173,7 @@
 
 
 (define-public artanis-07
-             (let ((commit "5b77d07c73476ef070876f38638bd7447dd3fd40")
+             (let ((commit "0ef6dc04770ca5bd4c762d611c86a4cdaf7b2e77")
         (revision "4"))
   (package
     (name "artanis-07")
