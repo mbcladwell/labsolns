@@ -110,12 +110,22 @@
 						(("abcdefgh")
 						(assoc-ref outputs "out" )) )
 				 #t))		       			       
-		(add-after 'unpack 'augment-GUILE_LOAD_PATH
-			   (lambda _
+		;; (add-after 'unpack 'augment-GUILE_LOAD_PATH
+		;; 	   (lambda _
+		;; 	     (setenv "GUILE_LOAD_PATH"
+		;; 		     (string-append "./limsn/lib:"
+		;; 				    (getenv "GUILE_LOAD_PATH")))
+		       ;; 	     #t))
+		       	(add-after 'unpack 'augment-GUILE_LOAD_PATH
+			   (lambda* (#:key inputs #:allow-other-keys)
 			     (setenv "GUILE_LOAD_PATH"
-				     (string-append "./limsn/lib:"
+				     (string-append
+						    ".:./limsn/lib:"
+						  ;;  (assoc-ref inputs "guile-json")  "/share/guile/site/3.0:"
+						  ;;  (assoc-ref inputs "guile-redis")  "/share/guile/site/3.0:"
+						    (assoc-ref inputs "artanis-07")  "/share/guile/site/3.0:"
 						    (getenv "GUILE_LOAD_PATH")))
-			     #t))
+
                        (add-after 'unpack 'make-lib-dir
 			       (lambda* (#:key outputs #:allow-other-keys)
 				    (let* ((out  (assoc-ref outputs "out"))
