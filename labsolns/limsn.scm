@@ -166,7 +166,7 @@
 				   (,go ,(getenv "GUILE_LOAD_COMPILED_PATH"))))
 
 		   )		       
-	       ))))
+	       ))))))
     (inputs
      `(("guile" ,guile-3.0)
        ("gnuplot" ,gnuplot)
