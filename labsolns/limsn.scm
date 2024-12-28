@@ -70,14 +70,10 @@
   #:use-module (guix utils)
   #:use-module ((guix build utils) #:select (alist-replace))
   #:use-module (ice-9 match)
-;  #:use-module (artanis utils)
-;  #:use-module (artanis irregex)
-;  #:use-module (artanis config)  
-;;  #:use-module (dbi dbi)    
   #:use-module ((srfi srfi-1) #:select (alist-delete)))
 
 (define-public limsn
-             (let ((commit "494310c78617994ef5360d0f9e998cb96ae36221");;anchor1
+             (let ((commit "2c7df02e4603ce3aafde56a77c00682eb0c9e76c");;anchor1
         (revision "2"))
 
   (package
@@ -95,36 +91,30 @@
    
    (build-system guile-build-system)
   (arguments `(
-			#:phases (modify-phases %standard-phases
-    		       (add-after 'unpack 'patch-prefix
-			       (lambda* (#:key inputs outputs #:allow-other-keys)
-				 (substitute* '("./limsn/lib/lnpg.scm"
-						"./scripts/init-limsn-channel.sh"
-						"./scripts/init-limsn-pack.sh"
-						"./scripts/install-pg-aws-ec2.sh"
-						"./scripts/install-pg-aws-rds.sh"
-						"./scripts/lnpg.sh"
-						"./scripts/load-pg.sh"
-						"./scripts/start-limsn.sh"
-						"./limsn/ENTRY")						
-						(("abcdefgh")
-						(assoc-ref outputs "out" )) )
-				 #t))		       			       
-		;; (add-after 'unpack 'augment-GUILE_LOAD_PATH
-		;; 	   (lambda _
-		;; 	     (setenv "GUILE_LOAD_PATH"
-		;; 		     (string-append "./limsn/lib:"
-		;; 				    (getenv "GUILE_LOAD_PATH")))
-		       ;; 	     #t))
-		       	(add-after 'unpack 'augment-GUILE_LOAD_PATH
-			   (lambda* (#:key inputs #:allow-other-keys)
-			     (setenv "GUILE_LOAD_PATH"
-				     (string-append
-						    ".:./limsn/lib:"
-						    (assoc-ref inputs "guile-json")  "/share/guile/site/3.0:"
-						  ;;  (assoc-ref inputs "guile-redis")  "/share/guile/site/3.0:"
-						    (assoc-ref inputs "artanis")  "/share/guile/site/3.0:"
-						    (getenv "GUILE_LOAD_PATH")))
+	       #:phases (modify-phases %standard-phases
+    				       (add-after 'unpack 'patch-prefix
+						  (lambda* (#:key inputs outputs #:allow-other-keys)
+						    (substitute* '("./limsn/lib/lnpg.scm"
+								   "./scripts/init-limsn-channel.sh"
+								   "./scripts/init-limsn-pack.sh"
+								   "./scripts/install-pg-aws-ec2.sh"
+								   "./scripts/install-pg-aws-rds.sh"
+								   "./scripts/lnpg.sh"
+								   "./scripts/load-pg.sh"
+								   "./scripts/start-limsn.sh"
+								   "./limsn/ENTRY")						
+								 (("path-into-store")
+								  (assoc-ref outputs "out" )) )
+						    #t))		       			       
+		       		       (add-after 'unpack 'augment-GUILE_LOAD_PATH
+						  (lambda* (#:key inputs #:allow-other-keys)
+						    (setenv "GUILE_LOAD_PATH"
+							    (string-append
+							     ".:./limsn/lib:"
+							     (assoc-ref inputs "guile-json")  "/share/guile/site/3.0:"
+							     ;;  (assoc-ref inputs "guile-redis")  "/share/guile/site/3.0:"
+							     (assoc-ref inputs "artanis")  "/share/guile/site/3.0:"
+							     (getenv "GUILE_LOAD_PATH")))
 			     #t))
 
                        (add-after 'unpack 'make-lib-dir
@@ -158,7 +148,20 @@
 					   (dummy (chmod (string-append bin-dir "/start-limsn.sh") #o555 ))) ;;read execute, no write
 				      (wrap-program (string-append bin-dir "/start-limsn.sh")
 						    `( "PATH" ":" prefix  (,bin-dir) ))		    
-				      #t)))				      				     				      			    		 		             
+				      #t)))
+
+
+       (add-after 'make-scripts-dir 'make-bin-dir
+           (lambda* (#:key outputs #:allow-other-keys)
+             (let* ((out  (assoc-ref outputs "out"))
+		   (bin-dir (string-append out "/bin"))
+		   (_ (mkdir-p bin-dir))
+                   )
+	       (copy-recursively "./bin" bin-dir))))
+
+
+
+		       
 		       )))
     (inputs
      `(("guile" ,guile-3.0)
