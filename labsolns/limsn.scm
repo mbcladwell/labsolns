@@ -157,8 +157,8 @@
 				 `( "PATH" ":" prefix  (,bin-dir) )
 				 `("GUILE_LOAD_PATH" ":" prefix
 				   (,scm ,(getenv "GUILE_LOAD_PATH")))
-				 `("GUILE_LOAD_COMPILED_PATH" ":" prefix
-				   (,go ,(getenv "GUILE_LOAD_COMPILED_PATH")))
+			;;	 `("GUILE_LOAD_COMPILED_PATH" ":" prefix
+			;;	   (,go ,(getenv "GUILE_LOAD_COMPILED_PATH")))
 				 )
 		   
 		   ;; (wrap-program (string-append bin-dir "/init-limsn-pack.sh")
