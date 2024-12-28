@@ -123,7 +123,7 @@
 						    ".:./limsn/lib:"
 						  ;;  (assoc-ref inputs "guile-json")  "/share/guile/site/3.0:"
 						  ;;  (assoc-ref inputs "guile-redis")  "/share/guile/site/3.0:"
-						    (assoc-ref inputs "artanis-07")  "/share/guile/site/3.0:"
+						    (assoc-ref inputs "artanis")  "/share/guile/site/3.0:"
 						    (getenv "GUILE_LOAD_PATH")))
 			     #t))
 
