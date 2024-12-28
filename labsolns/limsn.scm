@@ -147,7 +147,9 @@
        (add-after 'make-lib-dir 'make-bin-dir
            (lambda* (#:key outputs #:allow-other-keys)
              (let* ((out  (assoc-ref outputs "out"))
-		    (bin-dir (string-append out "/bin")))
+		    (bin-dir (string-append out "/bin"))
+		    (scm (string-append out "/share/guile/site/3.0/"))
+                    (go (string-append out "/lib/guile/3.0/site-ccache")))
 	       (begin
 		   (mkdir-p bin-dir)                
 		   (copy-recursively "./scripts" bin-dir)
