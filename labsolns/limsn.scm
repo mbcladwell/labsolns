@@ -157,11 +157,18 @@
 				 `( "PATH" ":" prefix  (,bin-dir) )
 				 `("GUILE_LOAD_PATH" ":" prefix
 				   (,scm ,(getenv "GUILE_LOAD_PATH")))
-			;;	 `("GUILE_LOAD_COMPILED_PATH" ":" prefix
+			;;	 `("GUILE_LOAD_COMPILED_PATH" ":" prefix      ;;including compiled fails at string-append as it is #f
 			;;	   (,go ,(getenv "GUILE_LOAD_COMPILED_PATH")))
 				 )
 		   
 		    (wrap-program (string-append bin-dir "/init-limsn-pack.sh")
+		    		 `( "PATH" ":" prefix  (,bin-dir) )
+		   		 `("GUILE_LOAD_PATH" ":" prefix
+		    		   (,scm ,(getenv "GUILE_LOAD_PATH")))
+		   ;; 		 `("GUILE_LOAD_COMPILED_PATH" ":" prefix
+		    ;; 		   (,go ,(getenv "GUILE_LOAD_COMPILED_PATH")))
+				 )
+		    (wrap-program (string-append bin-dir "/load-pg.sh")
 		    		 `( "PATH" ":" prefix  (,bin-dir) )
 		   		 `("GUILE_LOAD_PATH" ":" prefix
 		    		   (,scm ,(getenv "GUILE_LOAD_PATH")))
