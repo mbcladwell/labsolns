@@ -149,10 +149,10 @@
              (let* ((out  (assoc-ref outputs "out"))
 		    (bin-dir (string-append out "/bin"))
 		    (scm (string-append out "/share/guile/site/3.0/"))
-                    (go (string-append out "/lib/guile/3.0/site-ccache")))
-	       (begin
-		   (mkdir-p bin-dir)                
-		   (copy-recursively "./scripts" bin-dir)
+                    (go (string-append out "/lib/guile/3.0/site-ccache"))
+		    (_ (mkdir-p bin-dir))                
+		    (_ (copy-recursively "./scripts" bin-dir))
+		    )	   		 
 		   (wrap-program (string-append bin-dir "/start-limsn.sh")
 				 `( "PATH" ":" prefix  (,bin-dir) )
 				 `("GUILE_LOAD_PATH" ":" prefix
@@ -160,14 +160,15 @@
 				 `("GUILE_LOAD_COMPILED_PATH" ":" prefix
 				   (,go ,(getenv "GUILE_LOAD_COMPILED_PATH")))
 				 )
-		   (wrap-program (string-append bin-dir "/init-limsn-pack.sh")
-				 `( "PATH" ":" prefix  (,bin-dir) )
-				 `("GUILE_LOAD_PATH" ":" prefix
-				   (,scm ,(getenv "GUILE_LOAD_PATH")))
-				 `("GUILE_LOAD_COMPILED_PATH" ":" prefix
-				   (,go ,(getenv "GUILE_LOAD_COMPILED_PATH"))))
+		   
+		   ;; (wrap-program (string-append bin-dir "/init-limsn-pack.sh")
+		   ;; 		 `( "PATH" ":" prefix  (,bin-dir) )
+		   ;; 		 `("GUILE_LOAD_PATH" ":" prefix
+		   ;; 		   (,scm ,(getenv "GUILE_LOAD_PATH")))
+		   ;; 		 `("GUILE_LOAD_COMPILED_PATH" ":" prefix
+		   ;; 		   (,go ,(getenv "GUILE_LOAD_COMPILED_PATH"))))
 
-		   )		       
+		   		       
 	       ))))))
     (inputs
      `(("guile" ,guile-3.0)
