@@ -103,7 +103,7 @@
 								   "./scripts/load-pg.sh"
 								   "./scripts/start-limsn.sh"
 								   "./limsn/ENTRY")						
-								 (("path-into-store")
+								 (("pathintostore")
 								  (assoc-ref outputs "out" )) )
 						    #t))		       			       
 		       		       (add-after 'unpack 'augment-GUILE_LOAD_PATH
