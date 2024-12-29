@@ -164,13 +164,13 @@
 						       ("./limsn/postgres" . ,postgres-dir)
 						       ("./limsn/pub" . ,pub-dir)
 						       ("./limsn/sys" . ,sys-dir)
-						       ("./limsn/tmp" . ,tmp-dir)))
+						       ("./limsn/tmp" . ,tmp-dir))))
             			        (map (lambda (dir)
 					       (begin
 						(mkdir-p (cadr dir))
 						(copy-recursively (car dir) (cadr dir))
 						))
-					   all-dirs)))))
+					   all-dirs))))
 		    
 			   (add-after 'make-accessory-dirs 'make-bin-dir
 				  (lambda* (#:key inputs outputs #:allow-other-keys)
