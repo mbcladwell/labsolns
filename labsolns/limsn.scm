@@ -72,7 +72,7 @@
   #:use-module ((srfi srfi-1) #:select (alist-delete)))
 
 (define-public limsn
-             (let ((commit "")
+             (let ((commit "db5c0ae39bad7da703a9b96e244922a1eb1cf3f5");;anchor1
         (revision "2"))
 
   (package
