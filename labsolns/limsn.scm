@@ -1,5 +1,4 @@
- 
-  (define-module (labsolns limsn)
+(define-module (labsolns limsn)
   #:use-module ((guix licenses) #:prefix license:)
   #:use-module (gnu packages)
   #:use-module (gnu packages guile-xyz)
