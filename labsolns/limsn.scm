@@ -83,7 +83,7 @@
                 (uri (git-reference
                       (url "https://github.com/mbcladwell/limsn")
                       (commit commit)))
-                        (file-name (git-file-name name version))
+                (file-name (git-file-name name version))
                 (sha256 
              (base32 "06kazzyqn2nqx5ryy54kpmjcq44jrjw5qv0d7dahkih3bsnnv6ag"))));;anchor2
   
@@ -124,6 +124,31 @@
 					   (dummy (mkdir-p lib-dir)))            				       
 				       (copy-recursively "./limsn/lib" lib-dir)
 				       #t)))
+
+		       (add-after 'unpack 'make-accessory-dirs
+				  (lambda* (#:key outputs #:allow-other-keys)
+				    (let* ((out  (assoc-ref outputs "out"))
+					   (app-dir (string-append out "/share/guile/site/3.0/limsn/"))
+					   (dummy (mkdir-p lib-dir))
+					   )
+            			      (begin
+					(conf-dir (string-append app-dir "conf"))
+					(mkdir-p conf-dir)
+					(copy-recursively "./limsn/conf" conf-dir)
+					(postgres-dir (string-append app-dir "postgres"))
+					(mkdir-p postgres-dir)
+					(copy-recursively "./limsn/postgres" postgres-dir)
+					(pub-dir (string-append app-dir "pub"))
+					(mkdir-p pub-dir)
+					(copy-recursively "./limsn/pub" pub-dir)
+					(sys-dir (string-append app-dir "sys"))
+					(mkdir-p sys-dir)
+					(copy-recursively "./limsn/sys" sys-dir)
+					(tmp-dir (string-append app-dir "tmp"))
+					(mkdir-p tmp-dir)
+					(copy-recursively "./limsn/tmp" tmp-dir)
+					(install-file "./limsn/ENTRY" app-dir)
+				      ))))
 		    
                        ;; (add-after 'make-lib-dir 'make-scripts-dir
 		       ;; 	       (lambda* (#:key outputs #:allow-other-keys)
@@ -177,10 +202,9 @@
 		    		   (,scm ,(getenv "GUILE_LOAD_PATH")))
 		   ;; 		 `("GUILE_LOAD_COMPILED_PATH" ":" prefix
 		    ;; 		   (,go ,(getenv "GUILE_LOAD_COMPILED_PATH")))
-				 )
-
-		   		       
-	       ))))))
+				 )		   		       
+		    )))
+       )))
     (inputs
      `(("guile" ,guile-3.0)
        ("gnuplot" ,gnuplot)
