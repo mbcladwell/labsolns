@@ -72,7 +72,7 @@
   #:use-module ((srfi srfi-1) #:select (alist-delete)))
 
 (define-public limsn
-             (let ((commit "bcbebc82b259c5f32824857b6a54a0d80326e8a8");;anchor1
+             (let ((commit "849a5bbdf22985b1bf800ab24487da64d5caa48b");;anchor1
         (revision "2"))
 
   (package
@@ -85,7 +85,7 @@
                       (commit commit)))
                 (file-name (git-file-name name version))
                 (sha256 
-             (base32 "06kazzyqn2nqx5ryy54kpmjcq44jrjw5qv0d7dahkih3bsnnv6ag"))));;anchor2
+             (base32 "09mzpsis7wzm9ms6csyddj4ysxw0rgb3r1akxbb77x1q78kzg2r8"))));;anchor2
   
    
    (build-system guile-build-system)
@@ -95,6 +95,7 @@
 						  (lambda* (#:key inputs outputs #:allow-other-keys)
 						     (let ((out  (assoc-ref outputs "out")))
 						       (substitute* '("./limsn/lib/lnpg.scm"
+								      "./limsn/ENTRY"
 								      "./scripts/init-limsn-channel.sh"
 								      "./scripts/init-limsn-pack.sh"
 								      "./scripts/install-pg-aws-ec2.sh"
@@ -102,11 +103,12 @@
 								      "./scripts/lnpg.sh"
 								      "./scripts/load-pg.sh"
 								      "./scripts/start-limsn.sh"
-								      "./limsn/ENTRY")						
+								      )						
 								    (("pathintostore")
 								     out )))
-						    #t))		       			       
-		       		       (add-after 'unpack 'augment-GUILE_LOAD_PATH
+						     #t))
+		       		       
+		       		       (add-after 'patch=prefix 'augment-GUILE_LOAD_PATH
 						  (lambda* (#:key inputs #:allow-other-keys)
 						    (setenv "GUILE_LOAD_PATH"
 							    (string-append
@@ -117,7 +119,7 @@
 							     (getenv "GUILE_LOAD_PATH")))
 						    #t))
 
-                       (add-after 'unpack 'make-lib-dir
+                       (add-after 'augment-GUILE_LOAD_PATH 'make-lib-dir
 			       (lambda* (#:key outputs #:allow-other-keys)
 				    (let* ((out  (assoc-ref outputs "out"))
 					   (lib-dir (string-append out "/share/guile/site/3.0/limsn/lib"))
@@ -125,7 +127,7 @@
 				       (copy-recursively "./limsn/lib" lib-dir)
 				       #t)))
 
-		       (add-after 'unpack 'make-accessory-dirs
+		       (add-after 'make-lib-dir 'make-accessory-dirs
 				  (lambda* (#:key outputs #:allow-other-keys)
 				    (let* ((out  (assoc-ref outputs "out"))
 					   (app-dir (string-append out "/share/guile/site/3.0/limsn/"))
@@ -149,86 +151,93 @@
 					(install-file "./limsn/ENTRY" app-dir)
 				      ))))
 		    
-                       ;; (add-after 'make-lib-dir 'make-scripts-dir
-		       ;; 	       (lambda* (#:key outputs #:allow-other-keys)
-		       ;; 		    (let* ((out  (assoc-ref outputs "out"))
-		       ;; 			   (scripts-dir (string-append out "/share/guile/site/3.0/limsn/scripts"))
-		       ;; 			;;   (scripts-dir (string-append out "/scripts"))
-		       ;; 			   (dummy (mkdir-p scripts-dir)))            				       
-		       ;; 		       (copy-recursively "./scripts" scripts-dir)
-		       ;; 		       #t)))
-		       ;; (add-after 'make-scripts-dir 'make-bin-dir
-		       ;; 		  (lambda* (#:key inputs outputs #:allow-other-keys)
-		       ;; 		    (let* ((out (assoc-ref outputs "out"))
-		       ;; 			   (bin-dir (string-append out "/share/guile/site/3.0/limsn/bin"))
-		       ;; 			   (dummy (install-file "./scripts/start-limsn.sh" bin-dir))				
-		       ;; 			   (dummy (chmod (string-append bin-dir "/start-limsn.sh") #o555 ))) ;;read execute, no write
-		       ;; 		      (wrap-program (string-append bin-dir "/start-limsn.sh")
-		       ;; 				    `( "PATH" ":" prefix  (,bin-dir) ))		    
-		       ;; 		      #t)))
+			   (add-after 'make-accessory-dirs 'make-bin-dir
+				  (lambda* (#:key inputs outputs #:allow-other-keys)
+				    (let* ((out (assoc-ref outputs "out"))
+					   (bin-dir (string-append out "/bin"))
+					   (_ (mkdir-p bin-dir))                
+					   (_ (copy-recursively "./scripts" bin-dir))
+					   (scm  "/share/guile/site/3.0")
+					 ;;  (go   "/lib/guile/3.0/site-ccache")
+					   (all-files '("/start-limsn.sh" "/init-limsn-pack.sh" "/load-pg.sh"
+							"/lnpg.sh" "/init-limsn-channel.sh" "/install-pg-aws-ec2.sh"
+							"/install-pg-aws-rds.sh")))				      
+				      (map (lambda (file)
+					     (begin
+					       (chmod (string-append bin-dir file) #o555 )
+					       (wrap-program (string-append bin-dir file)
+							     `( "PATH" ":" prefix  (,bin-dir) )
+							     `("GUILE_LOAD_PATH" ":" prefix
+							       (,scm ,(getenv "GUILE_LOAD_PATH")))
+							     ;;	 `("GUILE_LOAD_COMPILED_PATH" ":" prefix      ;;including compiled fails at string-append as it is #f
+							     ;;	   (,go ,(getenv "GUILE_LOAD_COMPILED_PATH")))
+							     )
+					       ))
+					   all-files))				    
+				    #t))
 
 
-       (add-after 'make-lib-dir 'make-bin-dir
-           (lambda* (#:key outputs #:allow-other-keys)
-             (let* ((out  (assoc-ref outputs "out"))
-		    (bin-dir (string-append out "/bin"))
-		    (scm (string-append out "/share/guile/site/3.0/"))
-                    (go (string-append out "/lib/guile/3.0/site-ccache"))
-		    (_ (mkdir-p bin-dir))                
-		    (_ (copy-recursively "./scripts" bin-dir))
-		    (_ (chmod (string-append bin-dir "/start-limsn.sh") #o555 ))
-		    (_ (chmod (string-append bin-dir "/init-limsn-pack.sh") #o555 ))
-		    (_ (chmod (string-append bin-dir "/load-pg.sh") #o555 ))
-		    (_ (chmod (string-append bin-dir "/lnpg.sh") #o555 ))
-		    (_ (chmod (string-append bin-dir "/init-limsn-channel.sh") #o555 ))
-		    (_ (chmod (string-append bin-dir "/install-pg-aws-ec2.sh") #o555 ))
-		    (_ (chmod (string-append bin-dir "/install-pg-aws-rds.sh") #o555 ))
-		    )	   		 
-		   (wrap-program (string-append bin-dir "/start-limsn.sh")
-				 `( "PATH" ":" prefix  (,bin-dir) )
-				 `("GUILE_LOAD_PATH" ":" prefix
-				   (,scm ,(getenv "GUILE_LOAD_PATH")))
-			;;	 `("GUILE_LOAD_COMPILED_PATH" ":" prefix      ;;including compiled fails at string-append as it is #f
-			;;	   (,go ,(getenv "GUILE_LOAD_COMPILED_PATH")))
-				 )
+       ;; (add-after 'make-lib-dir 'make-bin-dir
+       ;;     (lambda* (#:key outputs #:allow-other-keys)
+       ;;       (let* ((out  (assoc-ref outputs "out"))
+       ;; 		    (bin-dir (string-append out "/bin"))
+       ;; 		    (scm (string-append out "/share/guile/site/3.0/"))
+       ;;              (go (string-append out "/lib/guile/3.0/site-ccache"))
+       ;; 		    (_ (mkdir-p bin-dir))                
+       ;; 		    (_ (copy-recursively "./scripts" bin-dir))
+       ;; 		    (_ (chmod (string-append bin-dir "/start-limsn.sh") #o555 ))
+       ;; 		    (_ (chmod (string-append bin-dir "/init-limsn-pack.sh") #o555 ))
+       ;; 		    (_ (chmod (string-append bin-dir "/load-pg.sh") #o555 ))
+       ;; 		    (_ (chmod (string-append bin-dir "/lnpg.sh") #o555 ))
+       ;; 		    (_ (chmod (string-append bin-dir "/init-limsn-channel.sh") #o555 ))
+       ;; 		    (_ (chmod (string-append bin-dir "/install-pg-aws-ec2.sh") #o555 ))
+       ;; 		    (_ (chmod (string-append bin-dir "/install-pg-aws-rds.sh") #o555 ))
+       ;; 		    )	   		 
+       ;; 		   (wrap-program (string-append bin-dir "/start-limsn.sh")
+       ;; 				 `( "PATH" ":" prefix  (,bin-dir) )
+       ;; 				 `("GUILE_LOAD_PATH" ":" prefix
+       ;; 				   (,scm ,(getenv "GUILE_LOAD_PATH")))
+       ;; 			;;	 `("GUILE_LOAD_COMPILED_PATH" ":" prefix      ;;including compiled fails at string-append as it is #f
+       ;; 			;;	   (,go ,(getenv "GUILE_LOAD_COMPILED_PATH")))
+       ;; 				 )
 		   
-		    (wrap-program (string-append bin-dir "/init-limsn-pack.sh")
-		    		 `( "PATH" ":" prefix  (,bin-dir) )
-		   		 `("GUILE_LOAD_PATH" ":" prefix
-		    		   (,scm ,(getenv "GUILE_LOAD_PATH")))
-		   ;; 		 `("GUILE_LOAD_COMPILED_PATH" ":" prefix
-		    ;; 		   (,go ,(getenv "GUILE_LOAD_COMPILED_PATH")))
-				 )
-		    (wrap-program (string-append bin-dir "/load-pg.sh")
-		    		 `( "PATH" ":" prefix  (,bin-dir) )
-		   		 `("GUILE_LOAD_PATH" ":" prefix
-		    		   (,scm ,(getenv "GUILE_LOAD_PATH")))
-		   ;; 		 `("GUILE_LOAD_COMPILED_PATH" ":" prefix
-		    ;; 		   (,go ,(getenv "GUILE_LOAD_COMPILED_PATH")))
-				 )
-		    (wrap-program (string-append bin-dir "/lnpg.sh")
-		    		 `( "PATH" ":" prefix  (,bin-dir) )
-		   		 `("GUILE_LOAD_PATH" ":" prefix
-		    		   (,scm ,(getenv "GUILE_LOAD_PATH")))
-		   ;; 		 `("GUILE_LOAD_COMPILED_PATH" ":" prefix
-		    ;; 		   (,go ,(getenv "GUILE_LOAD_COMPILED_PATH")))
-				 )
-		    (wrap-program (string-append bin-dir "/init-limsn-channel.sh")
-		    		 `( "PATH" ":" prefix  (,bin-dir) )
-		   		 `("GUILE_LOAD_PATH" ":" prefix
-		    		   (,scm ,(getenv "GUILE_LOAD_PATH")))
-		   ;; 		 `("GUILE_LOAD_COMPILED_PATH" ":" prefix
-		    ;; 		   (,go ,(getenv "GUILE_LOAD_COMPILED_PATH")))
-				 )
-		    (wrap-program (string-append bin-dir "/install-pg-aws-ec2.sh")
-		    		 `( "PATH" ":" prefix  (,bin-dir) )
-		   		 `("GUILE_LOAD_PATH" ":" prefix
-		    		   (,scm ,(getenv "GUILE_LOAD_PATH")))
-		   ;; 		 `("GUILE_LOAD_COMPILED_PATH" ":" prefix
-		    ;; 		   (,go ,(getenv "GUILE_LOAD_COMPILED_PATH")))
-				 )
+       ;; 		    (wrap-program (string-append bin-dir "/init-limsn-pack.sh")
+       ;; 		    		 `( "PATH" ":" prefix  (,bin-dir) )
+       ;; 		   		 `("GUILE_LOAD_PATH" ":" prefix
+       ;; 		    		   (,scm ,(getenv "GUILE_LOAD_PATH")))
+       ;; 		   ;; 		 `("GUILE_LOAD_COMPILED_PATH" ":" prefix
+       ;; 		    ;; 		   (,go ,(getenv "GUILE_LOAD_COMPILED_PATH")))
+       ;; 				 )
+       ;; 		    (wrap-program (string-append bin-dir "/load-pg.sh")
+       ;; 		    		 `( "PATH" ":" prefix  (,bin-dir) )
+       ;; 		   		 `("GUILE_LOAD_PATH" ":" prefix
+       ;; 		    		   (,scm ,(getenv "GUILE_LOAD_PATH")))
+       ;; 		   ;; 		 `("GUILE_LOAD_COMPILED_PATH" ":" prefix
+       ;; 		    ;; 		   (,go ,(getenv "GUILE_LOAD_COMPILED_PATH")))
+       ;; 				 )
+       ;; 		    (wrap-program (string-append bin-dir "/lnpg.sh")
+       ;; 		    		 `( "PATH" ":" prefix  (,bin-dir) )
+       ;; 		   		 `("GUILE_LOAD_PATH" ":" prefix
+       ;; 		    		   (,scm ,(getenv "GUILE_LOAD_PATH")))
+       ;; 		   ;; 		 `("GUILE_LOAD_COMPILED_PATH" ":" prefix
+       ;; 		    ;; 		   (,go ,(getenv "GUILE_LOAD_COMPILED_PATH")))
+       ;; 				 )
+       ;; 		    (wrap-program (string-append bin-dir "/init-limsn-channel.sh")
+       ;; 		    		 `( "PATH" ":" prefix  (,bin-dir) )
+       ;; 		   		 `("GUILE_LOAD_PATH" ":" prefix
+       ;; 		    		   (,scm ,(getenv "GUILE_LOAD_PATH")))
+       ;; 		   ;; 		 `("GUILE_LOAD_COMPILED_PATH" ":" prefix
+       ;; 		    ;; 		   (,go ,(getenv "GUILE_LOAD_COMPILED_PATH")))
+       ;; 				 )
+       ;; 		    (wrap-program (string-append bin-dir "/install-pg-aws-ec2.sh")
+       ;; 		    		 `( "PATH" ":" prefix  (,bin-dir) )
+       ;; 		   		 `("GUILE_LOAD_PATH" ":" prefix
+       ;; 		    		   (,scm ,(getenv "GUILE_LOAD_PATH")))
+       ;; 		   ;; 		 `("GUILE_LOAD_COMPILED_PATH" ":" prefix
+       ;; 		    ;; 		   (,go ,(getenv "GUILE_LOAD_COMPILED_PATH")))
+       ;; 				 )
 		    
-		    )))
+       ;; 		    )))
        )))
     (inputs
      `(("guile" ,guile-3.0)
