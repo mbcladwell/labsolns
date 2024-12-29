@@ -220,7 +220,7 @@
 		   ;; 		 `("GUILE_LOAD_COMPILED_PATH" ":" prefix
 		    ;; 		   (,go ,(getenv "GUILE_LOAD_COMPILED_PATH")))
 				 )
-		    (wrap-program (string-append bin-dir "/install-pg-aws.sh")
+		    (wrap-program (string-append bin-dir "/install-pg-aws-ec2.sh")
 		    		 `( "PATH" ":" prefix  (,bin-dir) )
 		   		 `("GUILE_LOAD_PATH" ":" prefix
 		    		   (,scm ,(getenv "GUILE_LOAD_PATH")))
