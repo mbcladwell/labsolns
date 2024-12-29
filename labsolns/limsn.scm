@@ -108,7 +108,7 @@
 								     out )))
 						     #t))
 		       		       
-		       		       (add-after 'patch=prefix 'augment-GUILE_LOAD_PATH
+		       		       (add-after 'patch-prefix 'augment-GUILE_LOAD_PATH
 						  (lambda* (#:key inputs #:allow-other-keys)
 						    (setenv "GUILE_LOAD_PATH"
 							    (string-append
