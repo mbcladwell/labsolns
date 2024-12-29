@@ -128,8 +128,7 @@
 		       (add-after 'unpack 'make-accessory-dirs
 				  (lambda* (#:key outputs #:allow-other-keys)
 				    (let* ((out  (assoc-ref outputs "out"))
-					   (app-dir (string-append out "/share/guile/site/3.0/limsn/"))
-					   (dummy (mkdir-p lib-dir))
+					   (app-dir (string-append out "/share/guile/site/3.0/limsn/"))					  
 					   )
             			      (begin
 					(conf-dir (string-append app-dir "conf"))
