@@ -72,7 +72,7 @@
   #:use-module ((srfi srfi-1) #:select (alist-delete)))
 
 (define-public limsn
-             (let ((commit "db5c0ae39bad7da703a9b96e244922a1eb1cf3f5");;anchor1
+             (let ((commit "bcbebc82b259c5f32824857b6a54a0d80326e8a8");;anchor1
         (revision "2"))
 
   (package
@@ -85,7 +85,7 @@
                       (commit commit)))
                         (file-name (git-file-name name version))
                 (sha256 
-             (base32 "0bg6nqb0jgx40hpb223daz45bjbwrpmjdss635ixk1jgy6myw86b"))));;anchor2
+             (base32 "06kazzyqn2nqx5ryy54kpmjcq44jrjw5qv0d7dahkih3bsnnv6ag"))));;anchor2
   
    
    (build-system guile-build-system)
@@ -93,17 +93,18 @@
 	       #:phases (modify-phases %standard-phases
     				       (add-after 'unpack 'patch-prefix
 						  (lambda* (#:key inputs outputs #:allow-other-keys)
-						    (substitute* '("./limsn/lib/lnpg.scm"
-								   "./scripts/init-limsn-channel.sh"
-								   "./scripts/init-limsn-pack.sh"
-								   "./scripts/install-pg-aws-ec2.sh"
-								   "./scripts/install-pg-aws-rds.sh"
-								   "./scripts/lnpg.sh"
-								   "./scripts/load-pg.sh"
-								   "./scripts/start-limsn.sh"
-								   "./limsn/ENTRY")						
-								 (("pathintostore")
-								  (assoc-ref outputs "out" )) )
+						     (let ((out  (assoc-ref outputs "out")))
+						       (substitute* '("./limsn/lib/lnpg.scm"
+								      "./scripts/init-limsn-channel.sh"
+								      "./scripts/init-limsn-pack.sh"
+								      "./scripts/install-pg-aws-ec2.sh"
+								      "./scripts/install-pg-aws-rds.sh"
+								      "./scripts/lnpg.sh"
+								      "./scripts/load-pg.sh"
+								      "./scripts/start-limsn.sh"
+								      "./limsn/ENTRY")						
+								    (("pathintostore")
+								     out )))
 						    #t))		       			       
 		       		       (add-after 'unpack 'augment-GUILE_LOAD_PATH
 						  (lambda* (#:key inputs #:allow-other-keys)
