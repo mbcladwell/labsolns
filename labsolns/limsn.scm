@@ -179,6 +179,9 @@
 		    (_ (chmod (string-append bin-dir "/start-limsn.sh") #o555 ))
 		    (_ (chmod (string-append bin-dir "/init-limsn-pack.sh") #o555 ))
 		    (_ (chmod (string-append bin-dir "/load-pg.sh") #o555 ))
+		    (_ (chmod (string-append bin-dir "/lnpg.sh") #o555 ))
+		    (_ (chmod (string-append bin-dir "/init-limsn-channel.sh") #o555 ))
+		    (_ (chmod (string-append bin-dir "/install-pg-aws.sh") #o555 ))
 		    )	   		 
 		   (wrap-program (string-append bin-dir "/start-limsn.sh")
 				 `( "PATH" ":" prefix  (,bin-dir) )
@@ -201,7 +204,29 @@
 		    		   (,scm ,(getenv "GUILE_LOAD_PATH")))
 		   ;; 		 `("GUILE_LOAD_COMPILED_PATH" ":" prefix
 		    ;; 		   (,go ,(getenv "GUILE_LOAD_COMPILED_PATH")))
-				 )		   		       
+				 )
+		    (wrap-program (string-append bin-dir "/lnpg.sh")
+		    		 `( "PATH" ":" prefix  (,bin-dir) )
+		   		 `("GUILE_LOAD_PATH" ":" prefix
+		    		   (,scm ,(getenv "GUILE_LOAD_PATH")))
+		   ;; 		 `("GUILE_LOAD_COMPILED_PATH" ":" prefix
+		    ;; 		   (,go ,(getenv "GUILE_LOAD_COMPILED_PATH")))
+				 )
+		    (wrap-program (string-append bin-dir "/init-limsn-channel.sh")
+		    		 `( "PATH" ":" prefix  (,bin-dir) )
+		   		 `("GUILE_LOAD_PATH" ":" prefix
+		    		   (,scm ,(getenv "GUILE_LOAD_PATH")))
+		   ;; 		 `("GUILE_LOAD_COMPILED_PATH" ":" prefix
+		    ;; 		   (,go ,(getenv "GUILE_LOAD_COMPILED_PATH")))
+				 )
+		    (wrap-program (string-append bin-dir "/install-pg-aws.sh")
+		    		 `( "PATH" ":" prefix  (,bin-dir) )
+		   		 `("GUILE_LOAD_PATH" ":" prefix
+		    		   (,scm ,(getenv "GUILE_LOAD_PATH")))
+		   ;; 		 `("GUILE_LOAD_COMPILED_PATH" ":" prefix
+		    ;; 		   (,go ,(getenv "GUILE_LOAD_COMPILED_PATH")))
+				 )
+		    
 		    )))
        )))
     (inputs
