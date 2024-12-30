@@ -72,7 +72,7 @@
   #:use-module ((srfi srfi-1) #:select (alist-delete)))
 
 (define-public limsn
-             (let ((commit "baaa95200028ac3cd9e8bcd999d5673b146c110f");;anchor1
+             (let ((commit "422da3305a34a970e1279cec1c13c24458b029ed");;anchor1
         (revision "2"))
 
   (package
@@ -85,7 +85,7 @@
                       (commit commit)))
                 (file-name (git-file-name name version))
                 (sha256 
-             (base32 "0zr5rrzacyrmzv5k1akaykqyz88k51z6srar3r8b5d0kpavbxdv4"))));;anchor2
+             (base32 "1sgwdf0l9yamk029jvgphfcvsy7hnk44s7fjsbg1g06mbfyqz94w"))));;anchor2
   
    
    (build-system guile-build-system)
@@ -113,15 +113,14 @@
 						    (begin
 						      (setenv "GUILE_LOAD_PATH"
 							      (string-append
-							       ".:./limsn/lib:"
-							       (assoc-ref inputs "guile-json")  "/share/guile/site/3.0:"
-							       (assoc-ref inputs "guile-dbd-postgresql")  "/lib:"
-							       (assoc-ref inputs "artanis")  "/share/guile/site/3.0:"
+							       
+							       "$HOME" (assoc-ref inputs "guile-json")  "/share/guile/site/3.0:"
+							       "$HOME" (assoc-ref inputs "artanis")  "/share/guile/site/3.0:"
 							       (getenv "GUILE_LOAD_PATH")))
 						     (setenv "GUILE_DBD_PATH"
 							      (string-append
-							       (assoc-ref inputs "guile-dbd-postgresql")  "/lib:"
-							       (getenv "GUILE_DBD_PATH")))
+							       "$HOME" (assoc-ref inputs "guile-dbd-postgresql")  "/lib"
+							       ))
 						    )
 						    #t))
 
