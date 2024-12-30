@@ -72,7 +72,7 @@
   #:use-module ((srfi srfi-1) #:select (alist-delete)))
 
 (define-public limsn
-             (let ((commit "aee358833141ec70d5972d56490727c846067ae9");;anchor1
+             (let ((commit "baaa95200028ac3cd9e8bcd999d5673b146c110f");;anchor1
         (revision "2"))
 
   (package
@@ -85,7 +85,7 @@
                       (commit commit)))
                 (file-name (git-file-name name version))
                 (sha256 
-             (base32 "1xiv87580wqsq8arh07s2msakwh80kdz4x61imdxb3ikk4661pfy"))));;anchor2
+             (base32 "0zr5rrzacyrmzv5k1akaykqyz88k51z6srar3r8b5d0kpavbxdv4"))));;anchor2
   
    
    (build-system guile-build-system)
@@ -110,13 +110,19 @@
 		       		       
 		       		       (add-after 'patch-prefix 'augment-GUILE_LOAD_PATH
 						  (lambda* (#:key inputs #:allow-other-keys)
-						    (setenv "GUILE_LOAD_PATH"
-							    (string-append
-							     ".:./limsn/lib:"
-							     (assoc-ref inputs "guile-json")  "/share/guile/site/3.0:"
-							     (assoc-ref inputs "guile-dbd-postgresql")  "/share/guile/site/3.0:"
-							     (assoc-ref inputs "artanis")  "/share/guile/site/3.0:"
-							     (getenv "GUILE_LOAD_PATH")))
+						    (begin
+						      (setenv "GUILE_LOAD_PATH"
+							      (string-append
+							       ".:./limsn/lib:"
+							       (assoc-ref inputs "guile-json")  "/share/guile/site/3.0:"
+							       (assoc-ref inputs "guile-dbd-postgresql")  "/lib:"
+							       (assoc-ref inputs "artanis")  "/share/guile/site/3.0:"
+							       (getenv "GUILE_LOAD_PATH")))
+						     (setenv "GUILE_DBD_PATH"
+							      (string-append
+							       (assoc-ref inputs "guile-dbd-postgresql")  "/lib:"
+							       (getenv "GUILE_DBD_PATH")))
+						    )
 						    #t))
 
                        (add-after 'augment-GUILE_LOAD_PATH 'make-lib-dir
