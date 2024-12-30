@@ -114,12 +114,12 @@
 						      (setenv "GUILE_LOAD_PATH"
 							      (string-append
 							       ".:./limsn/lib"
-							       "$HOME" (assoc-ref inputs "guile-json")  "/share/guile/site/3.0:"
-							       "$HOME" (assoc-ref inputs "artanis")  "/share/guile/site/3.0:"
+							        (assoc-ref inputs "guile-json")  "/share/guile/site/3.0:"
+							        (assoc-ref inputs "artanis")  "/share/guile/site/3.0:"
 							       (getenv "GUILE_LOAD_PATH")))
 						     (setenv "GUILE_DBD_PATH"
 							      (string-append
-							       "$HOME" (assoc-ref inputs "guile-dbd-postgresql")  "/lib"
+							        (assoc-ref inputs "guile-dbd-postgresql")  "/lib"
 							       ))
 						    )
 						    #t))
