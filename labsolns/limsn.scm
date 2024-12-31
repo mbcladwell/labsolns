@@ -178,7 +178,7 @@
 					       (wrap-program (string-append  bin-dir file)
 							     `( "PATH" ":" prefix  (,wrap-bin) )
 							     `("GUILE_LOAD_PATH" ":" prefix (,guile-load-path))
-							     `("GUILE_DBD_PATH" ":" prefix (,guile-dbd-path))
+							  ;;   `("GUILE_DBD_PATH" ":" prefix (,guile-dbd-path))
 							     )))
 					   all-files))				    
 				    #t))
