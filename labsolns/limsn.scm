@@ -159,6 +159,12 @@
 				    (let* ((out (assoc-ref outputs "out"))
 					   (bin-dir (string-append out "/bin"))
 					   (HOME "/home/admin")
+					   (guile-load-path (string-append HOME out ":"
+									   HOME out "/limsn/lib:"
+									   HOME (assoc-ref inputs "guile-json") "/share/guile/site/3.0:"
+									   HOME (assoc-ref inputs "artanis") "/share/guile/site/3.0:"
+									   HOME (assoc-ref inputs "guile-dbi") "/share/guile/site/2.2"))
+					   (guile-dbd-path (string-append HOME (assoc-ref inputs "guile-dbd-postgresql") "/share/guile/site/3.0"))
 					   (_ (mkdir-p bin-dir))                
 					   (_ (copy-recursively "./scripts" bin-dir))
 					   (scm  (string-append HOME out "/share/guile/site/3.0"))
@@ -174,19 +180,8 @@
 							     `( "PATH" ":" prefix  (,wrap-bin) )
 							     `("GUILE_LOAD_PATH" ":" prefix
 							       ;; (,scm ,(getenv "GUILE_LOAD_PATH"))
-							       ,(string-append HOME out ":"
-									       HOME out "/limsn/lib:"
-									       HOME (assoc-ref inputs "guile-json") "/share/guile/site/3.0:"
-									       HOME (assoc-ref inputs "artanis") "/share/guile/site/3.0:"
-									       HOME (assoc-ref inputs "guile-dbi") "/share/guile/site/2.2")			      							     
-							       )
-							     `("GUILE_DBD_PATH" ":" prefix
-							       ,(string-append HOME (assoc-ref inputs "guile-dbd-postgresql") "/share/guile/site/3.0")
-
-							         )
-
-							     ;;	 `("GUILE_LOAD_COMPILED_PATH" ":" prefix      ;;including compiled fails at string-append as it is #f
-							     ;;	   (,go ,(getenv "GUILE_LOAD_COMPILED_PATH")))
+							       ,guile-load-path)
+							     `("GUILE_DBD_PATH" ":" prefix ,guile-dbd-path)
 							     )
 					       ))
 					   all-files))				    
