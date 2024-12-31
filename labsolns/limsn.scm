@@ -158,10 +158,9 @@
 				  (lambda* (#:key inputs outputs #:allow-other-keys)
 				    (let* ((out (assoc-ref outputs "out"))
 					   (bin-dir (string-append out "/bin"))
-					   (guile-load-path (string-append  out "/limsn:"
+					   (guile-load-path (string-append  out "/share/guile/site/3.0:"
 									    (assoc-ref inputs "guile-json") "/share/guile/site/3.0:"
 									    (assoc-ref inputs "artanis") "/share/guile/site/3.0:"
-									  ;;  (assoc-ref inputs "guile-dbd-postgresql") "/lib:"
 									    (assoc-ref inputs "guile-dbi") "/share/guile/site/2.2"))
 					   (guile-dbd-path (string-append  (assoc-ref inputs "guile-dbd-postgresql") "/lib"))
 					   (_ (mkdir-p bin-dir))                
