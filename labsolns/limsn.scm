@@ -194,6 +194,7 @@
      `(
        ("artanis" ,artanis-053)
        ("guile-json" ,guile-json-3)
+       ("guile-redis" ,guile-redis)
        ("guile-dbd-postgresql" ,guile-dbd-postgresql)
        ))
     (native-inputs
