@@ -183,7 +183,8 @@
 					   (bin-dir (string-append out "/bin"))
 					   (_ (mkdir-p bin-dir))                
 					   (_ (copy-recursively "./scripts" bin-dir))
-					   (scm  "/share/guile/site/3.0")
+					   (scm  (string-append "$HOME" out "/share/guile/site/3.0"))
+					   (wrap-bin (string-append "$HOME" out "/bin"))
 					 ;;  (go   "/lib/guile/3.0/site-ccache")
 					   (all-files '("/start-limsn.sh" "/init-limsn-pack.sh" "/load-pg.sh"
 							"/lnpg.sh" "/init-limsn-channel.sh" "/install-pg-aws-ec2.sh"
@@ -191,8 +192,8 @@
 				      (map (lambda (file)
 					     (begin
 					       (chmod (string-append bin-dir file) #o555 )
-					       (wrap-program (string-append bin-dir file)
-							     `( "PATH" ":" prefix  (,bin-dir) )
+					       (wrap-program (string-append  bin-dir file)
+							     `( "PATH" ":" prefix  (,wrap-bin) )
 							     `("GUILE_LOAD_PATH" ":" prefix
 							       (,scm ,(getenv "GUILE_LOAD_PATH")))
 							     ;;	 `("GUILE_LOAD_COMPILED_PATH" ":" prefix      ;;including compiled fails at string-append as it is #f
