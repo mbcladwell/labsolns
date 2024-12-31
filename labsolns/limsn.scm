@@ -158,10 +158,11 @@
 				  (lambda* (#:key inputs outputs #:allow-other-keys)
 				    (let* ((out (assoc-ref outputs "out"))
 					   (bin-dir (string-append out "/bin"))
+					   (HOME "/home/admin")
 					   (_ (mkdir-p bin-dir))                
 					   (_ (copy-recursively "./scripts" bin-dir))
-					   (scm  (string-append "$HOME" out "/share/guile/site/3.0"))
-					   (wrap-bin (string-append "$HOME" out "/bin"))
+					   (scm  (string-append HOME out "/share/guile/site/3.0"))
+					   (wrap-bin (string-append HOME out "/bin"))
 					 ;;  (go   "/lib/guile/3.0/site-ccache")
 					   (all-files '("/start-limsn.sh" "/init-limsn-pack.sh" "/load-pg.sh"
 							"/lnpg.sh" "/init-limsn-channel.sh" "/install-pg-aws-ec2.sh"
@@ -173,13 +174,13 @@
 							     `( "PATH" ":" prefix  (,wrap-bin) )
 							     `("GUILE_LOAD_PATH" ":" prefix
 							       ;; (,scm ,(getenv "GUILE_LOAD_PATH"))
-							       ,(string-append (getenv "HOME") out ":\"$HOME\"" out "/limsn/lib:" (getenv "HOME")
-									      (assoc-ref inputs "guile-json") "/share/guile/site/3.0:" (getenv "HOME")
-									      (assoc-ref inputs "artanis") "/share/guile/site/3.0:" (getenv "HOME")
+							       ,(string-append HOME out ":\"$HOME\"" out "/limsn/lib:" HOME
+									      (assoc-ref inputs "guile-json") "/share/guile/site/3.0:" HOME
+									      (assoc-ref inputs "artanis") "/share/guile/site/3.0:" HOME
 									      (assoc-ref inputs "guile-dbi") "/share/guile/site/2.2")			      							     
 							       )
 							     `("GUILE_DBD_PATH" ":" prefix
-							       ,(string-append (getenv "HOME") (assoc-ref inputs "guile-dbd-postgresql") "/share/guile/site/3.0")
+							       ,(string-append HOME (assoc-ref inputs "guile-dbd-postgresql") "/share/guile/site/3.0")
 
 							         )
 
