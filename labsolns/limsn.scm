@@ -173,13 +173,13 @@
 							     `( "PATH" ":" prefix  (,wrap-bin) )
 							     `("GUILE_LOAD_PATH" ":" prefix
 							       ;; (,scm ,(getenv "GUILE_LOAD_PATH"))
-							       ,(string-append "\"$HOME\"" out ":\"$HOME\"" out "/limsn/lib:\"$HOME\""
-									      (assoc-ref inputs "guile-json") "/share/guile/site/3.0:\"$HOME\""
-									      (assoc-ref inputs "artanis") "/share/guile/site/3.0:\"$HOME\""
+							       ,(string-append (getenv "HOME") out ":\"$HOME\"" out "/limsn/lib:" (getenv "HOME")
+									      (assoc-ref inputs "guile-json") "/share/guile/site/3.0:" (getenv "HOME")
+									      (assoc-ref inputs "artanis") "/share/guile/site/3.0:" (getenv "HOME")
 									      (assoc-ref inputs "guile-dbi") "/share/guile/site/2.2")			      							     
 							       )
 							     `("GUILE_DBD_PATH" ":" prefix
-							       ,(string-append "\"$HOME\"" (assoc-ref inputs "guile-dbd-postgresql") "/share/guile/site/3.0")
+							       ,(string-append (getenv "HOME") (assoc-ref inputs "guile-dbd-postgresql") "/share/guile/site/3.0")
 
 							         )
 
