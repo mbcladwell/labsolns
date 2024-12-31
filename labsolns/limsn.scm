@@ -72,7 +72,7 @@
   #:use-module ((srfi srfi-1) #:select (alist-delete)))
 
 (define-public limsn
-             (let ((commit "422da3305a34a970e1279cec1c13c24458b029ed");;anchor1
+             (let ((commit "c10f4a7c10afb8d3ca2e4b37a4940031d56e4202");;anchor1
         (revision "2"))
 
   (package
@@ -85,7 +85,7 @@
                       (commit commit)))
                 (file-name (git-file-name name version))
                 (sha256 
-             (base32 "1sgwdf0l9yamk029jvgphfcvsy7hnk44s7fjsbg1g06mbfyqz94w"))));;anchor2
+             (base32 "08l5x5kyada0aq6v8ncccgj99pr94l8gd96zy6yh9azzcwlwsjv0"))));;anchor2
   
    
    (build-system guile-build-system)
@@ -158,7 +158,7 @@
 				  (lambda* (#:key inputs outputs #:allow-other-keys)
 				    (let* ((out (assoc-ref outputs "out"))
 					   (bin-dir (string-append out "/bin"))
-					   (HOME "/home/admin")
+					   (HOME "")
 					   (guile-load-path (string-append HOME out ":"
 									   HOME out "/limsn/lib:"
 									   HOME (assoc-ref inputs "guile-json") "/share/guile/site/3.0:"
