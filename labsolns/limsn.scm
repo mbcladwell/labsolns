@@ -158,18 +158,16 @@
 				  (lambda* (#:key inputs outputs #:allow-other-keys)
 				    (let* ((out (assoc-ref outputs "out"))
 					   (bin-dir (string-append out "/bin"))
-					   (HOME "")
-					   (guile-load-path (string-append HOME out ":"
-									   HOME out "/limsn/lib:"
-									   HOME (assoc-ref inputs "guile-json") "/share/guile/site/3.0:"
-									   HOME (assoc-ref inputs "artanis") "/share/guile/site/3.0:"
-									   HOME (assoc-ref inputs "guile-dbd-postgresql") "/lib:"
-									   HOME (assoc-ref inputs "guile-dbi") "/share/guile/site/2.2"))
-					   (guile-dbd-path (string-append HOME (assoc-ref inputs "guile-dbd-postgresql") "/lib"))
+					   (guile-load-path (string-append  out "/limsn:"
+									    (assoc-ref inputs "guile-json") "/share/guile/site/3.0:"
+									    (assoc-ref inputs "artanis") "/share/guile/site/3.0:"
+									    (assoc-ref inputs "guile-dbd-postgresql") "/lib:"
+									    (assoc-ref inputs "guile-dbi") "/share/guile/site/2.2"))
+					  ;; (guile-dbd-path (string-append  (assoc-ref inputs "guile-dbd-postgresql") "/lib"))
 					   (_ (mkdir-p bin-dir))                
 					   (_ (copy-recursively "./scripts" bin-dir))
-					   (scm  (string-append HOME out "/share/guile/site/3.0"))
-					   (wrap-bin (string-append HOME out "/bin"))
+					   (scm  (string-append  out "/share/guile/site/3.0"))
+					   (wrap-bin (string-append  out "/bin"))
 					 ;;  (go   "/lib/guile/3.0/site-ccache")
 					   (all-files '("/start-limsn.sh" "/init-limsn-pack.sh" "/load-pg.sh"
 							"/lnpg.sh" "/init-limsn-channel.sh" "/install-pg-aws-ec2.sh"
@@ -179,12 +177,9 @@
 					       (chmod (string-append bin-dir file) #o555 )
 					       (wrap-program (string-append  bin-dir file)
 							     `( "PATH" ":" prefix  (,wrap-bin) )
-							     `("GUILE_LOAD_PATH" ":" prefix
-							       ;; (,scm ,(getenv "GUILE_LOAD_PATH"))
-							       (,guile-load-path))
+							     `("GUILE_LOAD_PATH" ":" prefix (,guile-load-path))
 							     `("GUILE_DBD_PATH" ":" prefix (,guile-dbd-path))
-							     )
-					       ))
+							     )))
 					   all-files))				    
 				    #t))
 
