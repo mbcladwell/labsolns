@@ -132,29 +132,6 @@
 				       (copy-recursively "./limsn/lib" lib-dir)
 				       #t)))
 
-		       ;; (add-after 'make-lib-dir 'make-accessory-dirs
-		       ;; 		  (lambda* (#:key outputs #:allow-other-keys)
-		       ;; 		    (let* ((out  (assoc-ref outputs "out"))
-		       ;; 			   (app-dir (string-append out "/share/guile/site/3.0/limsn/"))
-		       ;; 			   (conf-dir (string-append app-dir "conf"))
-		       ;; 			   (postgres-dir (string-append app-dir "postgres"))
-		       ;; 			   (pub-dir (string-append app-dir "pub"))
-		       ;; 			   (sys-dir (string-append app-dir "sys"))
-		       ;; 			   (tmp-dir (string-append app-dir "tmp"))
-		       ;; 			   )
-            	       ;; 		      (begin					
-		       ;; 			(mkdir-p conf-dir)
-		       ;; 			(copy-recursively "./limsn/conf" conf-dir)					
-		       ;; 			(mkdir-p postgres-dir)
-		       ;; 			(copy-recursively "./limsn/postgres" postgres-dir)				
-		       ;; 			(mkdir-p pub-dir)
-		       ;; 			(copy-recursively "./limsn/pub" pub-dir)					
-		       ;; 			(mkdir-p sys-dir)
-		       ;; 			(copy-recursively "./limsn/sys" sys-dir)					
-		       ;; 			(mkdir-p tmp-dir)
-		       ;; 			(copy-recursively "./limsn/tmp" tmp-dir)
-		       ;; 			(install-file "./limsn/ENTRY" app-dir)
-		       ;; 		      ))))
 	       (add-after 'make-lib-dir 'make-accessory-dirs
 				  (lambda* (#:key outputs #:allow-other-keys)
 				    (let* ((out  (assoc-ref outputs "out"))
@@ -195,7 +172,17 @@
 					       (wrap-program (string-append  bin-dir file)
 							     `( "PATH" ":" prefix  (,wrap-bin) )
 							     `("GUILE_LOAD_PATH" ":" prefix
-							       (,scm ,(getenv "GUILE_LOAD_PATH")))
+							       ;; (,scm ,(getenv "GUILE_LOAD_PATH"))
+							       ,(string-append "$HOME" out ":$HOME" out "/limsn/lib:$HOME"
+									      (assoc-ref inputs "guile-json") "/share/guile/site/3.0:$HOME"
+									      (assoc-ref inputs "artanis") "/share/guile/site/3.0:$HOME"
+									      (assoc-ref inputs "guile-dbi") "/share/guile/site/2.2")			      							     
+							       )
+							     `("GUILE_DBD_PATH" ":" prefix
+							       ,(string-append "$HOME" (assoc-ref inputs "guile-dbd-postgresql") "/share/guile/site/3.0")
+
+							         )
+
 							     ;;	 `("GUILE_LOAD_COMPILED_PATH" ":" prefix      ;;including compiled fails at string-append as it is #f
 							     ;;	   (,go ,(getenv "GUILE_LOAD_COMPILED_PATH")))
 							     )
