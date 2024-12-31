@@ -163,9 +163,9 @@
 									   HOME out "/limsn/lib:"
 									   HOME (assoc-ref inputs "guile-json") "/share/guile/site/3.0:"
 									   HOME (assoc-ref inputs "artanis") "/share/guile/site/3.0:"
-									   HOME (assoc-ref inputs "guile-dbd-postgresql") "/share/guile/site/3.0:"
+									   HOME (assoc-ref inputs "guile-dbd-postgresql") "/lib:"
 									   HOME (assoc-ref inputs "guile-dbi") "/share/guile/site/2.2"))
-					   (guile-dbd-path (string-append HOME (assoc-ref inputs "guile-dbd-postgresql") "/share/guile/site/3.0"))
+					   (guile-dbd-path (string-append HOME (assoc-ref inputs "guile-dbd-postgresql") "/lib"))
 					   (_ (mkdir-p bin-dir))                
 					   (_ (copy-recursively "./scripts" bin-dir))
 					   (scm  (string-append HOME out "/share/guile/site/3.0"))
