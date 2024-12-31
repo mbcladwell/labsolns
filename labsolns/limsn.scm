@@ -192,7 +192,7 @@
     (propagated-inputs
      `(
        ("artanis" ,artanis-053)
-       ("guile-json" ,guile-json-4)
+       ("guile-json" ,guile-json-3)
        ("guile-dbd-postgresql" ,guile-dbd-postgresql)
        ))
     (native-inputs
