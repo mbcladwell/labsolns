@@ -161,9 +161,9 @@
 					   (guile-load-path (string-append  out "/limsn:"
 									    (assoc-ref inputs "guile-json") "/share/guile/site/3.0:"
 									    (assoc-ref inputs "artanis") "/share/guile/site/3.0:"
-									    (assoc-ref inputs "guile-dbd-postgresql") "/lib:"
+									  ;;  (assoc-ref inputs "guile-dbd-postgresql") "/lib:"
 									    (assoc-ref inputs "guile-dbi") "/share/guile/site/2.2"))
-					  ;; (guile-dbd-path (string-append  (assoc-ref inputs "guile-dbd-postgresql") "/lib"))
+					   (guile-dbd-path (string-append  (assoc-ref inputs "guile-dbd-postgresql") "/lib"))
 					   (_ (mkdir-p bin-dir))                
 					   (_ (copy-recursively "./scripts" bin-dir))
 					   (scm  (string-append  out "/share/guile/site/3.0"))
@@ -178,7 +178,7 @@
 					       (wrap-program (string-append  bin-dir file)
 							     `( "PATH" ":" prefix  (,wrap-bin) )
 							     `("GUILE_LOAD_PATH" ":" prefix (,guile-load-path))
-							  ;;   `("GUILE_DBD_PATH" ":" prefix (,guile-dbd-path))
+							     `("GUILE_DBD_PATH" ":" prefix (,guile-dbd-path))
 							     )))
 					   all-files))				    
 				    #t))
