@@ -180,8 +180,8 @@
 							     `( "PATH" ":" prefix  (,wrap-bin) )
 							     `("GUILE_LOAD_PATH" ":" prefix
 							       ;; (,scm ,(getenv "GUILE_LOAD_PATH"))
-							       ,guile-load-path)
-							     `("GUILE_DBD_PATH" ":" prefix ,guile-dbd-path)
+							       (,guile-load-path))
+							     `("GUILE_DBD_PATH" ":" prefix (,guile-dbd-path))
 							     )
 					       ))
 					   all-files))				    
