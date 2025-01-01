@@ -116,7 +116,9 @@
 							       ".:./limsn/lib:"
 							        (assoc-ref inputs "guile-json")  "/share/guile/site/3.0:"
 							        (assoc-ref inputs "artanis")  "/share/guile/site/3.0:"
-							       (getenv "GUILE_LOAD_PATH")))
+								(assoc-ref inputs "guile-redis") "/share/guile/site/3.0:"
+								(assoc-ref inputs "guile-dbi") "/share/guile/site/3.0:"
+								(getenv "GUILE_LOAD_PATH")))
 						     (setenv "GUILE_DBD_PATH"
 							      (string-append
 							        (assoc-ref inputs "guile-dbd-postgresql")  "/lib"
