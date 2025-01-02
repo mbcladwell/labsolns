@@ -253,40 +253,40 @@
 		  ;;immutable-toplevel is the original current-toplevel in /gnu/store
 		  ;;current-toplevel is the mutable toplevel in /tmp/<appname>/tmp/cache
 	
-		   (substitute* "artanis/commands/work.scm"			      			       
-				(("\\(let \\(\\(entry \\(string-append \\(current-toplevel\\) \"/\" \\*artanis-entry\\*\\)\\)\\)")
-				 "(let ((entry (string-append (immutable-toplevel) \"/\" *artanis-entry*)))")
-				(("\\(add-to-load-path \\(current-toplevel\\)\\)")
-				 "(add-to-load-path (immutable-toplevel))")
-				(("\\(add-to-load-path \\(string-append \\(current-toplevel\\) \"/lib\"\\)\\)")
-				 "(add-to-load-path (string-append (immutable-toplevel) \"/lib\"))"))		
-		   (substitute* '("artanis/tpl/parser.scm"
-				  "artanis/mvc/controller.scm"
-				  "artanis/webapi/restful.scm")			      			       
-				(("current-toplevel")
-				"immutable-toplevel"))				
-		   (substitute* "artanis/utils.scm"			      			       
-				(("\\(let\\* \\(\\(toplevel \\(current-toplevel\\)\\)")
-				 "(let* ((toplevel (immutable-toplevel))")
-				(("\\(current-toplevel\\) file\\)\\)\\)")
-				"(immutable-toplevel) file)))")
-				(("\\(if \\(current-toplevel\\)")
-				 "(if (immutable-toplevel)")
-				((" \\(let \\(\\(p \\(-> path\\)\\)\\)")
-				  " (let ((p (-> path))(dummy (format (artanis-current-output) \"current-appname: ~a\" (current-appname) )))")
-				(("\\(format \\#f \"~a/pub/~a\" \\(current-toplevel\\) path\\)")
-				 "(format #f \"~a/pub/~a\" (immutable-toplevel) path)")
-				)						  				
+		   ;; (substitute* "artanis/commands/work.scm"			      			       
+		   ;; 		(("\\(let \\(\\(entry \\(string-append \\(current-toplevel\\) \"/\" \\*artanis-entry\\*\\)\\)\\)")
+		   ;; 		 "(let ((entry (string-append (immutable-toplevel) \"/\" *artanis-entry*)))")
+		   ;; 		(("\\(add-to-load-path \\(current-toplevel\\)\\)")
+		   ;; 		 "(add-to-load-path (immutable-toplevel))")
+		   ;; 		(("\\(add-to-load-path \\(string-append \\(current-toplevel\\) \"/lib\"\\)\\)")
+		   ;; 		 "(add-to-load-path (string-append (immutable-toplevel) \"/lib\"))"))		
+		   ;; (substitute* '("artanis/tpl/parser.scm"
+		   ;; 		  "artanis/mvc/controller.scm"
+		   ;; 		  "artanis/webapi/restful.scm")			      			       
+		   ;; 		(("current-toplevel")
+		   ;; 		"immutable-toplevel"))				
+		   ;; (substitute* "artanis/utils.scm"			      			       
+		   ;; 		(("\\(let\\* \\(\\(toplevel \\(current-toplevel\\)\\)")
+		   ;; 		 "(let* ((toplevel (immutable-toplevel))")
+		   ;; 		(("\\(current-toplevel\\) file\\)\\)\\)")
+		   ;; 		"(immutable-toplevel) file)))")
+		   ;; 		(("\\(if \\(current-toplevel\\)")
+		   ;; 		 "(if (immutable-toplevel)")
+		   ;; 		((" \\(let \\(\\(p \\(-> path\\)\\)\\)")
+		   ;; 		  " (let ((p (-> path))(dummy (format (artanis-current-output) \"current-appname: ~a\" (current-appname) )))")
+		   ;; 		(("\\(format \\#f \"~a/pub/~a\" \\(current-toplevel\\) path\\)")
+		   ;; 		 "(format #f \"~a/pub/~a\" (immutable-toplevel) path)")
+		   ;; 		)						  				
 				
-		   (substitute* "artanis/env.scm"
-                                (("            current-toplevel\n")
-                                 "            current-toplevel\n            %immutable-toplevel\n            immutable-toplevel\n")
-                                (("\\(define \\(current-toplevel\\)\n")
-                                         "(define %immutable-toplevel (make-parameter #f))\n")
-                                (("  \\(or \\(%current-toplevel\\)\n")
-                                         "  (define (immutable-toplevel)\n")
-                                (("      \\(find-ENTRY-path identity #t\\)\\)\\)\n")
-                                 "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) (string-append \"/tmp/\" (and=> (string-match \".+/(.+)$\" (getcwd)) (lambda (m) (match:substring m 1))))) ")                       
+		   ;; (substitute* "artanis/env.scm"
+                   ;;              (("            current-toplevel\n")
+                   ;;               "            current-toplevel\n            %immutable-toplevel\n            immutable-toplevel\n")
+                   ;;              (("\\(define \\(current-toplevel\\)\n")
+                   ;;                       "(define %immutable-toplevel (make-parameter #f))\n")
+                   ;;              (("  \\(or \\(%current-toplevel\\)\n")
+                   ;;                       "  (define (immutable-toplevel)\n")
+                   ;;              (("      \\(find-ENTRY-path identity #t\\)\\)\\)\n")
+                   ;;               "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) (string-append \"/tmp/\" (and=> (string-match \".+/(.+)$\" (getcwd)) (lambda (m) (match:substring m 1))))) ")                       
                                
                                 )    ;;use of (current-appname) causes disk thrashing and freezing
 				     ;; (find-ENTRY-path identity #t)  evaluates to #f and so can't be used
@@ -382,7 +382,8 @@ services and web resources.  The framework aims to alleviate the overhead
 associated with common activities performed in web development.  Artanis
 provides several tools for web development: database access, templating
 frameworks, session management, URL-remapping for RESTful, page caching, and
-more.")
+more. artanis-101 is a modification of v1.0.0 that contains feature enhancements
+required by LIMS*Nucleus.")
     (home-page "https://www.gnu.org/software/artanis/")
     (license (list license:gpl3+ license:lgpl3+)))) ;dual license
 
