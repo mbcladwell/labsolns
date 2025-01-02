@@ -194,7 +194,7 @@
        ))
     (propagated-inputs
      `(
-       ("artanis" ,artanis-101)
+       ("artanis" ,artanis)
        ("guile-json" ,guile-json-3)
        ("guile-redis" ,guile-redis)
        ("guile-dbd-postgresql" ,guile-dbd-postgresql)
