@@ -194,7 +194,7 @@
        ))
     (propagated-inputs
      `(
-       ("artanis" ,artanis)
+       ("artanis" ,artanis-101)
        ("guile-json" ,guile-json-3)
        ("guile-redis" ,guile-redis)
        ("guile-dbd-postgresql" ,guile-dbd-postgresql)
@@ -394,177 +394,177 @@
 
 
 
-;; (define-public artanis-101
-;;   (package
-;;     (name "artanis")
-;;     (version "1.0.0")
-;;     (source (origin
-;;               (method url-fetch)
-;;               (uri (string-append "mirror://gnu/artanis/artanis-"
-;;                                   version ".tar.gz"))
-;;               (sha256
-;;                (base32
-;;                 "05sigqvm04x0r1gwpwrxjffb3i13bss3ff24frr477zqm54wv5d8"))
-;;               (modules '((guix build utils)))
-;;               (snippet
-;;                '(begin
-;;                   (delete-file-recursively "artanis/third-party/json.scm")
-;;                   (delete-file-recursively "artanis/third-party/redis.scm")
-;;                   (substitute* '("artanis/artanis.scm"
-;;                                  "artanis/lpc.scm"
-;;                                  "artanis/oht.scm"
-;;                                  "artanis/tpl/parser.scm")
-;;                     (("(#:use-module \\()artanis third-party (json\\))" _
-;;                       use-module json)
-;;                      (string-append use-module json)))
-;;                   (substitute* '("artanis/lpc.scm"
-;;                                  "artanis/session.scm")
-;;                     (("(#:use-module \\()artanis third-party (redis\\))" _
-;;                       use-module redis)
-;;                      (string-append use-module redis)))
-;;                   (substitute* "artanis/oht.scm"
-;;                     (("([[:punct:][:space:]]+)(->json-string)([[:punct:][:space:]]+)"
-;;                       _ pre json-string post)
-;;                      (string-append pre
-;;                                     "scm" json-string
-;;                                     post)))
+(define-public artanis-101
+  (package
+    (name "artanis")
+    (version "1.0.0")
+    (source (origin
+              (method url-fetch)
+              (uri (string-append "mirror://gnu/artanis/artanis-"
+                                  version ".tar.gz"))
+              (sha256
+               (base32
+                "05sigqvm04x0r1gwpwrxjffb3i13bss3ff24frr477zqm54wv5d8"))
+              (modules '((guix build utils)))
+              (snippet
+               '(begin
+                  (delete-file-recursively "artanis/third-party/json.scm")
+                  (delete-file-recursively "artanis/third-party/redis.scm")
+                  (substitute* '("artanis/artanis.scm"
+                                 "artanis/lpc.scm"
+                                 "artanis/oht.scm"
+                                 "artanis/tpl/parser.scm")
+                    (("(#:use-module \\()artanis third-party (json\\))" _
+                      use-module json)
+                     (string-append use-module json)))
+                  (substitute* '("artanis/lpc.scm"
+                                 "artanis/session.scm")
+                    (("(#:use-module \\()artanis third-party (redis\\))" _
+                      use-module redis)
+                     (string-append use-module redis)))
+                  (substitute* "artanis/oht.scm"
+                    (("([[:punct:][:space:]]+)(->json-string)([[:punct:][:space:]]+)"
+                      _ pre json-string post)
+                     (string-append pre
+                                    "scm" json-string
+                                    post)))
 
 	
-;; 		  ============START forguix mods=========================================================================
-;; 		  immutable-toplevel is the original current-toplevel in /gnu/store
-;; 		  current-toplevel is the mutable toplevel in /tmp/<appname>/tmp/cache
+		  ============START forguix mods=========================================================================
+		  immutable-toplevel is the original current-toplevel in /gnu/store
+		  current-toplevel is the mutable toplevel in /tmp/<appname>/tmp/cache
 	
-;; 		   (substitute* "artanis/commands/work.scm"			      			       
-;; 				(("\\(let \\(\\(entry \\(string-append \\(current-toplevel\\) \"/\" \\*artanis-entry\\*\\)\\)\\)")
-;; 				 "(let ((entry (string-append (immutable-toplevel) \"/\" *artanis-entry*)))")
-;; 				(("\\(add-to-load-path \\(current-toplevel\\)\\)")
-;; 				 "(add-to-load-path (immutable-toplevel))")
-;; 				(("\\(add-to-load-path \\(string-append \\(current-toplevel\\) \"/lib\"\\)\\)")
-;; 				 "(add-to-load-path (string-append (immutable-toplevel) \"/lib\"))"))		
-;; 		   (substitute* '("artanis/tpl/parser.scm"
-;; 				  "artanis/mvc/controller.scm"
-;; 				  "artanis/webapi/restful.scm")			      			       
-;; 				(("current-toplevel")
-;; 				"immutable-toplevel"))				
-;; 		   (substitute* "artanis/utils.scm"			      			       
-;; 				(("\\(let\\* \\(\\(toplevel \\(current-toplevel\\)\\)")
-;; 				 "(let* ((toplevel (immutable-toplevel))")
-;; 				(("\\(current-toplevel\\) file\\)\\)\\)")
-;; 				"(immutable-toplevel) file)))")
-;; 				(("\\(if \\(current-toplevel\\)")
-;; 				 "(if (immutable-toplevel)")
-;; 				((" \\(let \\(\\(p \\(-> path\\)\\)\\)")
-;; 				  " (let ((p (-> path))(dummy (format (artanis-current-output) \"current-appname: ~a\" (current-appname) )))")
-;; 				(("\\(format \\#f \"~a/pub/~a\" \\(current-toplevel\\) path\\)")
-;; 				 "(format #f \"~a/pub/~a\" (immutable-toplevel) path)")
-;; 				)						  				
+		   (substitute* "artanis/commands/work.scm"			      			       
+				(("\\(let \\(\\(entry \\(string-append \\(current-toplevel\\) \"/\" \\*artanis-entry\\*\\)\\)\\)")
+				 "(let ((entry (string-append (immutable-toplevel) \"/\" *artanis-entry*)))")
+				(("\\(add-to-load-path \\(current-toplevel\\)\\)")
+				 "(add-to-load-path (immutable-toplevel))")
+				(("\\(add-to-load-path \\(string-append \\(current-toplevel\\) \"/lib\"\\)\\)")
+				 "(add-to-load-path (string-append (immutable-toplevel) \"/lib\"))"))		
+		   (substitute* '("artanis/tpl/parser.scm"
+				  "artanis/mvc/controller.scm"
+				  "artanis/webapi/restful.scm")			      			       
+				(("current-toplevel")
+				"immutable-toplevel"))				
+		   (substitute* "artanis/utils.scm"			      			       
+				(("\\(let\\* \\(\\(toplevel \\(current-toplevel\\)\\)")
+				 "(let* ((toplevel (immutable-toplevel))")
+				(("\\(current-toplevel\\) file\\)\\)\\)")
+				"(immutable-toplevel) file)))")
+				(("\\(if \\(current-toplevel\\)")
+				 "(if (immutable-toplevel)")
+				((" \\(let \\(\\(p \\(-> path\\)\\)\\)")
+				  " (let ((p (-> path))(dummy (format (artanis-current-output) \"current-appname: ~a\" (current-appname) )))")
+				(("\\(format \\#f \"~a/pub/~a\" \\(current-toplevel\\) path\\)")
+				 "(format #f \"~a/pub/~a\" (immutable-toplevel) path)")
+				)						  				
 				
-;; 		   (substitute* "artanis/env.scm"
-;;                                 (("            current-toplevel\n")
-;;                                  "            current-toplevel\n            %immutable-toplevel\n            immutable-toplevel\n")
-;;                                 (("\\(define \\(current-toplevel\\)\n")
-;;                                          "(define %immutable-toplevel (make-parameter #f))\n")
-;;                                 (("  \\(or \\(%current-toplevel\\)\n")
-;;                                          "  (define (immutable-toplevel)\n")
-;;                                 (("      \\(find-ENTRY-path identity #t\\)\\)\\)\n")
-;;                                  "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) (string-append \"/tmp/\" (and=> (string-match \".+/(.+)$\" (getcwd)) (lambda (m) (match:substring m 1))))) ")                       
+		   (substitute* "artanis/env.scm"
+                                (("            current-toplevel\n")
+                                 "            current-toplevel\n            %immutable-toplevel\n            immutable-toplevel\n")
+                                (("\\(define \\(current-toplevel\\)\n")
+                                         "(define %immutable-toplevel (make-parameter #f))\n")
+                                (("  \\(or \\(%current-toplevel\\)\n")
+                                         "  (define (immutable-toplevel)\n")
+                                (("      \\(find-ENTRY-path identity #t\\)\\)\\)\n")
+                                 "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) (string-append \"/tmp/\" (and=> (string-match \".+/(.+)$\" (getcwd)) (lambda (m) (match:substring m 1))))) ")                       
                                
-;;                                 )    ;;use of (current-appname) causes disk thrashing and freezing
-;; 				     ;; (find-ENTRY-path identity #t)  evaluates to #f and so can't be used
+                                )    ;;use of (current-appname) causes disk thrashing and freezing
+				     ;; (find-ENTRY-path identity #t)  evaluates to #f and so can't be used
 				
-;; 	;;============END forguix mods=========================================================================
+	;;============END forguix mods=========================================================================
 	
 
 		  
-;;                   (substitute* "artanis/artanis.scm"
-;;                     (("[[:punct:][:space:]]+->json-string[[:punct:][:space:]]+")
-;;                      ""))
-;;                   #t))))
-;;     (build-system gnu-build-system)
-;;     (inputs
-;;      (list bash-minimal guile-3.0 nspr nss))
-;;     ;; FIXME the bundled csv contains one more exported procedure
-;;     ;; (sxml->csv-string) than guile-csv. The author is maintainer of both
-;;     ;; projects.
-;;     ;; TODO: Add guile-dbi and guile-dbd optional dependencies.
-;;     (propagated-inputs
-;;      (list guile-json-3 guile-curl guile-readline guile-redis))
-;;     (native-inputs
-;;      (list bash-minimal                           ;for the `source' builtin
-;;            pkg-config
-;;            util-linux))                           ;for the `script' command
-;;     (arguments
-;;      `(#:modules (((guix build guile-build-system)
-;;                    #:select (target-guile-effective-version))
-;;                   ,@%default-gnu-modules)
-;;        #:imported-modules ((guix build guile-build-system)
-;;                            ,@%default-gnu-imported-modules)
-;;        #:make-flags
-;;        ;; TODO: The documentation must be built with the `docs' target.
-;;        (let* ((out (assoc-ref %outputs "out"))
-;;               ;; We pass guile explicitly here since this executes before the
-;;               ;; set-paths phase and therefore guile is not yet in PATH.
-;;               (effective-version (target-guile-effective-version
-;;                                   (assoc-ref %build-inputs "guile")))
-;;               (scm (string-append out "/share/guile/site/" effective-version))
-;;               (go (string-append out "/lib/guile/" effective-version "/site-ccache")))
-;;          ;; Don't use (%site-dir) for site paths.
-;;          (list (string-append "MOD_PATH=" scm)
-;;                (string-append "MOD_COMPILED_PATH=" go)))
-;;        #:test-target "test"
-;;        #:phases
-;;        (modify-phases %standard-phases
-;;          (add-after 'unpack 'patch-site-dir
-;;            (lambda* (#:key outputs #:allow-other-keys)
-;;              (substitute* "artanis/commands/help.scm"
-;;                (("\\(%site-dir\\)")
-;;                 (string-append "\""
-;;                                (assoc-ref outputs "out")
-;;                                "/share/guile/site/"
-;;                                (target-guile-effective-version)
-;;                                "\"")))))
-;;          (add-after 'unpack 'patch-reference-to-libnss
-;;            (lambda* (#:key inputs #:allow-other-keys)
-;;              (substitute* "artanis/security/nss.scm"
-;;                (("ffi-binding \"libnss3\"")
-;;                 (string-append
-;;                  "ffi-binding \""
-;;                  (assoc-ref inputs "nss") "/lib/nss/libnss3.so"
-;;                  "\""))
-;;                (("ffi-binding \"libssl3\"")
-;;                 (string-append
-;;                  "ffi-binding \"" (assoc-ref inputs "nss") "/lib/nss/libssl3.so\"")))))
-;;          (add-before 'install 'substitute-root-dir
-;;            (lambda* (#:key outputs #:allow-other-keys)
-;;              (let ((out  (assoc-ref outputs "out")))
-;;                (substitute* "Makefile"   ;ignore the execution of bash.bashrc
-;;                  ((" /etc/bash.bashrc") " /dev/null"))
-;;                (substitute* "Makefile"   ;set the root of config files to OUT
-;;                  ((" /etc") (string-append " " out "/etc")))
-;;                (mkdir-p (string-append out "/bin")) )))
-;;          (add-after 'install 'wrap-art
-;;            (lambda* (#:key inputs outputs #:allow-other-keys)
-;;              (let* ((out (assoc-ref outputs "out"))
-;;                     (effective-version (target-guile-effective-version))
-;;                     (bin (string-append out "/bin"))
-;;                     (scm (string-append out "/share/guile/site/" effective-version))
-;;                     (go (string-append out "/lib/guile/" effective-version
-;;                                        "/site-ccache")))
-;;                (wrap-program (string-append bin "/art")
-;;                  `("GUILE_LOAD_PATH" ":" prefix
-;;                    (,scm ,(getenv "GUILE_LOAD_PATH")))
-;;                  `("GUILE_LOAD_COMPILED_PATH" ":" prefix
-;;                    (,go ,(getenv "GUILE_LOAD_COMPILED_PATH"))))))))))
-;;     (synopsis "Web application framework written in Guile")
-;;     (description "GNU Artanis is a web application framework written in Guile
-;; Scheme.  A web application framework (WAF) is a software framework that is
-;; designed to support the development of dynamic websites, web applications, web
-;; services and web resources.  The framework aims to alleviate the overhead
-;; associated with common activities performed in web development.  Artanis
-;; provides several tools for web development: database access, templating
-;; frameworks, session management, URL-remapping for RESTful, page caching, and
-;; more. artanis-101 is a modification of v1.0.0 that contains feature enhancements
-;; required by LIMS*Nucleus.")
-;;     (home-page "https://www.gnu.org/software/artanis/")
-;;     (license (list license:gpl3+ license:lgpl3+)))) ;dual license
+                  (substitute* "artanis/artanis.scm"
+                    (("[[:punct:][:space:]]+->json-string[[:punct:][:space:]]+")
+                     ""))
+                  #t))))
+    (build-system gnu-build-system)
+    (inputs
+     (list bash-minimal guile-3.0 nspr nss))
+    ;; FIXME the bundled csv contains one more exported procedure
+    ;; (sxml->csv-string) than guile-csv. The author is maintainer of both
+    ;; projects.
+    ;; TODO: Add guile-dbi and guile-dbd optional dependencies.
+    (propagated-inputs
+     (list guile-json-3 guile-curl guile-readline guile-redis))
+    (native-inputs
+     (list bash-minimal                           ;for the `source' builtin
+           pkg-config
+           util-linux))                           ;for the `script' command
+    (arguments
+     `(#:modules (((guix build guile-build-system)
+                   #:select (target-guile-effective-version))
+                  ,@%default-gnu-modules)
+       #:imported-modules ((guix build guile-build-system)
+                           ,@%default-gnu-imported-modules)
+       #:make-flags
+       ;; TODO: The documentation must be built with the `docs' target.
+       (let* ((out (assoc-ref %outputs "out"))
+              ;; We pass guile explicitly here since this executes before the
+              ;; set-paths phase and therefore guile is not yet in PATH.
+              (effective-version (target-guile-effective-version
+                                  (assoc-ref %build-inputs "guile")))
+              (scm (string-append out "/share/guile/site/" effective-version))
+              (go (string-append out "/lib/guile/" effective-version "/site-ccache")))
+         ;; Don't use (%site-dir) for site paths.
+         (list (string-append "MOD_PATH=" scm)
+               (string-append "MOD_COMPILED_PATH=" go)))
+       #:test-target "test"
+       #:phases
+       (modify-phases %standard-phases
+         (add-after 'unpack 'patch-site-dir
+           (lambda* (#:key outputs #:allow-other-keys)
+             (substitute* "artanis/commands/help.scm"
+               (("\\(%site-dir\\)")
+                (string-append "\""
+                               (assoc-ref outputs "out")
+                               "/share/guile/site/"
+                               (target-guile-effective-version)
+                               "\"")))))
+         (add-after 'unpack 'patch-reference-to-libnss
+           (lambda* (#:key inputs #:allow-other-keys)
+             (substitute* "artanis/security/nss.scm"
+               (("ffi-binding \"libnss3\"")
+                (string-append
+                 "ffi-binding \""
+                 (assoc-ref inputs "nss") "/lib/nss/libnss3.so"
+                 "\""))
+               (("ffi-binding \"libssl3\"")
+                (string-append
+                 "ffi-binding \"" (assoc-ref inputs "nss") "/lib/nss/libssl3.so\"")))))
+         (add-before 'install 'substitute-root-dir
+           (lambda* (#:key outputs #:allow-other-keys)
+             (let ((out  (assoc-ref outputs "out")))
+               (substitute* "Makefile"   ;ignore the execution of bash.bashrc
+                 ((" /etc/bash.bashrc") " /dev/null"))
+               (substitute* "Makefile"   ;set the root of config files to OUT
+                 ((" /etc") (string-append " " out "/etc")))
+               (mkdir-p (string-append out "/bin")) )))
+         (add-after 'install 'wrap-art
+           (lambda* (#:key inputs outputs #:allow-other-keys)
+             (let* ((out (assoc-ref outputs "out"))
+                    (effective-version (target-guile-effective-version))
+                    (bin (string-append out "/bin"))
+                    (scm (string-append out "/share/guile/site/" effective-version))
+                    (go (string-append out "/lib/guile/" effective-version
+                                       "/site-ccache")))
+               (wrap-program (string-append bin "/art")
+                 `("GUILE_LOAD_PATH" ":" prefix
+                   (,scm ,(getenv "GUILE_LOAD_PATH")))
+                 `("GUILE_LOAD_COMPILED_PATH" ":" prefix
+                   (,go ,(getenv "GUILE_LOAD_COMPILED_PATH"))))))))))
+    (synopsis "Web application framework written in Guile")
+    (description "GNU Artanis is a web application framework written in Guile
+Scheme.  A web application framework (WAF) is a software framework that is
+designed to support the development of dynamic websites, web applications, web
+services and web resources.  The framework aims to alleviate the overhead
+associated with common activities performed in web development.  Artanis
+provides several tools for web development: database access, templating
+frameworks, session management, URL-remapping for RESTful, page caching, and
+more. artanis-101 is a modification of v1.0.0 that contains feature enhancements
+required by LIMS*Nucleus.")
+    (home-page "https://www.gnu.org/software/artanis/")
+    (license (list license:gpl3+ license:lgpl3+)))) ;dual license
 
