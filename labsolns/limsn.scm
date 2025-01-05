@@ -430,9 +430,9 @@
                                     post)))
 
 	
-		  ============START forguix mods=========================================================================
-		  immutable-toplevel is the original current-toplevel in /gnu/store
-		  current-toplevel is the mutable toplevel in /tmp/<appname>/tmp/cache
+;;		  ============START forguix mods=========================================================================
+;;		  immutable-toplevel is the original current-toplevel in /gnu/store
+;;		  current-toplevel is the mutable toplevel in /tmp/<appname>/tmp/cache
 	
 		   (substitute* "artanis/commands/work.scm"			      			       
 				(("\\(let \\(\\(entry \\(string-append \\(current-toplevel\\) \"/\" \\*artanis-entry\\*\\)\\)\\)")
