@@ -396,7 +396,7 @@
 
 (define-public artanis-101
   (package
-    (name "artanis")
+    (name "artanis-101")
     (version "1.0.0")
     (source (origin
               (method url-fetch)
