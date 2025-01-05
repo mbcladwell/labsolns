@@ -467,8 +467,8 @@ more. v0.5.1 contains feature enhancements required by LIMS*Nucleus")
 ;;                                 (("  \\(or \\(%current-toplevel\\)\n")
 ;;                                          "  (define (immutable-toplevel)\n")
 ;;                                 (("      \\(find-ENTRY-path identity #t\\)\\)\\)\n")
-;;                                  "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) (string-append \"/tmp/\" (and=> (string-match \".+/(.+)$\" (getcwd)) (lambda (m) (match:substring m 1))))) ")                       
-                               
+;;                                  "     (or (%immutable-toplevel)\n         (find-ENTRY-path identity #t)))\n\n(define (current-toplevel) (string-appen;;d \"/tmp/\" (and=> (string-match \".+/(.+)$\" (getcwd)) (lambda (m) (match:substring m 1))))) ")                       
+;;                               
 ;;                                 )    ;;use of (current-appname) causes disk thrashing and freezing
 ;; 				     ;; (find-ENTRY-path identity #t)  evaluates to #f and so can't be used
 				
