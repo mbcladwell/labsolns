@@ -72,7 +72,7 @@
   #:use-module ((srfi srfi-1) #:select (alist-delete)))
 
 (define-public limsn
-             (let ((commit "876b6f350b8bc0e4b01f04ae5e746b0bae4ce98e");;anchor1
+             (let ((commit "0ddf04db91bb31441098a4c45a46be794e92e0c1");;anchor1
         (revision "2"))
 
   (package
@@ -85,7 +85,7 @@
                       (commit commit)))
                 (file-name (git-file-name name version))
                 (sha256 
-             (base32 "1la2dnspgr8pzll4kfikl958h5xvwfpywv60p00bpxwf58qcjnh0"))));;anchor2
+             (base32 "08w3grjx52inbfq0jvbj14rhybwarba80jlvch4562crnq82ka6h"))));;anchor2
   
    
    (build-system guile-build-system)
@@ -206,7 +206,6 @@
      ;;  ("automake" ,automake)
     ;;   ("texinfo" ,texinfo)
        ("util-linux" ,util-linux))) ;for the `script' command
-
     (synopsis "Microwell Plate management Software")
     (description "description")
     (home-page "http://www.labsolns.com/")
@@ -233,12 +232,12 @@
                   (substitute* '("artanis/artanis.scm"
                                  "artanis/lpc.scm"
                                  "artanis/oht.scm")
-                    (("(#:use-module \\()artanis third-party (json\\))" _
+                    (("(#:use-module \\()artanis third-party (json\\))" 
                       use-module json)
                      (string-append use-module json)))
                   (substitute* '("artanis/lpc.scm"
                                  "artanis/session.scm")
-                    (("(#:use-module \\()artanis third-party (redis\\))" _
+                    (("(#:use-module \\()artanis third-party (redis\\))" 
                       use-module redis)
                      (string-append use-module redis)))
                   (substitute* "artanis/oht.scm"
