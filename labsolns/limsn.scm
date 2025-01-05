@@ -183,9 +183,7 @@
 							     `("GUILE_DBD_PATH" ":" prefix (,guile-dbd-path))
 							     )))
 					   all-files))				    
-				    #t))
-
-			   
+				    #t))			   
 			   )))
     (inputs
      `(("guile" ,guile-3.0)
@@ -251,7 +249,7 @@
 			       "artanis/cookie.scm")
 			       (("3600") "(get-conf '(cookie expire))"))
 		
-				  (substitute* "artanis/config.scm"
+		  (substitute* "artanis/config.scm"
 			       (("   \\(\\('debug rest ...\\) \\(parse-namespace-debug rest\\)\\)")
 				"   (('debug rest ...) (parse-namespace-debug rest))\n    (('cookie rest ...) (parse-namespace-cookie rest))"
 				))
