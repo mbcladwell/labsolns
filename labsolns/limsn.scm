@@ -250,7 +250,7 @@
 		    )
 		  (substitute* "artanis/env.scm"
 		    (("  \\(let \\(\\(tmp \\(format #f \"~a/tmp\" \\(proper-toplevel\\)\\)\\)\\)")
-		     "  \(let \(\(tmp  \"/tmp\")))" )  
+		     "  \(let \(\(tmp  \"/tmp\"))" )  
 		    )
 		  ;;============END forguix mods=========================================================================
 
