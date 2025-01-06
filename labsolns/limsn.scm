@@ -247,8 +247,11 @@
 		  (substitute* "artanis/commands/work.scm"			      			       
 		    (("  \\(define route \\(format #f \"~a/.route\" toplevel\\)\\)")
 		     "  \(define route \(format #f \"~a/.route\" \(current-tmp)))")
-						)
-		  
+		    )
+		  (substitute* "artanis/artanis/env.scm"
+		    (("  \\(let \\(\\(tmp \\(format #f \"~a/tmp\" \\(proper-toplevel\\)\\)\\)\\)")
+		     "  \(let \(\(tmp  \"/tmp\")))" )  
+		    )
 		  ;;============END forguix mods=========================================================================
 
                   (substitute* "artanis/artanis.scm"
