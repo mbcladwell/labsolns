@@ -148,6 +148,7 @@
 						       ("./limsn/postgres" ,postgres-dir)
 						       ("./limsn/pub" ,pub-dir)
 						       ("./limsn/sys" ,sys-dir)
+						       ("./limsn/app" ,app-dir)
 						       ("./limsn/tmp" ,tmp-dir))))
             			        (map (lambda (dir)
 					       (begin
