@@ -248,7 +248,7 @@
 		    (("  \\(define route \\(format #f \"~a/.route\" toplevel\\)\\)")
 		     "  \(define route \(format #f \"~a/.route\" \(current-tmp)))")
 		    )
-		  (substitute* "artanis/artanis/env.scm"
+		  (substitute* "artanis/env.scm"
 		    (("  \\(let \\(\\(tmp \\(format #f \"~a/tmp\" \\(proper-toplevel\\)\\)\\)\\)")
 		     "  \(let \(\(tmp  \"/tmp\")))" )  
 		    )
