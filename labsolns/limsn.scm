@@ -72,7 +72,7 @@
   #:use-module ((srfi srfi-1) #:select (alist-delete)))
 
 (define-public limsn
-             (let ((commit "cc8c971c975ffa41d8fc47aef33d41b3083d860f");;anchor1
+             (let ((commit "ca157d4b73b664f2e2a46166a3a5f26102590abc");;anchor1
         (revision "2"))
 
   (package
@@ -85,7 +85,7 @@
                       (commit commit)))
                 (file-name (git-file-name name version))
                 (sha256 
-             (base32 "1jdcvvfgbgny5m3bnyax94ym394zgabg2gpcw6ylgvq37x4mcrzk"))));;anchor2
+             (base32 "09yg59ns3n8x5a1rxg5bgikqhbzg1gj7qf6crh9wj2r70dxlynic"))));;anchor2
   
    
    (build-system guile-build-system)
