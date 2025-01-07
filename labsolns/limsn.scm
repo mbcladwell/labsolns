@@ -72,7 +72,7 @@
   #:use-module ((srfi srfi-1) #:select (alist-delete)))
 
 (define-public limsn
-             (let ((commit "ca157d4b73b664f2e2a46166a3a5f26102590abc");;anchor1
+             (let ((commit "ff8b010dfaf353b5bdf8583bcc93500d4026d200");;anchor1
         (revision "2"))
 
   (package
@@ -85,7 +85,7 @@
                       (commit commit)))
                 (file-name (git-file-name name version))
                 (sha256 
-             (base32 "09yg59ns3n8x5a1rxg5bgikqhbzg1gj7qf6crh9wj2r70dxlynic"))));;anchor2
+             (base32 "09vwm6xxlsgyiw158gwxiy82bcrna1ydi7fpkv561qyd5yrgbr0p"))));;anchor2
   
    
    (build-system guile-build-system)
@@ -250,10 +250,14 @@
 		    (("  \\(define route \\(format #f \"~a/.route\" toplevel\\)\\)")
 		     "  \(define route \(format #f \"~a/.route\" \(current-tmp)))")
 		    )
+		  ;; (substitute* "artanis/env.scm"
+		  ;;   (("  \\(let \\(\\(tmp \\(format #f \"~a/tmp\" \\(proper-toplevel\\)\\)\\)\\)")
+		  ;;    "  \(let \(\(tmp  \"/tmp\"))" )  
+		  ;;   )
 		  (substitute* "artanis/env.scm"
-		    (("  \\(let \\(\\(tmp \\(format #f \"~a/tmp\" \\(proper-toplevel\\)\\)\\)\\)")
-		     "  \(let \(\(tmp  \"/tmp\"))" )  
-		    )
+			       (("  \\(let \\(\\(tmp \\(format #f \"~a/tmp\" \\(proper-toplevel\\)\\)\\)\\)")
+				"  \(let \(\(tmp  \"$HOME/tmp\"))" )  
+			       )
 		  ;;============END forguix mods=========================================================================
 
                   (substitute* "artanis/artanis.scm"
