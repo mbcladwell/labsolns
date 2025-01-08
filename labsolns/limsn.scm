@@ -258,7 +258,7 @@
 		    )
 		  (substitute* "artanis/env.scm"
 		    (("  \\(let \\(\\(tmp \\(format #f \"~a/tmp\" \\(proper-toplevel\\)\\)\\)\\)")
-		     "  \(let \(\(tmp \(format #f \"/tmp/~a\" \(get-conf '(cookie appname))))) )")  
+		     "  \(let \(\(tmp \(format #f \"/tmp/~a\" \(get-conf '(cookie appname)))))")  
 		    )
 		  ;; (substitute* "artanis/env.scm"
 		  ;; 	       (("  \\(let \\(\\(tmp \\(format #f \"~a/tmp\" \\(proper-toplevel\\)\\)\\)\\)")
