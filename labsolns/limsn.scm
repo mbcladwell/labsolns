@@ -72,7 +72,7 @@
   #:use-module ((srfi srfi-1) #:select (alist-delete)))
 
 (define-public limsn
-             (let ((commit "0203fc545f38262fa6137c231603990fbe31ec79");;anchor1
+             (let ((commit "021f1407c11791c992baec3b5532f748de2aed92");;anchor1
         (revision "2"))
 
   (package
@@ -85,7 +85,7 @@
                       (commit commit)))
                 (file-name (git-file-name name version))
                 (sha256 
-             (base32 "0w4fkg56hhzg8pdcany66rzbckbaihgbgksnry3hmvzalr8rg9r3"))));;anchor2
+             (base32 "1i4a0qsq9njf76xk272v131b27flgnw583ayj4gzhdcxpa9z9if4"))));;anchor2
   
    
    (build-system guile-build-system)
@@ -191,7 +191,6 @@
 			   )))
     (inputs
      `(("guile" ,guile-3.0)
-       ("gnuplot" ,gnuplot)
        ("guile-dbi" ,guile-dbi)
        ))
     (propagated-inputs
@@ -201,6 +200,7 @@
        ("guile-redis" ,guile-redis)
        ("guile-gcrypt" ,guile-gcrypt)
        ("guile-dbd-postgresql" ,guile-dbd-postgresql)
+       ("gnuplot" ,gnuplot)
        ))
     (native-inputs
      `(("bash"       ,bash)         ;for the `source' builtin
@@ -250,7 +250,12 @@
                                     post)))
 		  (substitute* "artanis/config.scm"
 		   	       (("debug.monitor = <PATHs>\")")
-		   		"debug.monitor = <PATHs>\")\n\n ((cookie maxplates)\n       10\n      \"Maximum number of plates per plate-set.\n cookie.maxplates = <integer>\")\n\n((cookie appname)\n       myapp\n      \"Name of the application.\n cookie.appname = <string>\")\n"))
+		   		"debug.monitor = <PATHs>\")\n\n ((cookie maxplates)\n       10\n      \"Maximum number of plates per plate-set.\n cookie.maxplates = <integer>\")\n")
+			       (("    \\(else \\(error parse-namespace-cookie \"Config: Invalid item\" item\\)\\)\\)\\)")
+		   		"    (('maxplates maxplates) (conf-set! '(cookie maxplates) (->integer maxplates)))\n    (else (error parse-namespace-cookie \"Config: Invalid item\" item))))"
+				)
+
+			       )
 		  ;;============START forguix mods=========================================================================
 		  (substitute* "artanis/commands/work.scm"			      			       
 		    (("  \\(define route \\(format #f \"~a/.route\" toplevel\\)\\)")
