@@ -72,7 +72,7 @@
   #:use-module ((srfi srfi-1) #:select (alist-delete)))
 
 (define-public limsn
-             (let ((commit "ff8b010dfaf353b5bdf8583bcc93500d4026d200");;anchor1
+             (let ((commit "21b43cf390a0c70fe836bea3aa4f3f76ab7e4540");;anchor1
         (revision "2"))
 
   (package
@@ -85,7 +85,7 @@
                       (commit commit)))
                 (file-name (git-file-name name version))
                 (sha256 
-             (base32 "09vwm6xxlsgyiw158gwxiy82bcrna1ydi7fpkv561qyd5yrgbr0p"))));;anchor2
+             (base32 "1hz9df54r7xjxj2z2lvba4r778ci5a3w3f648sryacbn5n0x9462"))));;anchor2
   
    
    (build-system guile-build-system)
@@ -117,6 +117,7 @@
 							        (assoc-ref inputs "guile-json")  "/share/guile/site/3.0:"
 							        (assoc-ref inputs "artanis")  "/share/guile/site/3.0:"
 								(assoc-ref inputs "guile-redis") "/share/guile/site/3.0:"
+								(assoc-ref inputs "guile-gcrypt") "/share/guile/site/3.0:"
 								(assoc-ref inputs "guile-dbi") "/share/guile/site/3.0:"
 								(getenv "GUILE_LOAD_PATH")))
 						     (setenv "GUILE_DBD_PATH"
@@ -166,6 +167,7 @@
 									    (assoc-ref inputs "guile-json") "/share/guile/site/3.0:"
 									    (assoc-ref inputs "artanis") "/share/guile/site/3.0:"
 									    (assoc-ref inputs "guile-redis") "/share/guile/site/3.0:"
+									    (assoc-ref inputs "guile-gcrypt") "/share/guile/site/3.0:"
 									    (assoc-ref inputs "guile-dbi") "/share/guile/site/2.2"))
 					   (guile-dbd-path (string-append  (assoc-ref inputs "guile-dbd-postgresql") "/lib"))
 					   (_ (mkdir-p bin-dir))                
@@ -197,6 +199,7 @@
        ("artanis" ,artanis-101)
        ("guile-json" ,guile-json-3)
        ("guile-redis" ,guile-redis)
+       ("guile-gcrypt" ,guile-gcrypt)
        ("guile-dbd-postgresql" ,guile-dbd-postgresql)
        ))
     (native-inputs
@@ -245,19 +248,22 @@
                      (string-append pre
                                     "scm" json-string
                                     post)))
+		  (substitute* "artanis/config.scm"
+		   	       (("debug.monitor = <PATHs>\")")
+		   		"debug.monitor = <PATHs>\")\n\n ((cookie maxplates)\n       10\n      \"Maximum number of plates per plate-set.\n cookie.maxplates = <integer>\")\n\n((cookie appname)\n       myapp\n      \"Name of the application.\n cookie.appname = <string>\")\n"))
 		  ;;============START forguix mods=========================================================================
 		  (substitute* "artanis/commands/work.scm"			      			       
 		    (("  \\(define route \\(format #f \"~a/.route\" toplevel\\)\\)")
 		     "  \(define route \(format #f \"~a/.route\" \(current-tmp)))")
 		    )
-		  ;; (substitute* "artanis/env.scm"
-		  ;;   (("  \\(let \\(\\(tmp \\(format #f \"~a/tmp\" \\(proper-toplevel\\)\\)\\)\\)")
-		  ;;    "  \(let \(\(tmp  \"/tmp\"))" )  
-		  ;;   )
 		  (substitute* "artanis/env.scm"
-			       (("  \\(let \\(\\(tmp \\(format #f \"~a/tmp\" \\(proper-toplevel\\)\\)\\)\\)")
-				"  \(let \(\(tmp  \"$HOME/tmp\"))" )  
-			       )
+		    (("  \\(let \\(\\(tmp \\(format #f \"~a/tmp\" \\(proper-toplevel\\)\\)\\)\\)")
+		     "  \(let \(\(tmp \(format #f \"/tmp/~a\" \(get-conf '(cookie appname))))) )"  
+		    )
+		  ;; (substitute* "artanis/env.scm"
+		  ;; 	       (("  \\(let \\(\\(tmp \\(format #f \"~a/tmp\" \\(proper-toplevel\\)\\)\\)\\)")
+		  ;; 		"  \(let \(\(tmp  \"$HOME/tmp\"))" )  
+		  ;; 	       )
 		  ;;============END forguix mods=========================================================================
 
                   (substitute* "artanis/artanis.scm"
