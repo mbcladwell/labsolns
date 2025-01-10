@@ -120,7 +120,7 @@
       ("texinfo" ,texinfo)))
   (inputs `(("bash" ,bash-minimal)
 	    ))
-  (propagated-inputs `())
+  (propagated-inputs (list gnutls guile-gnutls))
   (synopsis "")
   (description "")
   (home-page "www.labsolns.com")
