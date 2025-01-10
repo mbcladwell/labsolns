@@ -17,7 +17,7 @@
    )
 
 (define-public conmanv4
-             (let ((commit "66f4213846adc4eb8ec012b38b472e8daafbc687")
+             (let ((commit "8c621cd23270fad4a7bb4f2839e3907cb5b78605")
         (revision "2"))
   (package
     (name "conmanv4")
@@ -29,7 +29,7 @@
              (commit commit)))
               (file-name (git-file-name name version))
               (sha256
-             (base32 "0j2ca5bmcwpvzva93ajl122b16x7bpxvj7siw9zm2pq7bicd6zcy"))))
+             (base32 "1jiyfnzhg9x0jz30ylkiygkz7lkyimpnl72h76rz59w8xivgsr49"))))
     (build-system guile-build-system)
     (arguments `(
 		 #:phases (modify-phases %standard-phases
@@ -120,7 +120,7 @@
       ("texinfo" ,texinfo)))
   (inputs `(("bash" ,bash-minimal)
 	    ))
-  (propagated-inputs `())
+  (propagated-inputs (list gnutls guile-gnutls))
   (synopsis "")
   (description "")
   (home-page "www.labsolns.com")
