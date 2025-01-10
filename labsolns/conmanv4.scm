@@ -9,6 +9,7 @@
    #:use-module (guix build-system gnu)
    #:use-module (gnu packages bash)
    #:use-module (gnu packages)
+   #:use-module (gnu packages tls)
    #:use-module (gnu packages autotools)
    #:use-module (gnu packages guile)
    #:use-module (gnu packages guile-xyz)
