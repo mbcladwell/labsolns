@@ -76,6 +76,9 @@
 					   (bin-dir (string-append out "/bin"))
 					   (scm  "/share/guile/site/3.0")
 					   (go   "/lib/guile/3.0/site-ccache")
+					   (guile-load-path (string-append  out scm ":"
+									    (assoc-ref inputs "guile-gnutls") "/share/guile/site/3.0:"
+									    (assoc-ref inputs "gnutls") "/share/guile/site/3.0"))
 					   (all-files '("conman.sh")))				      
 				      (map (lambda (file)
 					     (begin
@@ -84,7 +87,7 @@
 					       (wrap-program (string-append bin-dir "/" file)
 							     `( "PATH" ":" prefix  (,bin-dir) )							     
 							     `("GUILE_LOAD_PATH" prefix
-							       (,(string-append out scm)
+							       (,guile-load-path
 								))
 							     `("GUILE_LOAD_COMPILED_PATH" prefix
 							       (,(string-append out go)))
@@ -121,7 +124,8 @@
       ("texinfo" ,texinfo)))
   (inputs `(("bash" ,bash-minimal)
 	    ))
-  (propagated-inputs (list guile-gnutls gnutls))
+  (propagated-inputs `(("guile-gnutls" ,guile-gnutls)
+		       ("gnutls" ,gnutls)))
   (synopsis "")
   (description "")
   (home-page "www.labsolns.com")
