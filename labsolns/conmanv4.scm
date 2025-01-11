@@ -39,9 +39,7 @@
 				       (let ((out  (assoc-ref outputs "out")))					  
 					 (substitute* '("conmanv4/env.scm" "scripts/conman.sh")
 						      (("conmanstorepath")
-						       out))
-					 
-					 
+						       out))					 
 					  (substitute* '("scripts/conman.sh")
 					  	      (("guileloadpath")
 					  	       (string-append  out "/share/guile/site/3.0:"
@@ -62,7 +60,7 @@
 									       ,(getenv "GUILE_LOAD_COMPILED_PATH") "\""))))
 								       
        			    #t))		    
-		       (add-after 'patch-prefix 'make-dir
+		       (add-after 'patch-prefix 'make-conman-dir
 			 (lambda* (#:key outputs #:allow-other-keys)
 			   (let* ((out  (assoc-ref outputs "out"))
 				  (conman-dir (string-append out "/share/guile/site/3.0/conmanv4"))
@@ -70,7 +68,7 @@
 				  (dummy (copy-recursively "./conmanv4" conman-dir))) 
 			     #t)))
 		       
-			   (add-after 'make-dir 'make-bin-dir
+			   (add-after 'make-conman-dir 'make-bin-dir
 				  (lambda* (#:key inputs outputs #:allow-other-keys)
 				    (let* ((out (assoc-ref outputs "out"))
 					   (bin-dir (string-append out "/bin"))
@@ -95,7 +93,7 @@
 					     all-files))					   					   	    
 				    #t))
 
-			   (add-after 'make-dir 'make-scripts-dir
+			   (add-after 'make-bin-dir 'make-scripts-dir
 				  (lambda* (#:key inputs outputs #:allow-other-keys)
 				    (let* ((out (assoc-ref outputs "out"))
 					   (scripts-dir (string-append out "/scripts"))
@@ -109,12 +107,13 @@
 					     all-files))					   					   	    
 				    #t))
 			   
-			  (add-after 'make-dir 'cp-smtp-cli
+			  (add-after 'make-scripts-dir 'cp-smtp-cli
 				  (lambda* (#:key inputs outputs #:allow-other-keys)
 				    (let* ((out (assoc-ref outputs "out"))
 					   (bin-dir (string-append out "/bin")))
 				      (install-file "./bin/test.txt" bin-dir)
-				     ;; (chmod (string-append bin-dir "/smtp-cli") #o555 )
+				      (install-file "./bin/smtp-cli" bin-dir)
+				      (chmod (string-append bin-dir "/smtp-cli") #o555 )
 				      )
 				    #t))
 
