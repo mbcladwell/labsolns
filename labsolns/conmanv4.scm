@@ -125,7 +125,9 @@
 		       )))
   (native-inputs
    `(("guile" ,guile-3.0)
-      ("texinfo" ,texinfo)))
+     ("texinfo" ,texinfo)
+     ("gnutls" ,gnutls)
+     ))
   (inputs `(("bash" ,bash-minimal)
 	    ))
   (propagated-inputs `(("guile-gnutls" ,guile-gnutls)
