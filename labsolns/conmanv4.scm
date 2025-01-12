@@ -76,8 +76,11 @@
 					   (scm  "/share/guile/site/3.0")
 					   (go   "/lib/guile/3.0/site-ccache")
 					   (guile-load-path (string-append  out scm ":"
-									    (assoc-ref inputs "guile-gnutls") "/share/guile/site/3.0:"
-									    (assoc-ref inputs "gnutls") "/share/guile/site/3.0"))
+									    (assoc-ref inputs "guile-gnutls") scm ":"
+									    (assoc-ref inputs "gnutls") scm))
+					   (guile-load-compiled-path  (string-append  out go ":"
+										      (assoc-ref inputs "guile-gnutls") go ":"
+										      (assoc-ref inputs "gnutls") go))
 					   (all-files '("conman.sh")))				      
 				      (map (lambda (file)
 					     (begin
@@ -86,7 +89,7 @@
 					       (wrap-program (string-append bin-dir "/" file)
 							     `( "PATH" ":" prefix  (,bin-dir) )							     
 							     `("GUILE_LOAD_PATH" prefix (,guile-load-path ))
-							     `("GUILE_LOAD_COMPILED_PATH" prefix (,(string-append out go)))
+							     `("GUILE_LOAD_COMPILED_PATH" prefix (,guile-load-compiled-path))
 							     )))
 					     all-files))					   					   	    
 				    #t))
