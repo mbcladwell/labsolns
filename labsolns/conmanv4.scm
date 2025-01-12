@@ -16,7 +16,7 @@
    #:use-module (gnu packages guile-xyz)
    #:use-module (gnu packages pkg-config)
    #:use-module (gnu packages texinfo)
-   #:use-module (labsolns limsn)
+;;   #:use-module (labsolns limsn)
    )
 
 (define-public conmanv4
@@ -126,13 +126,13 @@
   (native-inputs
    `(("guile" ,guile-3.0)
      ("texinfo" ,texinfo)
-     ("gnutls" ,gnutls)
+    ;; ("gnutls" ,gnutls)
      ))
   (inputs `(("bash" ,bash-minimal)
 	    ))
   (propagated-inputs `(("guile-gnutls" ,guile-gnutls)
 		       ("gnutls" ,gnutls)
-		       ("limsn" ,limsn)
+;;		       ("limsn" ,limsn)
 		       ))
   (synopsis "")
   (description "")
