@@ -10,6 +10,7 @@
    #:use-module (gnu packages bash)
    #:use-module (gnu packages)
    #:use-module (gnu packages tls)
+   #:use-module (gnu packages nss)
    #:use-module (gnu packages autotools)
    #:use-module (gnu packages guile)
    #:use-module (gnu packages guile-xyz)
@@ -18,7 +19,7 @@
    )
 
 (define-public conmanv4
-             (let ((commit "77d58503d64272337c369a7a678ce8af0c8159c2")
+             (let ((commit "069d2a75dd7e69ae633ba557d0782fbc58357b12")
         (revision "2"))
   (package
     (name "conmanv4")
@@ -30,7 +31,7 @@
              (commit commit)))
               (file-name (git-file-name name version))
               (sha256
-             (base32 "1xq0kdb8cmnjxy4x6yhmizc06j5v7sp9kd48ks4fxawpv45mx60n"))))
+             (base32 "1z4bs7rrhz199kr58wi21qbfphq173ssgh5lazkcsvw3862a67an"))))
     (build-system guile-build-system)
     (arguments `(
 		 #:phases (modify-phases %standard-phases
@@ -84,11 +85,8 @@
 					       (chmod (string-append bin-dir "/" file) #o555 ) ;;read execute, no write
 					       (wrap-program (string-append bin-dir "/" file)
 							     `( "PATH" ":" prefix  (,bin-dir) )							     
-							     `("GUILE_LOAD_PATH" prefix
-							       (,guile-load-path
-								))
-							     `("GUILE_LOAD_COMPILED_PATH" prefix
-							       (,(string-append out go)))
+							     `("GUILE_LOAD_PATH" prefix (,guile-load-path ))
+							     `("GUILE_LOAD_COMPILED_PATH" prefix (,(string-append out go)))
 							     )))
 					     all-files))					   					   	    
 				    #t))
