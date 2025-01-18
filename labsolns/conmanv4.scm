@@ -64,8 +64,27 @@
 								       (assoc-ref inputs "guile-gnutls")  "/lib/guile/3.0/site-ccache:"
 									       ,(getenv "GUILE_LOAD_COMPILED_PATH") "\""))))
 								       
-       			    #t))		    
-		       (add-after 'patch-prefix 'make-conman-dir
+       				       #t))
+
+
+		       		       (add-after 'patch-prefix 'augment-GUILE_LOAD_PATH
+						  (lambda* (#:key inputs #:allow-other-keys)
+						    (begin
+						      (setenv "GUILE_LOAD_PATH"
+							      (string-append
+							       ".:"
+							        (assoc-ref inputs "guile-gnutls")  "/share/guile/site/3.0:"
+							        (assoc-ref inputs "gnutls")  "/share/guile/site/3.0:"
+								(assoc-ref inputs "guile-dbi") "/share/guile/site/3.0:"
+								(getenv "GUILE_LOAD_PATH")))
+						     (setenv "GUILE_DBD_PATH"
+							      (string-append
+							        (assoc-ref inputs "guile-dbd-mysql")  "/lib"
+							       ))
+						    )
+						    #t))
+			  
+		       (add-after 'augment-GUILE_LOAD_PATH 'make-conman-dir
 			 (lambda* (#:key outputs #:allow-other-keys)
 			   (let* ((out  (assoc-ref outputs "out"))
 				  (conman-dir (string-append out "/share/guile/site/3.0/conmanv4"))
