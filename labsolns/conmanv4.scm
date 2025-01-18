@@ -20,7 +20,7 @@
    )
 
 (define-public conmanv4
-             (let ((commit "31c781d2edd8fcf01bac2d9c533756e33a0db7df")
+             (let ((commit "8c0d1ec9cbea6f2af43753f50234489d0e0b8b42")
         (revision "2"))
   (package
     (name "conmanv4")
@@ -32,7 +32,7 @@
              (commit commit)))
               (file-name (git-file-name name version))
               (sha256
-             (base32 "1pndy98c76baxpbl871g4v2hikzchghi9ylagajhq3vvk77f6yr9"))))
+             (base32 "0gbbk62jkh6j421lrvxvy22zzm7l51yc1ql1w2cdn64bch5kjgsr"))))
     (build-system guile-build-system)
     (arguments `(
 		 #:phases (modify-phases %standard-phases
@@ -85,6 +85,7 @@
 					   (guile-load-compiled-path  (string-append  out go ":"
 										      (assoc-ref inputs "guile-gnutls") go ":"
 										      (assoc-ref inputs "gnutls") go))
+					   (guile-dbd-path (string-append  (assoc-ref inputs "guile-dbd-mysql") "/lib"))
 					   (all-files '("conman.sh")))				      
 				      (map (lambda (file)
 					     (begin
@@ -92,8 +93,9 @@
 					       (chmod (string-append bin-dir "/" file) #o555 ) ;;read execute, no write
 					       (wrap-program (string-append bin-dir "/" file)
 							     `( "PATH" ":" prefix  (,bin-dir) )							     
-							     `("GUILE_LOAD_PATH" prefix (,guile-load-path ))
-							     `("GUILE_LOAD_COMPILED_PATH" prefix (,guile-load-compiled-path))
+							     `("GUILE_LOAD_PATH" ":" prefix (,guile-load-path ))
+							     `("GUILE_LOAD_COMPILED_PATH" ":" prefix (,guile-load-compiled-path))
+							     `("GUILE_DBD_PATH" ":" prefix (,guile-dbd-path))
 							     )))
 					     all-files))					   					   	    
 				    #t))
@@ -126,12 +128,13 @@
   (native-inputs
    `(("guile" ,guile-3.0)
      ("texinfo" ,texinfo)
-    ;; ("gnutls" ,gnutls)
      ))
   (inputs `(("bash" ,bash-minimal)
 	    ))
   (propagated-inputs `(("guile-gnutls" ,guile-gnutls)
 		       ("gnutls" ,gnutls)
+		       ("guile-dbi" ,guile-dbi)
+		       ("guile-dbd-mysql" ,guile-dbd-mysql)
 ;;		       ("limsn" ,limsn)
 		       ))
   (synopsis "")
