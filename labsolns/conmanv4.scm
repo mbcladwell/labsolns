@@ -75,7 +75,7 @@
 							       ".:"
 							        (assoc-ref inputs "guile-gnutls")  "/share/guile/site/3.0:"
 							        (assoc-ref inputs "gnutls")  "/share/guile/site/3.0:"
-								(assoc-ref inputs "guile-dbi") "/share/guile/site/3.0:"
+								(assoc-ref inputs "guile-dbi") "/share/guile/site/2.2:"
 								(getenv "GUILE_LOAD_PATH")))
 						     (setenv "GUILE_DBD_PATH"
 							      (string-append
