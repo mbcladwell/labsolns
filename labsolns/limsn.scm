@@ -211,7 +211,7 @@
     (propagated-inputs
      `(
        ("artanis" ,artanis-111)
-       ("guile-json" ,guile-json-3)
+       ("guile-json" ,guile-json-4)
        ("guile-redis" ,guile-redis)
        ("guile-gcrypt" ,guile-gcrypt)
        ("guile-dbd-postgresql" ,guile-dbd-postgresql)
