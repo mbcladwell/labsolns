@@ -229,6 +229,7 @@
     (home-page "http://www.labsolns.com/")
     (license (list license:gpl3+ license:lgpl3+))))) ;dual license
 
+
 (define-public artanis-111
   (package
     (name "artanis-111")
@@ -247,6 +248,7 @@
                   (delete-file-recursively "artanis/third-party/redis.scm")
                   (substitute* '("artanis/artanis.scm"
                                  "artanis/lpc.scm"
+                                 "artanis/i18n/json.scm"
                                  "artanis/oht.scm"
                                  "artanis/tpl/parser.scm")
                     (("(#:use-module \\()artanis third-party (json\\))" _
@@ -263,12 +265,14 @@
                      (string-append pre
                                     "scm" json-string
                                     post)))
+		  ;;BEGIN LIMS*Nucleus modification;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 		  (substitute* "artanis/config.scm"
 		   	       (("debug.monitor = <PATHs>\")")
 		   		"debug.monitor = <PATHs>\")\n\n ((cookie maxplates)\n       10\n      \"Maximum number of plates per plate-set.\n cookie.maxplates = <integer>\")\n")
 			       (("    \\(else \\(error parse-namespace-cookie \"Config: Invalid item\" item\\)\\)\\)\\)")
 		   		"    (('maxplates maxplates) (conf-set! '(cookie maxplates) (->integer maxplates)))\n    (else (error parse-namespace-cookie \"Config: Invalid item\" item))))"
 				))
+		  ;;END LIMS*Nucleus modification;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;		  
                   (substitute* "artanis/artanis.scm"
                     (("[[:punct:][:space:]]+->json-string[[:punct:][:space:]]+")
                      ""))
@@ -281,7 +285,7 @@
     ;; projects.
     ;; TODO: Add guile-dbi and guile-dbd optional dependencies.
     (propagated-inputs
-     (list guile-json-3 guile-curl guile-readline guile-redis))
+     (list guile-json-4 guile-curl guile-readline guile-redis))
     (native-inputs
      (list bash-minimal                           ;for the `source' builtin
            pkg-config
@@ -360,5 +364,4 @@ more. artanis-111 is based on artanis v1.1.0 and contains enhancements required
 by LIMS*Nucleus.")
     (home-page "https://www.gnu.org/software/artanis/")
     (license (list license:gpl3+ license:lgpl3+)))) ;dual license
-
 
