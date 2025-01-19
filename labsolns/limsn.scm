@@ -120,6 +120,15 @@
 								(assoc-ref inputs "guile-gcrypt") "/share/guile/site/3.0:"
 								(assoc-ref inputs "guile-dbi") "/share/guile/site/2.2:"
 								(getenv "GUILE_LOAD_PATH")))
+						      (setenv "GUILE_LOAD_COMPILED_PATH"
+							      (string-append
+							       ".:./limsn/lib:"
+							        (assoc-ref inputs "guile-json")  "/lib/guile/3.0/site-ccache:"
+							        (assoc-ref inputs "artanis")  "/lib/guile/3.0/site-ccache:"
+								(assoc-ref inputs "guile-redis") "/lib/guile/3.0/site-ccache:"
+								(assoc-ref inputs "guile-gcrypt") "/lib/guile/3.0/site-ccache:"
+								(assoc-ref inputs "guile-dbi") "/lib:"
+								(getenv "GUILE_LOAD_COMPILED_PATH")))
 						     (setenv "GUILE_DBD_PATH"
 							      (string-append
 							        (assoc-ref inputs "guile-dbd-postgresql")  "/lib"
@@ -169,6 +178,12 @@
 									    (assoc-ref inputs "guile-redis") "/share/guile/site/3.0:"
 									    (assoc-ref inputs "guile-gcrypt") "/share/guile/site/3.0:"
 									    (assoc-ref inputs "guile-dbi") "/share/guile/site/2.2"))
+					   (guile-load-compiled-path (string-append  out "/share/guile/site/3.0:"
+									    (assoc-ref inputs "guile-json") "/lib/guile/3.0/site-ccache:"
+									    (assoc-ref inputs "artanis") "/lib/guile/3.0/site-ccache:"
+									    (assoc-ref inputs "guile-redis") "/lib/guile/3.0/site-ccache:"
+									    (assoc-ref inputs "guile-gcrypt") "/lib/guile/3.0/site-ccache:"
+									    (assoc-ref inputs "guile-dbi") "/lib"))
 					   (guile-dbd-path (string-append  (assoc-ref inputs "guile-dbd-postgresql") "/lib"))
 					   (_ (mkdir-p bin-dir))                
 					   (_ (copy-recursively "./scripts" bin-dir))
