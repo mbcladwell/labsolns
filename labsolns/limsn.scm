@@ -127,8 +127,9 @@
 							        (assoc-ref inputs "artanis")  "/lib/guile/3.0/site-ccache:"
 								(assoc-ref inputs "guile-redis") "/lib/guile/3.0/site-ccache:"
 								(assoc-ref inputs "guile-gcrypt") "/lib/guile/3.0/site-ccache:"
-								(assoc-ref inputs "guile-dbi") "/lib:"
-								(getenv "GUILE_LOAD_COMPILED_PATH")))
+								(assoc-ref inputs "guile-dbi") "/lib"
+							;;	(getenv "GUILE_LOAD_COMPILED_PATH")
+								))
 						     (setenv "GUILE_DBD_PATH"
 							      (string-append
 							        (assoc-ref inputs "guile-dbd-postgresql")  "/lib"
