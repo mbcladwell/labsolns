@@ -20,7 +20,7 @@
    )
 
 (define-public conmanv4
-             (let ((commit "2717587adb373e8c5d62be02a62e52c9dda3b2ca")
+             (let ((commit "ceb894b3734ca44f8a6cdea317bb9a1dfdde658d")
         (revision "2"))
   (package
     (name "conmanv4")
@@ -32,7 +32,7 @@
              (commit commit)))
               (file-name (git-file-name name version))
               (sha256
-             (base32 "1chxca83gym9jfkcq4zrhg3q5626qwy6bj3kwppvm3pjvp0q3x0y"))))
+             (base32 "1nxpz09wvyh6404l0dxawrqiniz0k843qxpda3wnvlly64040hsk"))))
     (build-system guile-build-system)
     (arguments `(
 		 #:phases (modify-phases %standard-phases
@@ -100,7 +100,8 @@
 					   (go   "/lib/guile/3.0/site-ccache")
 					   (guile-load-path (string-append  out scm ":"
 									    (assoc-ref inputs "guile-gnutls") scm ":"
-									    (assoc-ref inputs "gnutls") scm))
+									    (assoc-ref inputs "gnutls") scm ":"
+									    (assoc-ref inputs "guile-dbi") "/share/guile/site/2.2"))
 					   (guile-load-compiled-path  (string-append  out go ":"
 										      (assoc-ref inputs "guile-gnutls") go ":"
 										      (assoc-ref inputs "gnutls") go))
