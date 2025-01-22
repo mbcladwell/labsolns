@@ -45,6 +45,7 @@
 					 (substitute* '("scripts/conman.sh")
 						      (("guileexecutable")
 						       (string-append (assoc-ref inputs "guile") "/bin/guile")))
+					 #t)))
        					 
 		       		       (add-after 'patch-prefix 'augment-GUILE_LOAD_PATH
 						  (lambda* (#:key inputs #:allow-other-keys)
