@@ -20,7 +20,7 @@
    )
 
 (define-public conmanv4
-             (let ((commit "ceb894b3734ca44f8a6cdea317bb9a1dfdde658d")
+             (let ((commit "0e402b26de11d77d4c5736316b68d044717891a5")
         (revision "2"))
   (package
     (name "conmanv4")
@@ -32,7 +32,7 @@
              (commit commit)))
               (file-name (git-file-name name version))
               (sha256
-             (base32 "1nxpz09wvyh6404l0dxawrqiniz0k843qxpda3wnvlly64040hsk"))))
+             (base32 "0f1lhc8yyh7aipb5wgsp96ch9lgsxlc64rxc4ra1syjx728s73d4"))))
     (build-system guile-build-system)
     (arguments `(
 		 #:phases (modify-phases %standard-phases
@@ -42,27 +42,27 @@
 					 (substitute* '("conmanv4/env.scm" "scripts/conman.sh")
 						      (("conmanstorepath")
 						       out))					 
-					  (substitute* '("scripts/conman.sh")
-					  	      (("guileloadpath")
-					  	       (string-append  out "/share/guile/site/3.0:"
-					 			       (assoc-ref inputs "guile")  "/share/guile/site/3.0:"
-					 			       (assoc-ref inputs "gnutls")  "/share/guile/site/3.0:"
-					 			       (assoc-ref inputs "guile-gnutls")  "/share/guile/site/3.0:"
-					  			       ,(getenv "GUILE_LOAD_PATH") "\""
-						       )))
+					  ;; (substitute* '("scripts/conman.sh")
+					  ;; 	      (("guileloadpath")
+					  ;; 	       (string-append  out "/share/guile/site/3.0:"
+					  ;; 			       (assoc-ref inputs "guile")  "/share/guile/site/3.0:"
+					  ;; 			       (assoc-ref inputs "gnutls")  "/share/guile/site/3.0:"
+					  ;; 			       (assoc-ref inputs "guile-gnutls")  "/share/guile/site/3.0:"
+					  ;; 			       ,(getenv "GUILE_LOAD_PATH") "\""
+					  ;; 	       )))
 				     
 					 (substitute* '("scripts/conman.sh")
 						      (("guileexecutable")
 						       (string-append (assoc-ref inputs "guile") "/bin/guile")))
 				
 					 
-					 (substitute* '("scripts/conman.sh")
-						      (("guileloadcompiledpath")
-						       (string-append  out "/lib/guile/3.0/site-ccache:"
-								       (assoc-ref inputs "guile")  "/lib/guile/3.0/site-ccache:"
-								       (assoc-ref inputs "gnutls")  "/lib/guile/3.0/site-ccache:"
-								       (assoc-ref inputs "guile-gnutls")  "/lib/guile/3.0/site-ccache:"
-									       ,(getenv "GUILE_LOAD_COMPILED_PATH") "\""))))
+					 ;; (substitute* '("scripts/conman.sh")
+					 ;; 	      (("guileloadcompiledpath")
+					 ;; 	       (string-append  out "/lib/guile/3.0/site-ccache:"
+					 ;; 			       (assoc-ref inputs "guile")  "/lib/guile/3.0/site-ccache:"
+					 ;; 			       (assoc-ref inputs "gnutls")  "/lib/guile/3.0/site-ccache:"
+					 ;; 			       (assoc-ref inputs "guile-gnutls")  "/lib/guile/3.0/site-ccache:"
+					 ;; 				       ,(getenv "GUILE_LOAD_COMPILED_PATH") "\""))))
 								       
        				       #t))
 
@@ -104,7 +104,9 @@
 									    (assoc-ref inputs "guile-dbi") "/share/guile/site/2.2"))
 					   (guile-load-compiled-path  (string-append  out go ":"
 										      (assoc-ref inputs "guile-gnutls") go ":"
-										      (assoc-ref inputs "gnutls") go))
+										      (assoc-ref inputs "gnutls") go ":"
+										      (assoc-ref inputs "guile-dbi") go
+										      ))
 					   (guile-dbd-path (string-append  (assoc-ref inputs "guile-dbd-mysql") "/lib"))
 					   (all-files '("conman.sh")))				      
 				      (map (lambda (file)
@@ -124,8 +126,6 @@
 				  (lambda* (#:key inputs outputs #:allow-other-keys)
 				    (let* ((out (assoc-ref outputs "out"))
 					   (scripts-dir (string-append out "/scripts"))
-					   (scm  "/share/guile/site/3.0")
-					   (go   "/lib/guile/3.0/site-ccache")
 					   (all-files '("las.png")))				      
 				      (map (lambda (file)
 					     (begin
@@ -138,7 +138,6 @@
 				  (lambda* (#:key inputs outputs #:allow-other-keys)
 				    (let* ((out (assoc-ref outputs "out"))
 					   (bin-dir (string-append out "/bin")))
-				      (install-file "./bin/test.txt" bin-dir)
 				      (install-file "./bin/smtp-cli" bin-dir)
 				      (chmod (string-append bin-dir "/smtp-cli") #o555 )
 				      )
