@@ -42,31 +42,10 @@
 					 (substitute* '("conmanv4/env.scm" "scripts/conman.sh")
 						      (("conmanstorepath")
 						       out))					 
-					  ;; (substitute* '("scripts/conman.sh")
-					  ;; 	      (("guileloadpath")
-					  ;; 	       (string-append  out "/share/guile/site/3.0:"
-					  ;; 			       (assoc-ref inputs "guile")  "/share/guile/site/3.0:"
-					  ;; 			       (assoc-ref inputs "gnutls")  "/share/guile/site/3.0:"
-					  ;; 			       (assoc-ref inputs "guile-gnutls")  "/share/guile/site/3.0:"
-					  ;; 			       ,(getenv "GUILE_LOAD_PATH") "\""
-					  ;; 	       )))
-				     
 					 (substitute* '("scripts/conman.sh")
 						      (("guileexecutable")
 						       (string-append (assoc-ref inputs "guile") "/bin/guile")))
-				
-					 
-					 ;; (substitute* '("scripts/conman.sh")
-					 ;; 	      (("guileloadcompiledpath")
-					 ;; 	       (string-append  out "/lib/guile/3.0/site-ccache:"
-					 ;; 			       (assoc-ref inputs "guile")  "/lib/guile/3.0/site-ccache:"
-					 ;; 			       (assoc-ref inputs "gnutls")  "/lib/guile/3.0/site-ccache:"
-					 ;; 			       (assoc-ref inputs "guile-gnutls")  "/lib/guile/3.0/site-ccache:"
-					 ;; 				       ,(getenv "GUILE_LOAD_COMPILED_PATH") "\""))))
-								       
-       				       #t))
-
-
+       					 
 		       		       (add-after 'patch-prefix 'augment-GUILE_LOAD_PATH
 						  (lambda* (#:key inputs #:allow-other-keys)
 						    (begin
@@ -80,8 +59,7 @@
 						     (setenv "GUILE_DBD_PATH"
 							      (string-append
 							        (assoc-ref inputs "guile-dbd-mysql")  "/lib"
-							       ))
-						    )
+							       )))
 						    #t))
 			  
 		       (add-after 'augment-GUILE_LOAD_PATH 'make-conman-dir
@@ -96,18 +74,19 @@
 				  (lambda* (#:key inputs outputs #:allow-other-keys)
 				    (let* ((out (assoc-ref outputs "out"))
 					   (bin-dir (string-append out "/bin"))
-					   (scm  "/share/guile/site/3.0")
-					   (go   "/lib/guile/3.0/site-ccache")
-					   (guile-load-path (string-append  out scm ":"
-									    (assoc-ref inputs "guile-gnutls") scm ":"
-									    (assoc-ref inputs "gnutls") scm ":"
-									    (assoc-ref inputs "guile-dbi") "/share/guile/site/2.2"))
-					   (guile-load-compiled-path  (string-append  out go ":"
-										      (assoc-ref inputs "guile-gnutls") go ":"
-										      (assoc-ref inputs "gnutls") go ":"
-										      (assoc-ref inputs "guile-dbi") go
-										      ))
-					   (guile-dbd-path (string-append  (assoc-ref inputs "guile-dbd-mysql") "/lib"))
+					   (scm3  "/share/guile/site/3.0")
+					   (scm2  "/share/guile/site/2.2")
+					   (go3   "/lib/guile/3.0/site-ccache")
+					   (go2   "/lib/guile/2.2/site-ccache")
+					   (guile-load-path (string-append  out scm3 ":"
+									    (assoc-ref inputs "guile-gnutls") scm3 ":"
+									    (assoc-ref inputs "gnutls") scm3 ":"
+									    (assoc-ref inputs "guile-dbi") scm2))
+					   (guile-load-compiled-path  (string-append  out go3 ":"
+										      (assoc-ref inputs "guile-gnutls") go3 ":"
+										      (assoc-ref inputs "gnutls") go3 ))
+					   (guile-dbd-path (string-append  (assoc-ref inputs "guile-dbd-mysql") "/lib:"
+									   (assoc-ref inputs "guile-dbi") "/lib"))
 					   (all-files '("conman.sh")))				      
 				      (map (lambda (file)
 					     (begin
