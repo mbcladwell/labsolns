@@ -1,4 +1,4 @@
-(define-module (labsolns conmanv4)
+(define-module (labsolns conmanv5)
    #:use-module (guix packages)
    #:use-module ((guix licenses) #:prefix license:)
    #:use-module (guix download)
@@ -19,16 +19,16 @@
 ;;   #:use-module (labsolns limsn)
    )
 
-(define-public conmanv4
+(define-public conmanv5
              (let ((commit "2237e471dfac05c6ed6a34f19d53f17396f7a494")
         (revision "2"))
   (package
-    (name "conmanv4")
+    (name "conmanv5")
     (version (string-append "0.1." (string-take commit 7)))
     (source (origin
               (method git-fetch)
               (uri (git-reference
-                    (url "https://github.com/mbcladwell/conmanv4.git")
+                    (url "https://github.com/mbcladwell/conmanv5.git")
              (commit commit)))
               (file-name (git-file-name name version))
               (sha256
@@ -39,7 +39,7 @@
     			  (add-after 'unpack 'patch-prefix
 				     (lambda* (#:key inputs outputs #:allow-other-keys)
 				       (let ((out  (assoc-ref outputs "out")))					  
-					 (substitute* '("conmanv4/env.scm" "scripts/conman.sh")
+					 (substitute* '("conmanv5/env.scm" "scripts/conman.sh")
 						      (("conmanstorepath")
 						       out))					 
 					 (substitute* '("scripts/conman.sh")
@@ -66,9 +66,9 @@
 		       (add-after 'augment-GUILE_LOAD_PATH 'make-conman-dir
 			 (lambda* (#:key outputs #:allow-other-keys)
 			   (let* ((out  (assoc-ref outputs "out"))
-				  (conman-dir (string-append out "/share/guile/site/3.0/conmanv4"))
+				  (conman-dir (string-append out "/share/guile/site/3.0/conmanv5"))
 				  (mkdir-p conman-dir)
-				  (dummy (copy-recursively "./conmanv4" conman-dir))) 
+				  (dummy (copy-recursively "./conmanv5" conman-dir))) 
 			     #t)))
 		       
 			   (add-after 'make-conman-dir 'make-bin-dir
