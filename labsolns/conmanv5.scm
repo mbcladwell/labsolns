@@ -100,28 +100,7 @@
 							     `("GUILE_DBD_PATH" ":" prefix (,guile-dbd-path))
 							     )))
 					     all-files))					   					   	    
-				    #t))
-
-			   (add-after 'make-bin-dir 'make-scripts-dir
-				  (lambda* (#:key inputs outputs #:allow-other-keys)
-				    (let* ((out (assoc-ref outputs "out"))
-					   (scripts-dir (string-append out "/scripts"))
-					   (all-files '("las.png")))				      
-				      (map (lambda (file)
-					     (begin
-					       (install-file (string-append "./scripts/" file) scripts-dir)
-					       ))
-					     all-files))					   					   	    
-				    #t))
-			   
-			  (add-after 'make-scripts-dir 'cp-smtp-cli
-				  (lambda* (#:key inputs outputs #:allow-other-keys)
-				    (let* ((out (assoc-ref outputs "out"))
-					   (bin-dir (string-append out "/bin")))
-				      (install-file "./bin/smtp-cli" bin-dir)
-				      (chmod (string-append bin-dir "/smtp-cli") #o555 )
-				      )
-				    #t))
+				    #t))			   			
 
 		       )))
   (native-inputs
