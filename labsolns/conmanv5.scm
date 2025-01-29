@@ -20,7 +20,7 @@
    )
 
 (define-public conmanv5
-             (let ((commit "6e46952001d996a6493eba119158f886765b95f1")
+             (let ((commit "23e41e0014061320363692c923c9a8809a310eaa")
         (revision "2"))
   (package
     (name "conmanv5")
@@ -32,17 +32,17 @@
              (commit commit)))
               (file-name (git-file-name name version))
               (sha256
-             (base32 "0ndjkb7vpphxvfx2zbnd6cp90wg30nk82n6i832fcx7szfb4i2nr"))))
+             (base32 "16pi5h7r73mq2h59rl5jj70n82hg8j0pqlca8hpnf2fnlylarrl5"))))
     (build-system guile-build-system)
     (arguments `(
 		 #:phases (modify-phases %standard-phases
     			  (add-after 'unpack 'patch-prefix
 				     (lambda* (#:key inputs outputs #:allow-other-keys)
 				       (let ((out  (assoc-ref outputs "out")))					  
-					 (substitute* '("conmanv5/env.scm" "scripts/conman.sh")
+					 (substitute* '("conmanv5/env.scm" "scripts/conman.sh" "scripts/unsubscribes.sh")
 						      (("conmanstorepath")
 						       out))					 
-					 (substitute* '("scripts/conman.sh")
+					 (substitute* '("scripts/conman.sh" "scripts/unsubscribes.sh")
 						      (("guileexecutable")
 						       (string-append (assoc-ref inputs "guile") "/bin/guile")))
 					 #t)))
@@ -55,6 +55,7 @@
 							       ".:"
 							        (assoc-ref inputs "guile-gnutls")  "/share/guile/site/3.0:"
 							        (assoc-ref inputs "gnutls")  "/share/guile/site/3.0:"
+							        (assoc-ref inputs "guile-json")  "/share/guile/site/3.0:"
 								(assoc-ref inputs "guile-dbi") "/share/guile/site/2.2:"
 								(getenv "GUILE_LOAD_PATH")))
 						     (setenv "GUILE_DBD_PATH"
@@ -82,13 +83,14 @@
 					   (guile-load-path (string-append  out scm3 ":"
 									    (assoc-ref inputs "guile-gnutls") scm3 ":"
 									    (assoc-ref inputs "gnutls") scm3 ":"
+									    (assoc-ref inputs "guile-json") scm3 ":"
 									    (assoc-ref inputs "guile-dbi") scm2))
 					   (guile-load-compiled-path  (string-append  out go3 ":"
 										      (assoc-ref inputs "guile-gnutls") go3 ":"
 										      (assoc-ref inputs "gnutls") go3 ))
 					   (guile-dbd-path (string-append  (assoc-ref inputs "guile-dbd-mysql") "/lib:"
 									   (assoc-ref inputs "guile-dbi") "/lib"))
-					   (all-files '("conman.sh")))				      
+					   (all-files '("conman.sh" "unsubscribes.sh")))				      
 				      (map (lambda (file)
 					     (begin
 					       (install-file (string-append "./scripts/" file) bin-dir)
@@ -113,6 +115,7 @@
 		       ("gnutls" ,gnutls)
 		       ("guile-dbi" ,guile-dbi)
 		       ("guile-dbd-mysql" ,guile-dbd-mysql)
+		       ("guile-json" ,guile-json-4)
 ;;		       ("limsn" ,limsn)
 		       ))
   (synopsis "")
