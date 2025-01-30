@@ -20,7 +20,7 @@
    )
 
 (define-public conmanv5
-             (let ((commit "c70523bc7caf4860b70499d98abe12107b5e6227")
+             (let ((commit "3f32046df1232d0fee2e96b51d98ea70d039a177")
         (revision "2"))
   (package
     (name "conmanv5")
@@ -32,14 +32,14 @@
              (commit commit)))
               (file-name (git-file-name name version))
               (sha256
-             (base32 "0f565pkf33z4i3hhzp9d6fhwg2dh34hk4kxhibh4hbfzvfxicxzp"))))
+             (base32 "0pawki8zfxa89his5mgc9dcjg8ma676hc43rdww64gb0qy3b71af"))))
     (build-system guile-build-system)
     (arguments `(
 		 #:phases (modify-phases %standard-phases
     			  (add-after 'unpack 'patch-prefix
 				     (lambda* (#:key inputs outputs #:allow-other-keys)
 				       (let ((out  (assoc-ref outputs "out")))					  
-					 (substitute* '("conmanv5/env.scm" "scripts/conman.sh" "scripts/unsubscribes.sh")
+					 (substitute* '("conmanv5/env.scm" "scripts/conman.sh" "scripts/unsubscribes.sh" "scripts/init.sh")
 						      (("conmanstorepath")
 						       out))					 
 					 (substitute* '("scripts/conman.sh" "scripts/unsubscribes.sh")
@@ -90,7 +90,7 @@
 										      (assoc-ref inputs "gnutls") go3 ))
 					   (guile-dbd-path (string-append  (assoc-ref inputs "guile-dbd-mysql") "/lib:"
 									   (assoc-ref inputs "guile-dbi") "/lib"))
-					   (all-files '("conman.sh" "unsubscribes.sh")))				      
+					   (all-files '("conman.sh" "unsubscribes.sh" "init.sh")))				      
 				      (map (lambda (file)
 					     (begin
 					       (install-file (string-append "./scripts/" file) bin-dir)
@@ -106,12 +106,13 @@
 
 		       )))
   (native-inputs
-   `(("guile" ,guile-3.0)
+   `(
      ("texinfo" ,texinfo)
      ))
   (inputs `(("bash" ,bash-minimal)
 	    ))
-  (propagated-inputs `(("guile-gnutls" ,guile-gnutls)
+  (propagated-inputs `(("guile" ,guile-3.0)
+		       ("guile-gnutls" ,guile-gnutls)
 		       ("gnutls" ,gnutls)
 		       ("guile-dbi" ,guile-dbi)
 		       ("guile-dbd-mysql" ,guile-dbd-mysql)
