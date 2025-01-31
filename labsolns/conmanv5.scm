@@ -56,7 +56,7 @@
 							        (assoc-ref inputs "guile-gnutls")  "/share/guile/site/3.0:"
 							        (assoc-ref inputs "gnutls")  "/share/guile/site/3.0:"
 							        (assoc-ref inputs "guile-json")  "/share/guile/site/3.0:"
-								(assoc-ref inputs "guile-dbi") "/share/guile/site/2.2:"
+								(assoc-ref inputs "guile-dbi") "/share/guile/site/3.0:"
 								(getenv "GUILE_LOAD_PATH")))
 						     (setenv "GUILE_DBD_PATH"
 							      (string-append
@@ -84,7 +84,7 @@
 									    (assoc-ref inputs "guile-gnutls") scm3 ":"
 									    (assoc-ref inputs "gnutls") scm3 ":"
 									    (assoc-ref inputs "guile-json") scm3 ":"
-									    (assoc-ref inputs "guile-dbi") scm2))
+									    (assoc-ref inputs "guile-dbi") scm3))
 					   (guile-load-compiled-path  (string-append  out go3 ":"
 										      (assoc-ref inputs "guile-gnutls") go3 ":"
 										      (assoc-ref inputs "gnutls") go3 ))
