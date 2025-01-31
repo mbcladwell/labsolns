@@ -98,7 +98,7 @@
 					       (wrap-program (string-append bin-dir "/" file)
 							     `( "PATH" ":" prefix  (,bin-dir) )							     
 							     `("GUILE_LOAD_PATH" ":" prefix (,guile-load-path ))
-							     `("GUILE_LOAD_COMPILED_PATH" ":" prefix (,guile-load-compiled-path))
+;;							     `("GUILE_LOAD_COMPILED_PATH" ":" prefix (,guile-load-compiled-path))
 							     `("GUILE_DBD_PATH" ":" prefix (,guile-dbd-path))
 							     )))
 					     all-files))					   					   	    
@@ -110,9 +110,9 @@
      ("texinfo" ,texinfo)
      ))
   (inputs `(("bash" ,bash-minimal)
-	   
+	    ("guile" ,guile-3.0)
 	    ))
-  (propagated-inputs `( ("guile" ,guile-3.0)
+  (propagated-inputs `( 
 		       ("guile-gnutls" ,guile-gnutls)
 		       ("gnutls" ,gnutls)
 		       ("guile-dbi" ,guile-dbi)
