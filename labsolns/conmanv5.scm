@@ -20,7 +20,7 @@
    )
 
 (define-public conmanv5
-             (let ((commit "11b10118b27c799f9c43f6db43ea72d9cf73d37c")
+             (let ((commit "5af1ba71c8db970e2a71ac14a51e099a5af39344")
         (revision "2"))
   (package
     (name "conmanv5")
@@ -32,7 +32,7 @@
              (commit commit)))
               (file-name (git-file-name name version))
               (sha256
-             (base32 "1knavhq8va1ziqbivnxk5s34vcfyrfzqd7h72rqns6r4sijp84z5"))))
+             (base32 "0j9prnd95b0vrcbc4318xqiisjqbd1z3yyiqq8ah5vfycwp180i6"))))
     (build-system guile-build-system)
     (arguments `(
 		 #:phases (modify-phases %standard-phases
@@ -98,7 +98,7 @@
 					       (wrap-program (string-append bin-dir "/" file)
 							     `( "PATH" ":" prefix  (,bin-dir) )							     
 							     `("GUILE_LOAD_PATH" ":" prefix (,guile-load-path ))
-;;							     `("GUILE_LOAD_COMPILED_PATH" ":" prefix (,guile-load-compiled-path))
+							     `("GUILE_LOAD_COMPILED_PATH" ":" prefix (,guile-load-compiled-path))
 							     `("GUILE_DBD_PATH" ":" prefix (,guile-dbd-path))
 							     )))
 					     all-files))					   					   	    
