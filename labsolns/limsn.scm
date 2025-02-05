@@ -72,7 +72,7 @@
   #:use-module ((srfi srfi-1) #:select (alist-delete)))
 
 (define-public limsn
-             (let ((commit "65f4ea9a645d37e15db5728b1c2b2acdafafb4a9");;anchor1
+             (let ((commit "904e1c14bb34b58331c68d1168bdd48cd773fd76");;anchor1
         (revision "2"))
 
   (package
@@ -85,7 +85,7 @@
                       (commit commit)))
                 (file-name (git-file-name name version))
                 (sha256 
-             (base32 "09h18zwys2bi7aybcyw99c3vd76vm7mb7993bisxxfhkn5pi9vk0"))));;anchor2
+             (base32 "0xy1z47gf0kgacldjf4gsvm0jzr62rihfdacp9kjgs96llyj1p50"))));;anchor2
   
    
    (build-system guile-build-system)
@@ -211,7 +211,7 @@
        ))
     (propagated-inputs
      `(
-       ("artanis" ,artanis-111)
+       ("artanis" ,artanis-122)
        ("guile-json" ,guile-json-4)
        ("guile-redis" ,guile-redis)
        ("guile-gcrypt" ,guile-gcrypt)
@@ -231,17 +231,17 @@
     (license (list license:gpl3+ license:lgpl3+))))) ;dual license
 
 
-(define-public artanis-111
+(define-public artanis-122
   (package
-    (name "artanis-111")
-    (version "1.1.0")
+    (name "artanis-122")
+    (version "1.2.2")
     (source (origin
               (method url-fetch)
               (uri (string-append "mirror://gnu/artanis/artanis-"
                                   version ".tar.gz"))
               (sha256
                (base32
-                "1b7mab8izvli4152hzv4n2z67kw0kwm7pvh0m960whr77rdxwid4"))
+                "013rs623075bbf824hf6jxng0kwbmg587l45fis9mmpq5168kspq"))
               (modules '((guix build utils)))
               (snippet
                '(begin
@@ -273,6 +273,9 @@
 			       (("    \\(else \\(error parse-namespace-cookie \"Config: Invalid item\" item\\)\\)\\)\\)")
 		   		"    (('maxplates maxplates) (conf-set! '(cookie maxplates) (->integer maxplates)))\n    (else (error parse-namespace-cookie \"Config: Invalid item\" item))))"
 				))
+		  (substitute* "artanis/i18n/json.scm"
+			       (("current-toplevel")
+				"current-tmp"))
 		  ;;END LIMS*Nucleus modification;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;		  
                   (substitute* "artanis/artanis.scm"
                     (("[[:punct:][:space:]]+->json-string[[:punct:][:space:]]+")
