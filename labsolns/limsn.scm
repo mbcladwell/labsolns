@@ -154,6 +154,7 @@
 					   (postgres-dir (string-append ln-dir "postgres"))
 					   (pub-dir (string-append ln-dir "pub"))
 					   (sys-dir (string-append ln-dir "sys"))
+					   (db-dir (string-append ln-dir "db"))
 					   (tmp-dir (string-append ln-dir "tmp"))
 					   (app-dir (string-append ln-dir "app"))
 					   (all-dirs `(("./limsn/app" ,app-dir)
