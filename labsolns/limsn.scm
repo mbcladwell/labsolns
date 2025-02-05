@@ -72,7 +72,7 @@
   #:use-module ((srfi srfi-1) #:select (alist-delete)))
 
 (define-public limsn
-             (let ((commit "904e1c14bb34b58331c68d1168bdd48cd773fd76");;anchor1
+             (let ((commit "901ed2ec4b614b676e308f5e69b2a7542c8ea144");;anchor1
         (revision "2"))
 
   (package
@@ -85,7 +85,7 @@
                       (commit commit)))
                 (file-name (git-file-name name version))
                 (sha256 
-             (base32 "0xy1z47gf0kgacldjf4gsvm0jzr62rihfdacp9kjgs96llyj1p50"))));;anchor2
+             (base32 "14ly4j35jkl81q0w1cgcjn8rc0dniiygx5fr6idqig5w0zpb2rzd"))));;anchor2
   
    
    (build-system guile-build-system)
@@ -156,11 +156,12 @@
 					   (sys-dir (string-append ln-dir "sys"))
 					   (tmp-dir (string-append ln-dir "tmp"))
 					   (app-dir (string-append ln-dir "app"))
-					   (all-dirs `(("./limsn/conf" ,conf-dir)
+					   (all-dirs `(("./limsn/app" ,app-dir)
+						       ("./limsn/conf" ,conf-dir)
+						       ("./limsn/db" ,db-dir)						       
 						       ("./limsn/postgres" ,postgres-dir)
 						       ("./limsn/pub" ,pub-dir)
-						       ("./limsn/sys" ,sys-dir)
-						       ("./limsn/app" ,app-dir)
+						       ("./limsn/sys" ,sys-dir)						       
 						       ("./limsn/tmp" ,tmp-dir))))
             			        (map (lambda (dir)
 					       (begin
@@ -273,9 +274,6 @@
 			       (("    \\(else \\(error parse-namespace-cookie \"Config: Invalid item\" item\\)\\)\\)\\)")
 		   		"    (('maxplates maxplates) (conf-set! '(cookie maxplates) (->integer maxplates)))\n    (else (error parse-namespace-cookie \"Config: Invalid item\" item))))"
 				))
-		  (substitute* "artanis/i18n/json.scm"
-			       (("current-toplevel")
-				"current-tmp"))
 		  ;;END LIMS*Nucleus modification;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;		  
                   (substitute* "artanis/artanis.scm"
                     (("[[:punct:][:space:]]+->json-string[[:punct:][:space:]]+")
