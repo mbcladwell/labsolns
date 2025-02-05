@@ -180,7 +180,7 @@
 									    (assoc-ref inputs "artanis") "/share/guile/site/3.0:"
 									    (assoc-ref inputs "guile-redis") "/share/guile/site/3.0:"
 									    (assoc-ref inputs "guile-gcrypt") "/share/guile/site/3.0:"
-									    (assoc-ref inputs "guile-dbi") "/share/guile/site/2.2"))
+									    (assoc-ref inputs "guile-dbi") "/share/guile/site/3.0"))
 					   (guile-load-compiled-path (string-append  out "/share/guile/site/3.0:"
 									    (assoc-ref inputs "guile-json") "/lib/guile/3.0/site-ccache:"
 									    (assoc-ref inputs "artanis") "/lib/guile/3.0/site-ccache:"
