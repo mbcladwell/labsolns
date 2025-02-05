@@ -20,7 +20,7 @@
    )
 
 (define-public conmanv5
-             (let ((commit "51f2c220d44d9cc59738ad2cccc4f0a03729b111")
+             (let ((commit "04127184e669fe4d6b07d004d69c3def30b2221c")
         (revision "2"))
   (package
     (name "conmanv5")
@@ -32,7 +32,7 @@
              (commit commit)))
               (file-name (git-file-name name version))
               (sha256
-             (base32 "1bl08x7j4qmd878d1hg5c6yzpx3a8f81m0b131vc65lly3gwd9yz"))))
+             (base32 "1lrp3pmkp58rciwz8zrq59ifv6qa6d822dx5hc8vk1x91k4xrd02"))))
     (build-system guile-build-system)
     (arguments `(
 		 #:phases (modify-phases %standard-phases
@@ -71,8 +71,15 @@
 				  (mkdir-p conman-dir)
 				  (dummy (copy-recursively "./conmanv5" conman-dir))) 
 			     #t)))
+		       (add-after 'make-conman-dir 'make-aux-dir
+			 (lambda* (#:key outputs #:allow-other-keys)
+			   (let* ((out  (assoc-ref outputs "out"))
+				  (aux-dir (string-append out "/aux"))
+				  (mkdir-p aux-dir)
+				  (dummy (copy-recursively "./aux" aux-dir))) 
+			     #t)))
 		       
-			   (add-after 'make-conman-dir 'make-bin-dir
+			   (add-after 'make-aux-dir 'make-bin-dir
 				  (lambda* (#:key inputs outputs #:allow-other-keys)
 				    (let* ((out (assoc-ref outputs "out"))
 					   (bin-dir (string-append out "/bin"))
