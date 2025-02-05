@@ -39,7 +39,7 @@
     			  (add-after 'unpack 'patch-prefix
 				     (lambda* (#:key inputs outputs #:allow-other-keys)
 				       (let ((out  (assoc-ref outputs "out")))					  
-					 (substitute* '("conmanv5/env.scm" "scripts/conman.sh" "scripts/unsubscribes.sh" "scripts/init.sh")
+					 (substitute* '("conmanv5/env.scm" "scripts/conman.sh" "scripts/unsubscribes.sh" "scripts/init-conman.sh")
 						      (("conmanstorepath")
 						       out))					 
 					 (substitute* '("scripts/conman.sh" "scripts/unsubscribes.sh")
@@ -97,7 +97,7 @@
 										      (assoc-ref inputs "gnutls") go3 ))
 					   (guile-dbd-path (string-append  (assoc-ref inputs "guile-dbd-mysql") "/lib:"
 									   (assoc-ref inputs "guile-dbi") "/lib"))
-					   (all-files '("conman.sh" "unsubscribes.sh" "init.sh")))				      
+					   (all-files '("conman.sh" "unsubscribes.sh" "init-conman.sh")))				      
 				      (map (lambda (file)
 					     (begin
 					       (install-file (string-append "./scripts/" file) bin-dir)
