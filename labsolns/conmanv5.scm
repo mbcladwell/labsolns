@@ -20,7 +20,7 @@
    )
 
 (define-public conmanv5
-             (let ((commit "3ac54ae9c60d7bad1f25024b4564a45f54de4109")
+             (let ((commit "2e628c15473112d5ce49f5a44106bd3e5a701061")
         (revision "2"))
   (package
     (name "conmanv5")
@@ -32,7 +32,7 @@
              (commit commit)))
               (file-name (git-file-name name version))
               (sha256
-             (base32 "0wjm47757w1x10vs285r2zq2jn82zzk1m93qcqwg70kv5rxci8q8"))))
+             (base32 "12kalca7v46ahyiy667r5cv1fq4c725b8nwbcn5bp02bzv8h8hr7"))))
     (build-system guile-build-system)
     (arguments `(
 		 #:phases (modify-phases %standard-phases
