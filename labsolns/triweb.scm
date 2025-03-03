@@ -13,6 +13,7 @@
   #:use-module (gnu packages guile-xyz)
   #:use-module (gnu packages pkg-config)
   #:use-module (gnu packages texinfo)
+  #:use-module (gnu packages nss)
 ;;  #:use-module (labsolns guile-oauth)
 ;;  #:use-module (labsolns artanis-122)
 ;;  #:use-module (json)
