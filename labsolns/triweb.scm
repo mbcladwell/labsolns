@@ -18,7 +18,7 @@
   #:use-module (gnu packages readline)
   #:use-module (gnu packages linux)
 ;;  #:use-module (labsolns guile-oauth)
-;;  #:use-module (labsolns artanis-122)
+  #:use-module (labsolns artanis-122)
   #:use-module (json)
 
   )
