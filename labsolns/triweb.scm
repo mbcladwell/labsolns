@@ -18,7 +18,7 @@
   #:use-module (gnu packages readline)
   #:use-module (gnu packages linux)
   #:use-module (labsolns limsn)
-  #:use-module (labsolns conman5)
+  #:use-module (labsolns conmanv5)
   #:use-module (labsolns babweb)
   #:use-module (labsolns artanis-122)
   #:use-module (json)
