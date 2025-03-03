@@ -16,6 +16,7 @@
   #:use-module (gnu packages nss)
   #:use-module (gnu packages curl)
   #:use-module (gnu packages readline)
+  #:use-module (gnu packages linux)
 ;;  #:use-module (labsolns guile-oauth)
 ;;  #:use-module (labsolns artanis-122)
   #:use-module (json)
