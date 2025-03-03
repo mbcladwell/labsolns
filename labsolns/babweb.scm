@@ -20,7 +20,7 @@
   )
 
 (define-public babweb
-             (let ((commit "fd9b947edc17f15ce0662cb9e839aa3e7c88433b")
+             (let ((commit "76b038c43e444f414314c6683df8e7a6efae824d")
         (revision "4"))
 (package
   (name "babweb")
@@ -32,7 +32,7 @@
                       (commit commit)))
                         (file-name (git-file-name name version))
                 (sha256 
-             (base32 "0npn19g6zg26b2qcp6197hvshmz2crp9fm0jilihlyq1j59ipa9j"))))
+             (base32 "0dpcxg4cjvz96bc1pi5qcj4r3hn7h180a5qiya4fd0wnjv1n1vz9"))))
   (build-system guile-build-system)
   (arguments `(
 	     ;;  #:modules (((guix build guile-build-system)
@@ -100,7 +100,7 @@
 		       )))
   (native-inputs
     `(("guile" ,guile-3.0)))
-  (propagated-inputs `( ("guile-json" ,guile-json-4) ("guile-oauth" ,guile-oauth)("bash" ,bash)("artanis" ,artanis-07)))
+  (propagated-inputs `( ("guile-json" ,guile-json-4) ("guile-oauth" ,guile-oauth)("bash" ,bash)("artanis" ,artanis-122)))
   (synopsis "Auto tweeter for educational tweets concerning propaganda")
   (description "Auto tweeter for educational tweets concerning propaganda")
   (home-page "www.build-a-bot.biz")
