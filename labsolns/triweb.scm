@@ -14,9 +14,11 @@
   #:use-module (gnu packages pkg-config)
   #:use-module (gnu packages texinfo)
   #:use-module (gnu packages nss)
+  #:use-module (gnu packages curl)
+  #:use-module (gnu packages readline)
 ;;  #:use-module (labsolns guile-oauth)
 ;;  #:use-module (labsolns artanis-122)
-;;  #:use-module (json)
+  #:use-module (json)
 
   )
 
