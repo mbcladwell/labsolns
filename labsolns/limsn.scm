@@ -69,10 +69,11 @@
   #:use-module (guix utils)
   #:use-module ((guix build utils) #:select (alist-replace))
   #:use-module (ice-9 match)
+  #:use-module (labsolns artanis-122)
   #:use-module ((srfi srfi-1) #:select (alist-delete)))
 
 (define-public limsn
-             (let ((commit "901ed2ec4b614b676e308f5e69b2a7542c8ea144");;anchor1
+             (let ((commit "b483463abe359f85dcb19e5e845add63609db8ef");;anchor1
         (revision "2"))
 
   (package
@@ -85,7 +86,7 @@
                       (commit commit)))
                 (file-name (git-file-name name version))
                 (sha256 
-             (base32 "14ly4j35jkl81q0w1cgcjn8rc0dniiygx5fr6idqig5w0zpb2rzd"))));;anchor2
+             (base32 "1q9w774clqk410g4vizyhb1pdlysnhwpkv5cwwzhaw9002bn4249"))));;anchor2
   
    
    (build-system guile-build-system)
