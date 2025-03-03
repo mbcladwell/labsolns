@@ -14,7 +14,7 @@
   #:use-module (gnu packages pkg-config)
   #:use-module (gnu packages texinfo)
   #:use-module (labsolns guile-oauth)
-  #:use-module (labsolns artanis-07)
+  #:use-module (labsolns artanis-122)
   #:use-module (json)
   #:use-module (gnutls)
 ;;  #:use-module (mcron)
@@ -98,7 +98,7 @@
 
 		       )))
   (native-inputs    (list guile-3.0))
-  (propagated-inputs (list guile-json-4 guile-oauth bash gnutls guile-gnutls artanis-07 mcron))
+  (propagated-inputs (list guile-json-4 guile-oauth bash gnutls guile-gnutls artanis-122 mcron))
   (synopsis "Auto tweeter for educational tweets concerning propaganda, history, technology")
   (description "Auto tweeter for educational tweets concerning propaganda, history, technology")
   (home-page "www.build-a-bot.biz")
