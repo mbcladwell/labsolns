@@ -26,7 +26,7 @@
   )
 
 (define-public triweb
-             (let ((commit "0f610bd0f3cc230ab33982683cb4effa44a673f6")
+             (let ((commit "1624463e1b874ce9085e63a5fe2effb294172b18")
         (revision "4"))
 (package
   (name "triweb")
@@ -38,7 +38,7 @@
                       (commit commit)))
                         (file-name (git-file-name name version))
                 (sha256 
-             (base32 "0z730396nkvjhxdj9ndl31hgzmn8qxiaydg4b760214dvw5vc03k"))))
+             (base32 "0xa9c44vsgybncd2d3hfb7yaxsaxh9mixgrfg4a32wkda5fscsfa"))))
   (build-system guile-build-system)
   
   (native-inputs
