@@ -19,7 +19,7 @@
   #:use-module (gnu packages linux)
   #:use-module (labsolns limsn)
   #:use-module (labsolns conmanv5)
-  #:use-module (labsolns babweb)
+  #:use-module (labsolns ebbot)
   #:use-module (labsolns artanis-122)
   #:use-module (json)
 
@@ -43,7 +43,7 @@
   
   (native-inputs
     `(("guile" ,guile-3.0)))
-  (propagated-inputs `(("bash" ,bash)("limsn" ,limsn)("conman" ,conmanv5)("babweb" ,babweb)("artanis" ,artanis-122)))
+  (propagated-inputs `(("bash" ,bash)("limsn" ,limsn)("conman" ,conmanv5)("ebbot" ,ebbot)("artanis" ,artanis-122)))
   (synopsis "AWS setup providing limsn, artanis, babweb, and conman")
   (description "AWS setup providing limsn, artanis, babweb, and conman")
   (home-page "www.labsolns.com")
