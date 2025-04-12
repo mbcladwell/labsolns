@@ -10,7 +10,7 @@
   #:use-module ((guix build utils) #:select (alist-replace))
   #:use-module (ice-9 match)
   #:use-module (guix gexp)
-  #:use-module (dbi dbi)
+;;  #:use-module (dbi dbi)
   #:use-module ((guix licenses) #:prefix license:)
   #:use-module ((srfi srfi-1) #:select (alist-delete)))
 
