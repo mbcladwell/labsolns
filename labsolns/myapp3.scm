@@ -25,10 +25,10 @@
               (method git-fetch)
               (uri (git-reference
                     (url "https://github.com/mbcladwell/myapp3.git")
-		    (commit commit)
-		    (file-name (git-file-name name version))
-		    (sha256
-		             (base32 "1gpxabw30q8l2pa8dhp5irwcl3dr5rhjqnbn3kc0nlbrqym8han8"))))))
+		    (commit commit)))
+	      (file-name (git-file-name name version))
+	      (sha256
+	             (base32 "1gpxabw30q8l2pa8dhp5irwcl3dr5rhjqnbn3kc0nlbrqym8han8"))))
     (build-system guile-build-system)
 
 (arguments `(
