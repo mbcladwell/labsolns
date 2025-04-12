@@ -17,7 +17,7 @@
   #:use-module ((srfi srfi-1) #:select (alist-delete)))
 
 (define-public myapp3
-             (let ((commit "ad268715794095669a029c71215c9e3c7471f3da")
+             (let ((commit "7818a789aa88020e255b734ea56a79b24cb8daa1")
         (revision "4"))
 
   (package
@@ -30,7 +30,7 @@
 		    (commit commit)))
 	      (file-name (git-file-name name version))
 	      (sha256
-	             (base32 "172hbi0phrvmig89qwb15c5fyss2g7ayi701l6prrs601vhzxji0"))))
+	             (base32 "0x5ckjczalpyrka2psmmc21ir3i4czldw0qd7yr75wvaxcm5d50p"))))
     (build-system guile-build-system)
 
 (arguments `(
