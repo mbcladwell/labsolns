@@ -77,7 +77,7 @@
 		       ;; 		  (dummy (copy-recursively "./aux" aux-dir))) 
 		       ;; 	     #t)))
 		       	       
-			   (add-after 'make-myapp3-dir 'make-bin-dir
+		       (add-after 'make-myapp3-dir 'make-bin-dir
 				  (lambda* (#:key inputs outputs #:allow-other-keys)
 				    (let* ((out (assoc-ref outputs "out"))
 					   (bin-dir (string-append out "/bin"))
@@ -89,7 +89,6 @@
 					   (guile-load-path (string-append  out scm3 ":"
 									    (assoc-ref inputs "guile-gnutls") scm3 ":"
 									    (assoc-ref inputs "gnutls") scm3 ":"
-									    (assoc-ref inputs "guile-json") scm3 ":"
 									    (assoc-ref inputs "guile-dbi") scm3))
 					   (guile-load-compiled-path  (string-append  out go3 ":"
 										      (assoc-ref inputs "guile-gnutls") go3 ":"
