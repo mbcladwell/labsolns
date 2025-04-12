@@ -121,7 +121,7 @@
 		       ("gnutls" ,gnutls)
 		       ("guile-dbi" ,guile-dbi)
 		       ("guile-dbd-mysql" ,guile-dbd-mysql)
-;		       ))
+		       ))
 
 
      
