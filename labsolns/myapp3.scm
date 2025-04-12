@@ -69,15 +69,15 @@
 				  (mkdir-p myapp3-dir)
 				  (dummy (copy-recursively "./myapp3" myapp3-dir))) 
 			     #t)))
-		       (add-after 'make-myapp3-dir 'make-aux-dir
-			 (lambda* (#:key outputs #:allow-other-keys)
-			   (let* ((out  (assoc-ref outputs "out"))
-				  (aux-dir (string-append out "/aux"))
-				  (mkdir-p aux-dir)
-				  (dummy (copy-recursively "./aux" aux-dir))) 
-			     #t)))
-		       
-			   (add-after 'make-aux-dir 'make-bin-dir
+		       ;; (add-after 'make-myapp3-dir 'make-aux-dir
+		       ;; 	 (lambda* (#:key outputs #:allow-other-keys)
+		       ;; 	   (let* ((out  (assoc-ref outputs "out"))
+		       ;; 		  (aux-dir (string-append out "/aux"))
+		       ;; 		  (mkdir-p aux-dir)
+		       ;; 		  (dummy (copy-recursively "./aux" aux-dir))) 
+		       ;; 	     #t)))
+		       	       
+			   (add-after 'make-myapp3-dir 'make-bin-dir
 				  (lambda* (#:key inputs outputs #:allow-other-keys)
 				    (let* ((out (assoc-ref outputs "out"))
 					   (bin-dir (string-append out "/bin"))
