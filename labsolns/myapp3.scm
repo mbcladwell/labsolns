@@ -46,22 +46,30 @@
 						      (("guileexecutable")
 						       (string-append (assoc-ref inputs "guile") "/bin/guile")))
 					 #t)))
-       					 
-		       		       (add-after 'patch-prefix 'augment-GUILE_LOAD_PATH
-						  (lambda* (#:key inputs #:allow-other-keys)
-						    (begin
-						      (setenv "GUILE_LOAD_PATH"
-							      (string-append
-							       ".:"
-							        (assoc-ref inputs "guile-gnutls")  "/share/guile/site/3.0:"
-							        (assoc-ref inputs "gnutls")  "/share/guile/site/3.0:"
-								(assoc-ref inputs "guile-dbi") "/share/guile/site/3.0:"
-								(getenv "GUILE_LOAD_PATH")))
-						     (setenv "GUILE_DBD_PATH"
-							      (string-append
-							        (assoc-ref inputs "guile-dbd-mysql")  "/lib"
-							       )))
-						    #t))
+			  (add-after 'unpack 'patch-bash-path
+				     (lambda* (#:key inputs #:allow-other-keys)
+				       (let ((bash (assoc-ref inputs "bash")))
+					 (substitute* "scripts/myapp3.sh" ; Replace with your script/file
+						      (("/bin/bash")
+						       (string-append bash "/bin/bash")))
+					 #t)))
+
+       			  
+		       	  (add-after 'patch-prefix 'augment-GUILE_LOAD_PATH
+				     (lambda* (#:key inputs #:allow-other-keys)
+				       (begin
+					 (setenv "GUILE_LOAD_PATH"
+						 (string-append
+						  ".:"
+						  (assoc-ref inputs "guile-gnutls")  "/share/guile/site/3.0:"
+						  (assoc-ref inputs "gnutls")  "/share/guile/site/3.0:"
+						  (assoc-ref inputs "guile-dbi") "/share/guile/site/3.0:"
+						  (getenv "GUILE_LOAD_PATH")))
+					 (setenv "GUILE_DBD_PATH"
+						 (string-append
+						  (assoc-ref inputs "guile-dbd-mysql")  "/lib"
+						  )))
+				       #t))
 			  
 		       (add-after 'augment-GUILE_LOAD_PATH 'make-myapp3-dir
 			 (lambda* (#:key outputs #:allow-other-keys)
@@ -108,13 +116,14 @@
 							     `("GUILE_DBD_PATH" ":" prefix (,guile-dbd-path))
 							     )))
 					     all-files))					   					   	    
-				    #t))			   			
+				    #t))		       
 
 		       )))
 
     
     (inputs
      `(("guile" ,guile-3.0)
+       ("bash" ,bash)
        ))
     (native-inputs
      `())
