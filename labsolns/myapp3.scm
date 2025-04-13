@@ -13,6 +13,7 @@
   #:use-module (gnu packages tls)
   #:use-module (gnu packages guile)
   #:use-module (gnu packages guile-xyz)
+   #:use-module (gnu packages bash)
   #:use-module ((guix licenses) #:prefix license:)
   #:use-module ((srfi srfi-1) #:select (alist-delete)))
 
