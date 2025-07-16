@@ -20,7 +20,7 @@
    )
 
 (define-public conmanv6
-             (let ((commit "45b849bf8e794c3b49b49b888911a135e521f1e7")
+             (let ((commit "1484bf25587fdfbfdd245c81312fea6d971f9096")
         (revision "2"))
   (package
     (name "conmanv6")
@@ -32,17 +32,17 @@
              (commit commit)))
               (file-name (git-file-name name version))
               (sha256
-             (base32 "1x5wv6pc0i7j0rfcff1i3m5qrq0d5lpmw069n54i56iif4xk678p"))))
+             (base32 "01lfqxd8a84lqmar0rcyv0iz3cny0npcvswmjd69k3d7xgsk7s6c"))))
     (build-system guile-build-system)
     (arguments `(
 		 #:phases (modify-phases %standard-phases
     			  (add-after 'unpack 'patch-prefix
 				     (lambda* (#:key inputs outputs #:allow-other-keys)
 				       (let ((out  (assoc-ref outputs "out")))					  
-					 (substitute* '("conmanv6/env.scm" "scripts/conman.sh" "scripts/unsubscribes.sh" "scripts/init-conman.sh")
+					 (substitute* '("conmanv6/env.scm" "scripts/conman.sh" "scripts/init-conman.sh")
 						      (("conmanstorepath")
 						       out))					 
-					 (substitute* '("scripts/conman.sh" "scripts/unsubscribes.sh")
+					 (substitute* '("scripts/conman.sh")
 						      (("guileexecutable")
 						       (string-append (assoc-ref inputs "guile") "/bin/guile")))
 					 #t)))
@@ -97,7 +97,7 @@
 										      (assoc-ref inputs "gnutls") go3 ))
 					   (guile-dbd-path (string-append  (assoc-ref inputs "guile-dbd-mysql") "/lib:"
 									   (assoc-ref inputs "guile-dbi") "/lib"))
-					   (all-files '("conman.sh" "unsubscribes.sh" "init-conman.sh" "aws-ec2-shutdown.sh")))				      
+					   (all-files '("conman.sh" "init-conman.sh" "aws-ec2-shutdown.sh")))				      
 				      (map (lambda (file)
 					     (begin
 					       (install-file (string-append "./scripts/" file) bin-dir)
